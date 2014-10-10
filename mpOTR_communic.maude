@@ -25,21 +25,21 @@ fmod PROTOCOL-EXAPLE-SYMBOLS is
 
 	--- Sort Information
 	sorts Name FixedMessage .
-	subsort Name FixedMessage < Msg
-	subsort Name < Public --- means that Name info is publicly availible
-	subsort FixedMessage < Public
+	subsort Name FixedMessage < Msg .
+	subsort Name < Public . --- means that Name info is publicly availible
+	subsort FixedMessage < Public .
 
 	--- Principals -- name constants
-	op client_1 : -> Name 
-	op client_2 : -> Name 
-	op client_3 : -> Name 
-	op intruder : -> Name --- Intruder
+	ops client-1 client-2 client-3 intruder : -> Name .
+	--- op client_2 : -> Name .
+	--- op client_3 : -> Name .
+	---- op intruder : -> Name . --- Intruder
 
 	--- [Get] Fixed Message
-	op fxMess : -> FixedMessage
+	op fxMess : -> FixedMessage .
 
 	--- Concatenation
-	op _;_ : Msg Msg -> Msg [frozen gather (e E)] --- operator prop-es-see man
+	op _;_ : Msg Msg -> Msg [frozen gather (e E)] . --- operator prop-es-see man
 
 endfm
 
@@ -56,8 +56,8 @@ fmod PROTOCOL-SPECIFICATION is
 	protecting DEFINITION-CONSTRAINTS-INPUT .
 
 	vars M1, M2 : Msg .
-	var fM : FixedMessage
-	var N : Name
+	var fM : FixedMessage .
+	var N : Name .
 	
 	--- Actions an intruder can perform
 	eq STRANDS-DOLEVYAO =
@@ -66,7 +66,7 @@ fmod PROTOCOL-SPECIFICATION is
 		:: nil :: [ nil | -(M1), -(M2), +(M1 ; M2), nil ] &
 		:: nil :: [ nil | +(fM), nil ] &
 		:: nil :: [ nil | +(N), nil ]
-	[nonexec]
+	[nonexec] .
 
 	eq STRANDS-PROTOCOL =
 		:: nil :: --- vars of sort Fresh are explicit
@@ -83,22 +83,22 @@ fmod PROTOCOL-SPECIFICATION is
 		[nil | -(client_1 ; fxMess),
 			   -(client_2 ; fxMess),
 			   +(client_3 ; fxMess), nil]
-	[nonexec]
+	[nonexec] .
 
 	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
-	--- [nonexec]
+	--- [nonexec] .
 
 	eq ATTACK-STATE(0)
-	[nonexec]
+	[nonexec] .
 
 	---eq ATTACK-STATE(1)
-	---[nonexec]
+	---[nonexec] .
 
 	---eq ATTACK-STATE(2)
-	---[nonexec]
+	---[nonexec] .
 
 endfm
 
 
 --- THIS HAS TO BE THE LAST LOADED MODULE !!!!
-select MAUDE_NPA
+select MAUDE_NPA .
