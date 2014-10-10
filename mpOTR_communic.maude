@@ -1,0 +1,104 @@
+***(
+	These are the first steps towards mpOTR protocol verification and security
+	analysis.
+	This module describes the Commenication Setup phase of the maun course of
+	the protocol that is as follows:
+
+		Client_1 --> Client_2 : Client_1 ; Fx_Mess
+		Client_1 --> Client_3 : Client_1 ; Fx_Mess
+		Client_2 --> Client_1 : Client_2 ; Fx_Mess
+		Client_2 --> Client_3 : Client_2 ; Fx_Mess
+		Client_3 --> Client_1 : Client_3 ; Fx_Mess
+		Client_3 --> Client_2 : Client_3 ; Fx_Mess
+	
+	where Clients represent people (or, more spesificly, their chat clients)
+	wishing to interact with each other, Mess is some pre-defined message equal
+	for all clients. Number of clients represents multi-party property of mpOTR.
+	
+	No algebraic properties reqiered.
+)***
+
+--- protocol syntax - types and operations
+fmod PROTOCOL-EXAPLE-SYMBOLS is
+	--- Importing sorts Msg, Fresh, Public
+	protecting DEFINITION-PROTOCOL-RULES .
+
+	--- Sort Information
+	sorts Name FixedMessage .
+	subsort Name FixedMessage < Msg
+	subsort Name < Public --- means that Name info is publicly availible
+	subsort FixedMessage < Public
+
+	--- Principals -- name constants
+	op client_1 : -> Name 
+	op client_2 : -> Name 
+	op client_3 : -> Name 
+	op intruder : -> Name --- Intruder
+
+	--- [Get] Fixed Message
+	op fxMess : -> FixedMessage
+
+	--- Concatenation
+	op _;_ : Msg Msg -> Msg [frozen gather (e E)] --- operator prop-es-see man
+
+endfm
+
+--- Algebraic properties of the protocol
+fmod PROTOCOL-EXAMPLE-ALGBRAIC is
+	protecting PROTOCOL-EXAMPLE-SYMBOLS .
+
+endfm
+
+--- Protocol strands (what's that?)
+fmod PROTOCOL-SPECIFICATION is
+	protecting PROTOCOL-EXAMPLE-SYMBOLS .
+	protecting DEFINITION-PROTOCOL-RULES .
+	protecting DEFINITION-CONSTRAINTS-INPUT .
+
+	vars M1, M2 : Msg .
+	var fM : FixedMessage
+	var N : Name
+	
+	--- Actions an intruder can perform
+	eq STRANDS-DOLEVYAO =
+		:: nil :: [ nil | -(M1 ; M2), +(M1), nil ] &
+		:: nil :: [ nil | -(M1 ; M2), +(M2), nil ] &
+		:: nil :: [ nil | -(M1), -(M2), +(M1 ; M2), nil ] &
+		:: nil :: [ nil | +(fM), nil ] &
+		:: nil :: [ nil | +(N), nil ]
+	[nonexec]
+
+	eq STRANDS-PROTOCOL =
+		:: nil :: --- vars of sort Fresh are explicit
+		[nil | +(client_1 ; fxMess),
+			   -(client_2 ; fxMess),
+			   -(client_3 ; fxMess), nil]
+		&
+		:: nil ::
+		[nil | -(client_1 ; fxMess),
+			   +(client_2 ; fxMess),
+			   -(client_3 ; fxMess), nil]
+		&
+		:: nil ::
+		[nil | -(client_1 ; fxMess),
+			   -(client_2 ; fxMess),
+			   +(client_3 ; fxMess), nil]
+	[nonexec]
+
+	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
+	--- [nonexec]
+
+	eq ATTACK-STATE(0)
+	[nonexec]
+
+	---eq ATTACK-STATE(1)
+	---[nonexec]
+
+	---eq ATTACK-STATE(2)
+	---[nonexec]
+
+endfm
+
+
+--- THIS HAS TO BE THE LAST LOADED MODULE !!!!
+select MAUDE_NPA
