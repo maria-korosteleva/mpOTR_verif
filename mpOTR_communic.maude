@@ -4,12 +4,12 @@
 	This module describes the Commenication Setup phase of the maun course of
 	the protocol that is as follows:
 
-		Client_1 --> Client_2 : Client_1 ; Fx_Mess
-		Client_1 --> Client_3 : Client_1 ; Fx_Mess
-		Client_2 --> Client_1 : Client_2 ; Fx_Mess
-		Client_2 --> Client_3 : Client_2 ; Fx_Mess
-		Client_3 --> Client_1 : Client_3 ; Fx_Mess
-		Client_3 --> Client_2 : Client_3 ; Fx_Mess
+		Client-1 --> Client-2 : Client-1 ; Fx-Mess
+		Client-1 --> Client-3 : Client-1 ; Fx-Mess
+		Client-2 --> Client-1 : Client-2 ; Fx-Mess
+		Client-2 --> Client-3 : Client-2 ; Fx-Mess
+		Client-3 --> Client-1 : Client-3 ; Fx-Mess
+		Client-3 --> Client-2 : Client-3 ; Fx-Mess
 	
 	where Clients represent people (or, more spesificly, their chat clients)
 	wishing to interact with each other, Mess is some pre-defined message equal
@@ -19,7 +19,7 @@
 )***
 
 --- protocol syntax - types and operations
-fmod PROTOCOL-EXAPLE-SYMBOLS is
+fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	--- Importing sorts Msg, Fresh, Public
 	protecting DEFINITION-PROTOCOL-RULES .
 
@@ -31,9 +31,6 @@ fmod PROTOCOL-EXAPLE-SYMBOLS is
 
 	--- Principals -- name constants
 	ops client-1 client-2 client-3 intruder : -> Name .
-	--- op client_2 : -> Name .
-	--- op client_3 : -> Name .
-	---- op intruder : -> Name . --- Intruder
 
 	--- [Get] Fixed Message
 	op fxMess : -> FixedMessage .
@@ -57,7 +54,7 @@ fmod PROTOCOL-SPECIFICATION is
 
 	vars M1, M2 : Msg .
 	var fM : FixedMessage .
-	var N : Name .
+	var N Name1 Name2 : Name .
 	
 	--- Actions an intruder can perform
 	eq STRANDS-DOLEVYAO =
@@ -70,35 +67,68 @@ fmod PROTOCOL-SPECIFICATION is
 
 	eq STRANDS-PROTOCOL =
 		:: nil :: --- vars of sort Fresh are explicit
-		[nil | +(client_1 ; fxMess),
-			   -(client_2 ; fxMess),
-			   -(client_3 ; fxMess), nil]
+		[nil | +(client-1 ; fxMess),
+			   -(client-2 ; fxMess),
+			   -(client-3 ; fxMess), nil]
 		&
 		:: nil ::
-		[nil | -(client_1 ; fxMess),
-			   +(client_2 ; fxMess),
-			   -(client_3 ; fxMess), nil]
+		[nil | -(client-1 ; fxMess),
+			   +(client-2 ; fxMess),
+			   -(client-3 ; fxMess), nil]
 		&
 		:: nil ::
-		[nil | -(client_1 ; fxMess),
-			   -(client_2 ; fxMess),
-			   +(client_3 ; fxMess), nil]
+		[nil | -(client-1 ; fxMess),
+			   -(client-2 ; fxMess),
+			   +(client-3 ; fxMess), nil]
 	[nonexec] .
 
 	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
 	--- [nonexec] .
 
-	eq ATTACK-STATE(0)
+	eq ATTACK-STATE(0) = 
+	  	empty
+		|| empty
+		|| nil
+		|| nil
+		|| nil 
 	[nonexec] .
 
-	---eq ATTACK-STATE(1)
-	---[nonexec] .
+	eq ATTACK-STATE(1) = 
+		:: nil ::
+		[nil,  -(Name1 ; fxMess),
+			   +(client-2 ; fxMess),
+			   -(Name2 ; fxMess) | nil]
+		|| Name1 != client-1 
+		|| nil
+		|| nil
+		|| nil
+	[nonexec] .
+	
+	eq ATTACK-STATE(2) =
+		:: nil ::
+		[nil,  -(Name1 ; fxMess),
+			   +(client-2 ; fxMess),
+			   -(Name2 ; fxMess) | nil]
+		|| Name2 != client-3 
+		|| nil
+		|| nil
+		|| nil
+	[nonexec] .
 
-	---eq ATTACK-STATE(2)
-	---[nonexec] .
+	***(eq ATTACK-STATE(3) =
+		:: nil ::
+		[nil,  -(Name1 ; fxMess),
+			   +(client-2 ; fxMess),
+			   -(Name2 ; fxMess) | nil]
+		|| Name1 != client-1, 
+		   Name2 != client-3
+		|| nil
+		|| nil
+		|| nil
+	[nonexec] .)***
 
 endfm
 
 
 --- THIS HAS TO BE THE LAST LOADED MODULE !!!!
-select MAUDE_NPA .
+select MAUDE-NPA .

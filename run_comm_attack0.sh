@@ -1,5 +1,5 @@
 #!/bin/bash
-/home/mary/maude/maude.linux64 > maude_output.txt <<EOF
+/home/mary/maude/maude.linux64 > mpOTR_comm_attack0_output.txt <<EOF
 load /home/mary/maude/full-maude26.maude
 load /home/mary/maude-npa-v2_0/maude-npa.maude
 load /home/mary/mpOTR_verif/mpOTR_communic.maude
