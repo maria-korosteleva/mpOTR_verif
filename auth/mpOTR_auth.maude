@@ -1,21 +1,17 @@
 ***(
 	These are the first steps towards mpOTR protocol verification and security
 	analysis.
-	This module describes the Commenication Setup phase of the maun course of
-	the protocol that is as follows:
-
-		Client-1 --> Client-2 : Client-1 ; Fx-Mess
-		Client-1 --> Client-3 : Client-1 ; Fx-Mess
-		Client-2 --> Client-1 : Client-2 ; Fx-Mess
-		Client-2 --> Client-3 : Client-2 ; Fx-Mess
-		Client-3 --> Client-1 : Client-3 ; Fx-Mess
-		Client-3 --> Client-2 : Client-3 ; Fx-Mess
+	This module focuses on the Athentication an Key Exchange phase of mpOTR.
+	The protocol of the AKE phase is to big to be sited here so you can have
+	a look at it online:
+	http://mpotr.secsem.ru/mpOTRDev/AuthenticationKeyExchange
+	We describe the Improved Deniable Signature Key-Exchange scheme here.
 	
-	where Clients represent people (or, more spesificly, their chat clients)
-	wishing to interact with each other, Mess is some pre-defined message equal
-	for all clients. Number of clients represents multi-party property of mpOTR.
+	To represent the multy-party property of mpOTR we gonna use three 
+	CLients that represent people (or, more spesificly, their chat clients)
+	wishing to interact with each other.
 	
-	No algebraic properties reqiered.
+	Algebraic properties.
 )***
 
 --- protocol syntax - types and operations
@@ -24,25 +20,124 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	protecting DEFINITION-PROTOCOL-RULES .
 
 	--- Sort Information
-	sorts Name FixedMessage .
-	subsort Name FixedMessage < Msg .
+	sorts Name Nonce Number Gen Exp Key GenvExp Secret Modulo Boolean Hash PubKey PrivKey SimmKey .
+	----subsort Gen Exp < GenvExp .
+	subsort Gen Key Modulo Hash Nonce Boolean < Number .
+	subsort Name Number GenvExp Secret Key Hash < Msg .
+	subsort Exp PubKey PrivKey SimmKey < Key .
 	subsort Name < Public . --- means that Name info is publicly availible
-	subsort FixedMessage < Public .
-
+	subsort Gen < Public .
+	subsort Modulo < Public .
+	
 	--- Principals -- name constants
 	ops client-1 client-2 client-3 intruder : -> Name .
+	op q : -> Modulo . --- modules for nesessary calculations
+	op p : -> Modulo . --- modules for nesessary calculations
+  	op g : -> Gen . --- Group generator
+	op 1 : -> Number . --- Base numbers
+	op 0 : -> Number . 
+	op true : -> Boolean .
+	op false : -> Boolean .
+ 
+	--- Secret
+	op sec : Name Fresh -> Secret [frozen] .
 
-	--- [Get] Fixed Message
-	op fxMess : -> FixedMessage .
+	--- Nonce operator
+	op n : Name Fresh -> Nonce [frozen] .
 
+	--- Encryption
+  	op enc : SimmKey Msg -> Msg [frozen] .
+  	op dec : SimmKey Msg -> Msg [frozen] .
+	
+	--- Singature
+	op sign : PrivKey Msg -> Msg [frozen] .
+	op sverify : PubKey Msg -> Msg [frozen] .
+	
+	--- Hash function
+	op h : Msg -> Hash .
+
+  	--- Exponent
+  	op exp : Gen Number -> Exp [frozen] .
+	
+	--- Modulo operation
+	op _mod(_) : Number Modulo -> Number .
+
+  	--- Multiplication
+  	op _*_ : Number Number -> Number [frozen assoc comm] .
+
+	--- Sum
+  	op _+_ : Number Number -> Number [frozen assoc comm] .
+	
+	--- Sub
+  	op _-_ : Number Number -> Number [frozen] .
+
+	--- Minus
+	op --_ : Number -> Number [frozen] .
+
+	--- XOR
+	op _xor_ : Number Number -> Number [frozen assoc comm] .
+	
 	--- Concatenation
 	op _;_ : Msg Msg -> Msg [frozen gather (e E)] . --- operator prop-es-see man
+
 
 endfm
 
 --- Algebraic properties of the protocol
 fmod PROTOCOL-EXAMPLE-ALGBRAIC is
 	protecting PROTOCOL-EXAMPLE-SYMBOLS .
+  
+	--- exponent's property
+  	eq exp(exp(W:Gen,Y:Number),Z:Number) 
+   	= exp(W:Gen, Y:Number * Z:Number) [nonexec metadata "variant"] .
+	---eq exp(W:Gen,0) = 1 [nonexec metadata "variant"] .
+  
+  	--- key encription property
+  	eq enc(K:SimmKey,dec(K:SimmKey,M:Msg)) = M:Msg [metadata "variant"] .
+  	eq dec(K:SimmKey,enc(K:SimmKey,M:Msg)) = M:Msg [metadata "variant"] .
+  	
+	--- signature key encription property
+	eq sverify(kpub:PubKey, sign(kpriv:PrivKey, M:Msg)) 
+	= M:Msg [metadata "variant"] .
+		--- not really sure about this one - don't like the terminology 
+	eq sign(kpriv:PrivKey, sverify(kpub:PubKey, M:Msg)) 
+	= M:Msg [metadata "variant"] . 
+
+	--- xor properties -- will this be logical xor of bit xor?
+	eq X:Number * X:Number * Y:Number = Y:Number [nonexec metadata "variant"] .
+	eq X:Number * X:Number = 0 [nonexec metadata "variant"] .
+	eq X:Number * 0 = X:Number [nonexec metadata "variant"] .
+
+	--- mult properties
+	eq N:Number * 0 = 0 [metadata "variant"] .
+	eq N:Number * 1 = N:Number [metadata "variant"] .
+	eq 0 * N:Number = 0 [metadata "variant"] .
+	eq 1 * N:Number = N:Number [metadata "variant"] .
+
+	--- sum properties
+	eq N:Number + 0 = N:Number [metadata "variant"] .
+	eq N:Number + (-- N:Number) = 0 [metadata "variant"] .
+	eq 0 + N:Number = N:Number [metadata "variant"] .
+	eq (-- N:Number) + N:Number = 0 [metadata "variant"] .
+	
+	--- sub properties
+	eq N:Number - 0 = N:Number [metadata "variant"] .
+	eq 0 - N:Number = (-- N:Number) [metadata "variant"] .
+
+	--- modulo definition & property
+	eq Md:Modulo mod ( Md:Modulo ) = 0 .
+	eq (N:Number + Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
+	eq (Md:Modulo + N:Number) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
+	eq (N:Number - Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
+	eq (-- N:Number) mod (Md:Modulo) = (Md:Modulo - N:Number) mod (Md:Modulo)  .
+
+	--- Ask someone!!
+    --- modulo *: ab mod n = (a mod n * b mod n) mod n
+	--- modulo exp log(exp(x) mod p) = x mod p-1
+
+  	--- choosing q, p and g
+	eq (p - 1) = 0 mod(q) . --- q is (p-1)'s divider
+	eq exp(g, q) = 1 mod(p) . --- g is Zp group generator 
 
 endfm
 
@@ -52,19 +147,47 @@ fmod PROTOCOL-SPECIFICATION is
 	protecting DEFINITION-PROTOCOL-RULES .
 	protecting DEFINITION-CONSTRAINTS-INPUT .
 
-	vars M1, M2 : Msg .
-	var fM : FixedMessage .
+	vars M M1 M2 : Msg .
+	var Ke : SimmKey .
+	var kpub : PubKey .
+	var kpriv : PrivKey .
+	vars Num Num1 Num2 Num3 : Number .
 	var N Name1 Name2 : Name .
+	var GE : Gen .
+	vars fr fr' : Fresh .
+	var Mod1 : Modulo .
 	
 	--- Actions an intruder can perform
 	eq STRANDS-DOLEVYAO =
+	    --- concatenation
 		:: nil :: [ nil | -(M1 ; M2), +(M1), nil ] &
 		:: nil :: [ nil | -(M1 ; M2), +(M2), nil ] &
 		:: nil :: [ nil | -(M1), -(M2), +(M1 ; M2), nil ] &
-		:: nil :: [ nil | +(fM), nil ] &
-		:: nil :: [ nil | +(N), nil ]
+		:: nil :: [ nil | +(N), nil ] &
+     	:: nil :: [ nil | -(Ke), -(M), +(enc(Ke,M)), nil ] &
+     	:: nil :: [ nil | -(Ke), -(M), +(dec(Ke,M)), nil ] &
+     	:: nil :: [ nil | -(M), +(h(M)), nil ] &
+     	:: nil :: [ nil | -(kpriv), -(M), +(sign(kpriv,M)), nil ] &
+     	:: nil :: [ nil | -(kpub), -(M), +(sverify(kpub,M)), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 * Num2), nil ] &
+     	:: nil :: [ nil | -(GE), -(Num), +(exp(GE,Num)), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 + Num2), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 - Num2), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 xor Num2), nil ] &
+     	:: nil :: [ nil | -(Num1), +(-- Num1), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Mod1), +(Num1 mod( Mod1 )), nil ] &
+     	:: fr ::   [ nil | +(n(intruder,fr)), nil ] &
+     	:: nil :: [ nil | +(g), nil ] &
+     	:: nil :: [ nil | +(p), nil ] &
+     	:: nil :: [ nil | +(q), nil ] &
+     	:: nil :: [ nil | +(0), nil ] &
+     	:: nil :: [ nil | +(1), nil ] &
+     	:: nil :: [ nil | +(true), nil ] &
+     	:: nil :: [ nil | +(false), nil ] &
+     	:: nil :: [ nil | +(N), nil ]
 	[nonexec] .
 
+	***(
 	eq STRANDS-PROTOCOL =
 		:: nil :: --- vars of sort Fresh are explicit
 		[nil | +(client-1 ; fxMess),
@@ -81,10 +204,11 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client-2 ; fxMess),
 			   +(client-3 ; fxMess), nil]
 	[nonexec] .
-
+	)***
 	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
 	--- [nonexec] .
 
+	***(
 	eq ATTACK-STATE(0) = 
 	  	empty
 		|| empty
@@ -115,7 +239,7 @@ fmod PROTOCOL-SPECIFICATION is
 		|| nil
 	[nonexec] .
 
-	***(eq ATTACK-STATE(3) =
+	eq ATTACK-STATE(3) =
 		:: nil ::
 		[nil,  -(Name1 ; fxMess),
 			   +(client-2 ; fxMess),
@@ -132,3 +256,13 @@ endfm
 
 --- THIS HAS TO BE THE LAST LOADED MODULE !!!!
 select MAUDE-NPA .
+
+***(             TRASH CAN
+
+	eq N:Number + Md:Modulo = N:Number mod ( Md:Modulo ) .
+	eq N:Number - Md:Modulo = N:Number mod ( Md:Modulo ) .
+	eq Md:Modulo + N:Number = N:Number mod ( Md:Modulo ) .
+	---eq N:Number = (N:Number + Md:Modulo) mod ( Md:Modulo ) .
+	---eq N:Number = (N:Number - Md:Modulo) mod ( Md:Modulo ) .
+
+)***

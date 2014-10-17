@@ -1,7 +1,7 @@
 ***(
 	These are the first steps towards mpOTR protocol verification and security
 	analysis.
-	This module describes the Commenication Setup phase of the maun course of
+	This module describes the Communication Setup phase of the main course of
 	the protocol that is as follows:
 
 		Client-1 --> Client-2 : Client-1 ; Fx-Mess
