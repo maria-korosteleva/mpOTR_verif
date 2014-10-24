@@ -50,6 +50,8 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
   	op dec : SimmKey Msg -> Msg [frozen] .
 	
 	--- Singature
+	op genPriv : Name Fresh -> PrivKey . [frozen]
+	op getPub : PrivKey -> . [frozen]
 	op sign : PrivKey Msg -> Msg [frozen] .
 	op sverify : PubKey Msg -> Msg [frozen] .
 	
@@ -127,7 +129,6 @@ fmod PROTOCOL-EXAMPLE-ALGBRAIC is
 	--- modulo definition & property
 	eq Md:Modulo mod ( Md:Modulo ) = 0 .
 	eq (N:Number + Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
-	eq (Md:Modulo + N:Number) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
 	eq (N:Number - Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
 	eq (-- N:Number) mod (Md:Modulo) = (Md:Modulo - N:Number) mod (Md:Modulo)  .
 
@@ -149,13 +150,19 @@ fmod PROTOCOL-SPECIFICATION is
 
 	vars M M1 M2 : Msg .
 	var Ke : SimmKey .
-	var kpub : PubKey .
-	var kpriv : PrivKey .
+	var kpub S1 S2 S3 : PubKey .
+	var kpriv s1 s2 s3 : PrivKey .
 	vars Num Num1 Num2 Num3 : Number .
 	var N Name1 Name2 : Name .
-	var GE : Gen .
-	vars fr fr' : Fresh .
+	var GE x1 x2 x3 : Gen .
+	vars y1 y2 y3 z1 z2 z3 : Number . --- or Exp? Is the reciver able to check the type?
+	vars T1 T2 T2 : Number .
+	vars k1_tr1 k2_tr2 k3_tr3 : Number .
+	vars d1 d2 d3 : Number .
+	vars fr_k1 fr_x1 fr_r1 : Fresh .
 	var Mod1 : Modulo .
+	vars k1_h k2_h k3_h sid1 sid2 sid3 : Hash .
+	vars c1_signed c2_signed c3_signed : Msg .
 	
 	--- Actions an intruder can perform
 	eq STRANDS-DOLEVYAO =
@@ -187,12 +194,37 @@ fmod PROTOCOL-SPECIFICATION is
      	:: nil :: [ nil | +(N), nil ]
 	[nonexec] .
 
-	***(
 	eq STRANDS-PROTOCOL =
-		:: nil :: --- vars of sort Fresh are explicit
-		[nil | +(client-1 ; fxMess),
-			   -(client-2 ; fxMess),
-			   -(client-3 ; fxMess), nil]
+		:: fr_k1, fr_x1, fr_s1, fr_r1 :: 
+		[nil | --- Round 1 ---
+		       +(client-1 ; h(n(client_1, fr_k1)) ; exp(g, n(client_1, fr_x1)) ;  getPub(genPriv(client-1, fr_s1))),
+			   -(client-2 ; k2_h ; y2 ;  S2),
+			   -(client-3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client-1 ; h(client_1 ; client_2 ; client_3 ; h(n(client_1, fr_k1)) ; k2_h ; k3_h) ; exp(g, n(client_1, fr_r1))),
+			   -(client-2 ; sid2 ; z2),
+			   -(client-3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client_1 ; n(client_1, fr_k1) xor h(exp(y_2, n(client_1, fr_x1))) ;  h(exp(y_3, n(client_1, fr_x1))) xor h(exp(y_2, n(client_1, fr_x1)))),
+			   -(client-2 ; k2_tr2 ; T2),
+			   -(client-3 ; k3_tr3 ; T3),
+			   --- Round 4 ---
+			   --- we have a lot of checking on this round --- where to put them?
+			   +(client_1 ; sign(genPriv(client-1, fr_s1), h(h(client_1 ; client_2 ; client_3 ; h(n(client_1, fr_k1)) ; k2_h ; k3_h) ; h(exp(g, n(client_1, fr_x1)) ; n(client_1, fr_k1) ; getPub(genPriv(client-1, fr_s1)) ; y2 ; k2 ; S2 ; y3 ; k3 ; S3))    ) ; exp(g, n(client_1, fr_r1))- (h(h(client_1 ; client_2 ; client_3 ; h(n(client_1, fr_k1)) ; k2_h ; k3_h) ; h(exp(g, n(client_1, fr_x1)) ; n(client_1, fr_k1) ; getPub(genPriv(client-1, fr_s1)) ; y2 ; k2_tr2 xor (T2 xor h(exp(y2, n(client_1, fr_x1)))); S2 ; y3 ; k3_tr3 xor (T3 xor (T2 xor h(exp(y2, n(client_1, fr_x1))))) ; S3))      * n(client_1, fr_x1)) ), 
+			   -(client-2 ; c2_signed ; d2),
+			   -(client-3 ; c3_signed ; d3),
+			  
+			  --- c1 = h(sid1 ; sproof1)
+			  --- c1 = h(h(client_1 ; client_2 ; client_3 ; h(n(client_1, fr_k1)) ; k2_h ; k3_h) ; h(exp(g, n(client_1, fr_x1)) ; n(client_1, fr_k1) ; getPub(genPriv(client-1, fr_s1)) ; y2 ; k2 ; S2 ; y3 ; k3 ; S3))
+			  --- c1 = h(h(client_1 ; client_2 ; client_3 ; h(n(client_1, fr_k1)) ; k2_h ; k3_h) ; h(exp(g, n(client_1, fr_x1)) ; n(client_1, fr_k1) ; getPub(genPriv(client-1, fr_s1)) ; y2 ; k2_tr2 xor (T2 xor h(exp(y2, n(client_1, fr_x1)))); S2 ; y3 ; k3_tr3 xor (T3 xor (T2 xor h(exp(y2, n(client_1, fr_x1))))) ; S3))
+			  --- d1 = r1 - (c1 * x1)
+			  --- d1 = exp(g, n(client_1, fr_r1))- (h(h(client_1 ; client_2 ; client_3 ; h(n(client_1, fr_k1)) ; k2_h ; k3_h) ; h(exp(g, n(client_1, fr_x1)) ; n(client_1, fr_k1) ; getPub(genPriv(client-1, fr_s1)) ; y2 ; k2_tr2 xor (T2 xor h(exp(y2, n(client_1, fr_x1)))); S2 ; y3 ; k3_tr3 xor (T3 xor (T2 xor h(exp(y2, n(client_1, fr_x1))))) ; S3))      * n(client_1, fr_x1))
+			  --- k2 = k2_tr2 xor (T2 xor tr1)
+			  --- k2 = k2_tr2 xor (T2 xor h(exp(y2, n(client_1, fr_x1))))
+			  --- k3 = k3_tr3 xor (T3 xor tr2)
+			  --- k3 = k3_tr3 xor (T3 xor (T2 xor h(exp(y2, n(client_1, fr_x1)))))
+			  --- k3 = k3_tr3 xor (T3 xor tr2)
+			
 		&
 		:: nil ::
 		[nil | -(client-1 ; fxMess),
@@ -204,7 +236,7 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client-2 ; fxMess),
 			   +(client-3 ; fxMess), nil]
 	[nonexec] .
-	)***
+	
 	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
 	--- [nonexec] .
 
