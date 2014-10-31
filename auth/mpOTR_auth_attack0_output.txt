@@ -1,0 +1,514 @@
+		     \||||||||||||||||||/
+		   --- Welcome to Maude ---
+		     /||||||||||||||||||\
+	    Maude 2.6 built: Dec  9 2010 18:28:39
+	    Copyright 1997-2010 SRI International
+		   Fri Oct 31 01:42:46 2014
+Maude> 
+	    Full Maude 2.5b January 14th 2011
+
+
+	    Maude-NPA Version: 11/26/2011
+	    Copyright (c) 2012, University of Illinois
+	    All rights reserved.
+
+==========================================
+reduce in MAUDE-NPA : genGrammars .
+rewrites: 201494067 in 851936ms cpu (1424773ms real) (236513 rewrites/second)
+result GrammarList: (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
+    notLeq getPub(#1:PrivKey)), (#0:Number notLeq h(#2:Msg)), (#0:Number notLeq
+    n(intruder, #3:Fresh)), (#0:Number notLeq genPriv(intruder, #4:Fresh)), (
+    #0:Number notLeq exp(#5:Gen, #6:Number)), (#0:Number notLeq #7:Number *
+    #8:Number), (#0:Number notLeq #9:Number + #10:Number), (#0:Number notLeq (
+    #11:Number - #12:Number)), #0:Number notLeq #13:Number xorc #14:Number => (
+    #15:Number * #0:Number) inL . ; 
+grl (#1:Number * #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
+    (#0:Number notLeq getPub(#2:PrivKey)), (#0:Number notLeq h(#3:Msg)), (
+    #0:Number notLeq n(intruder, #4:Fresh)), (#0:Number notLeq genPriv(
+    intruder, #5:Fresh)), (#0:Number notLeq exp(#6:Gen, #7:Number)), (#0:Number
+    notLeq #8:Number + #9:Number), (#0:Number notLeq (#10:Number -
+    #11:Number)), (#0:Number notLeq #12:Number xorc #13:Number), (#1:Number *
+    #0:Number) notLeq #14:Number * #15:Number => #0:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number * #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number * #2:Number) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
+    notLeq getPub(#1:PrivKey)), (#0:Number notLeq h(#2:Msg)), (#0:Number notLeq
+    n(intruder, #3:Fresh)), (#0:Number notLeq genPriv(intruder, #4:Fresh)), (
+    #0:Number notLeq exp(#5:Gen, #6:Number)), (#0:Number notLeq #7:Number *
+    #8:Number), (#0:Number notLeq #9:Number + #10:Number), (#0:Number notLeq (
+    #11:Number - #12:Number)), #0:Number notLeq #13:Number xorc #14:Number => (
+    #15:Number + #0:Number) inL . ; 
+grl (#1:Number + #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
+    (#0:Number notLeq getPub(#2:PrivKey)), (#0:Number notLeq h(#3:Msg)), (
+    #0:Number notLeq n(intruder, #4:Fresh)), (#0:Number notLeq genPriv(
+    intruder, #5:Fresh)), (#0:Number notLeq exp(#6:Gen, #7:Number)), (#0:Number
+    notLeq #8:Number * #9:Number), (#0:Number notLeq (#10:Number -
+    #11:Number)), (#0:Number notLeq #12:Number xorc #13:Number), (#1:Number +
+    #0:Number) notLeq #14:Number + #15:Number => #0:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number + #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number + #2:Number) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq n(client1, #1:Fresh)), (#0:Number
+    notLeq n(client2, #2:Fresh)), #0:Number notLeq n(client3, #3:Fresh) => (
+    #0:Number - #4:Number) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq h(h(client1 ; client2 ; client3 ;
+    #1:Hash ; #2:Hash ; h(n(client3, #3:Fresh))) ; h(#4:Number ; (#5:Number
+    xorc #6:Number xorc h(exp(#4:Number, n(client3, #7:Fresh)))) ; #8:PubKey ;
+    #9:Number ; (#5:Number xorc #10:Number xorc #11:Number xorc h(exp(
+    #4:Number, n(client1, #7:Fresh)))) ; #12:PubKey ; exp(g, n(client3,
+    #7:Fresh)) ; n(client3, #3:Fresh) ; getPub(genPriv(client3, #13:Fresh)))) *
+    n(client3, #7:Fresh)), (#0:Number notLeq h(h(client1 ; client2 ; client3 ;
+    #14:Hash ; h(n(client2, #15:Fresh)) ; #16:Hash) ; h(#17:Number ; (
+    #18:Number xorc #19:Number xorc #20:Number xorc h(exp(#21:Number, n(
+    client2, #22:Fresh)))) ; #23:PubKey ; exp(g, n(client2, #22:Fresh)) ; n(
+    client2, #15:Fresh) ; getPub(genPriv(client2, #24:Fresh)) ; #21:Number ; (
+    #19:Number xorc #25:Number xorc h(exp(#21:Number, n(client2, #22:Fresh))))
+    ; #26:PubKey)) * n(client2, #22:Fresh)), #0:Number notLeq h(h(client1 ;
+    client2 ; client3 ; h(n(client1, #27:Fresh)) ; #28:Hash ; #29:Hash) ; h(
+    exp(g, n(client1, #30:Fresh)) ; n(client1, #27:Fresh) ; getPub(genPriv(
+    client1, #31:Fresh)) ; #32:Number ; (#33:Number xorc #34:Number xorc h(exp(
+    #32:Number, n(client1, #30:Fresh)))) ; #35:PubKey ; #36:Number ; (
+    #33:Number xorc #37:Number xorc #38:Number xorc h(exp(#32:Number, n(
+    client1, #30:Fresh)))) ; #39:PubKey)) * n(client1, #30:Fresh) => (
+    #40:Number - #0:Number) inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number - #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number - #2:Number) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq h(n(client1, #1:Fresh))), (#0:Msg notLeq h(n(
+    client2, #2:Fresh))), (#0:Msg notLeq h(n(client3, #3:Fresh))), (#0:Msg
+    notLeq h(client1 ; client2 ; client3 ; #4:Hash ; h(n(client2, #5:Fresh)) ;
+    #6:Hash)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; #7:Hash ; #8:Hash
+    ; h(n(client3, #9:Fresh)))), (#0:Msg notLeq h(client1 ; client2 ; client3 ;
+    h(n(client1, #10:Fresh)) ; #11:Hash ; #12:Hash)), (#0:Msg notLeq sign(
+    genPriv(client1, #13:Fresh), h(h(client1 ; client2 ; client3 ; h(n(client1,
+    #14:Fresh)) ; #15:Hash ; #16:Hash) ; h(exp(g, n(client1, #17:Fresh)) ; n(
+    client1, #14:Fresh) ; getPub(genPriv(client1, #13:Fresh)) ; #18:Number ; (
+    #19:Number xorc #20:Number xorc h(exp(#18:Number, n(client1, #17:Fresh))))
+    ; #21:PubKey ; #22:Number ; (#19:Number xorc #23:Number xorc #24:Number
+    xorc h(exp(#18:Number, n(client1, #17:Fresh)))) ; #25:PubKey)))), (#0:Msg
+    notLeq sign(genPriv(client2, #26:Fresh), h(h(client1 ; client2 ; client3 ;
+    #27:Hash ; h(n(client2, #28:Fresh)) ; #29:Hash) ; h(#30:Number ; (
+    #31:Number xorc #32:Number xorc #33:Number xorc h(exp(#34:Number, n(
+    client2, #35:Fresh)))) ; #36:PubKey ; exp(g, n(client2, #35:Fresh)) ; n(
+    client2, #28:Fresh) ; getPub(genPriv(client2, #26:Fresh)) ; #34:Number ; (
+    #32:Number xorc #37:Number xorc h(exp(#34:Number, n(client2, #35:Fresh))))
+    ; #38:PubKey)))), (#0:Msg notLeq sign(genPriv(client3, #39:Fresh), h(h(
+    client1 ; client2 ; client3 ; #40:Hash ; #41:Hash ; h(n(client3,
+    #42:Fresh))) ; h(#43:Number ; (#44:Number xorc #45:Number xorc h(exp(
+    #43:Number, n(client3, #46:Fresh)))) ; #47:PubKey ; #48:Number ; (
+    #50:Number xorc #44:Number xorc #49:Number xorc h(exp(#43:Number, n(
+    client1, #46:Fresh)))) ; #51:PubKey ; exp(g, n(client3, #46:Fresh)) ; n(
+    client3, #42:Fresh) ; getPub(genPriv(client3, #39:Fresh)))))), (#0:Msg
+    notLeq exp(g, n(client1, #52:Fresh))), (#0:Msg notLeq exp(g, n(client2,
+    #53:Fresh))), (#0:Msg notLeq exp(g, n(client3, #54:Fresh))), (#0:Msg notLeq
+    h(exp(#55:Number, n(client1, #56:Fresh))) xorc n(client1, #57:Fresh)), (
+    #0:Msg notLeq h(exp(#58:Number, n(client2, #59:Fresh))) xorc n(client2,
+    #60:Fresh)), #0:Msg notLeq h(exp(#61:Number, n(client3, #62:Fresh))) xorc
+    n(client3, #63:Fresh) => (#0:Msg ; #64:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq getPub(genPriv(client1, #1:Fresh))), (#0:Msg
+    notLeq getPub(genPriv(client2, #2:Fresh))), (#0:Msg notLeq getPub(genPriv(
+    client3, #3:Fresh))), (#0:Msg notLeq exp(g, n(client1, #4:Fresh))), (#0:Msg
+    notLeq exp(g, n(client2, #5:Fresh))), (#0:Msg notLeq exp(g, n(client3,
+    #6:Fresh))), (#0:Msg notLeq (n(client1, #7:Fresh) - h(h(client1 ; client2 ;
+    client3 ; h(n(client1, #8:Fresh)) ; #9:Hash ; #10:Hash) ; h(exp(g, n(
+    client1, #11:Fresh)) ; n(client1, #8:Fresh) ; getPub(genPriv(client1,
+    #12:Fresh)) ; #13:Number ; (#14:Number xorc #15:Number xorc h(exp(
+    #13:Number, n(client1, #11:Fresh)))) ; #16:PubKey ; #17:Number ; (
+    #14:Number xorc #18:Number xorc #19:Number xorc h(exp(#13:Number, n(
+    client1, #11:Fresh)))) ; #20:PubKey)) * n(client1, #11:Fresh))), (#0:Msg
+    notLeq (n(client2, #21:Fresh) - h(h(client1 ; client2 ; client3 ; #22:Hash
+    ; h(n(client2, #23:Fresh)) ; #24:Hash) ; h(#25:Number ; (#26:Number xorc
+    #27:Number xorc #28:Number xorc h(exp(#29:Number, n(client2, #30:Fresh))))
+    ; #31:PubKey ; exp(g, n(client2, #30:Fresh)) ; n(client2, #23:Fresh) ;
+    getPub(genPriv(client2, #32:Fresh)) ; #29:Number ; (#27:Number xorc
+    #33:Number xorc h(exp(#29:Number, n(client2, #30:Fresh)))) ; #34:PubKey)) *
+    n(client2, #30:Fresh))), (#0:Msg notLeq (n(client3, #35:Fresh) - h(h(
+    client1 ; client2 ; client3 ; #36:Hash ; #37:Hash ; h(n(client3,
+    #38:Fresh))) ; h(#39:Number ; (#40:Number xorc #41:Number xorc h(exp(
+    #39:Number, n(client3, #42:Fresh)))) ; #43:PubKey ; #44:Number ; (
+    #40:Number xorc #45:Number xorc #46:Number xorc h(exp(#39:Number, n(
+    client1, #42:Fresh)))) ; #47:PubKey ; exp(g, n(client3, #42:Fresh)) ; n(
+    client3, #38:Fresh) ; getPub(genPriv(client3, #48:Fresh)))) * n(client3,
+    #42:Fresh))), (#0:Msg notLeq h(exp(#49:Number, n(client1, #50:Fresh))) xorc
+    h(exp(#51:Number, n(client1, #50:Fresh)))), (#0:Msg notLeq h(exp(
+    #52:Number, n(client2, #53:Fresh))) xorc h(exp(#54:Number, n(client2,
+    #53:Fresh)))), (#0:Msg notLeq h(exp(#55:Number, n(client3, #56:Fresh)))
+    xorc h(exp(#57:Number, n(client3, #56:Fresh)))), (#0:Msg notLeq h(n(
+    client1, #58:Fresh)) ; exp(g, n(client1, #59:Fresh)) ; getPub(genPriv(
+    client1, #60:Fresh))), (#0:Msg notLeq h(n(client2, #61:Fresh)) ; exp(g, n(
+    client2, #62:Fresh)) ; getPub(genPriv(client2, #63:Fresh))), (#0:Msg notLeq
+    h(n(client3, #64:Fresh)) ; exp(g, n(client3, #65:Fresh)) ; getPub(genPriv(
+    client3, #66:Fresh))), (#0:Msg notLeq h(client1 ; client2 ; client3 ;
+    #67:Hash ; #68:Hash ; h(n(client3, #69:Fresh))) ; exp(g, n(client3,
+    #70:Fresh))), (#0:Msg notLeq h(client1 ; client2 ; client3 ; #71:Hash ; h(
+    n(client2, #72:Fresh)) ; #73:Hash) ; exp(g, n(client2, #74:Fresh))), (
+    #0:Msg notLeq h(client1 ; client2 ; client3 ; h(n(client1, #75:Fresh)) ;
+    #76:Hash ; #77:Hash) ; exp(g, n(client1, #78:Fresh))), (#0:Msg notLeq sign(
+    genPriv(client1, #79:Fresh), h(h(client1 ; client2 ; client3 ; h(n(client1,
+    #80:Fresh)) ; #81:Hash ; #82:Hash) ; h(exp(g, n(client1, #83:Fresh)) ; n(
+    client1, #80:Fresh) ; getPub(genPriv(client1, #79:Fresh)) ; #84:Number ; (
+    #85:Number xorc #86:Number xorc h(exp(#84:Number, n(client1, #83:Fresh))))
+    ; #87:PubKey ; #88:Number ; (#85:Number xorc #89:Number xorc #90:Number
+    xorc h(exp(#84:Number, n(client1, #83:Fresh)))) ; #91:PubKey))) ; (n(
+    client1, #92:Fresh) - h(h(client1 ; client2 ; client3 ; h(n(client1,
+    #80:Fresh)) ; #81:Hash ; #82:Hash) ; h(exp(g, n(client1, #83:Fresh)) ; n(
+    client1, #80:Fresh) ; getPub(genPriv(client1, #79:Fresh)) ; #84:Number ; (
+    #85:Number xorc #86:Number xorc h(exp(#84:Number, n(client1, #83:Fresh))))
+    ; #87:PubKey ; #88:Number ; (#85:Number xorc #89:Number xorc #90:Number
+    xorc h(exp(#84:Number, n(client1, #83:Fresh)))) ; #91:PubKey)) * n(client1,
+    #83:Fresh))), (#0:Msg notLeq sign(genPriv(client2, #93:Fresh), h(h(client1
+    ; client2 ; client3 ; #94:Hash ; h(n(client2, #95:Fresh)) ; #96:Hash) ; h(
+    #97:Number ; (#98:Number xorc #99:Number xorc #100:Number xorc h(exp(
+    #101:Number, n(client2, #102:Fresh)))) ; #103:PubKey ; exp(g, n(client2,
+    #102:Fresh)) ; n(client2, #95:Fresh) ; getPub(genPriv(client2, #93:Fresh))
+    ; #101:Number ; (#98:Number xorc #104:Number xorc h(exp(#101:Number, n(
+    client2, #102:Fresh)))) ; #105:PubKey))) ; (n(client2, #106:Fresh) - h(h(
+    client1 ; client2 ; client3 ; #94:Hash ; h(n(client2, #95:Fresh)) ;
+    #96:Hash) ; h(#97:Number ; (#98:Number xorc #99:Number xorc #100:Number
+    xorc h(exp(#101:Number, n(client2, #102:Fresh)))) ; #103:PubKey ; exp(g, n(
+    client2, #102:Fresh)) ; n(client2, #95:Fresh) ; getPub(genPriv(client2,
+    #93:Fresh)) ; #101:Number ; (#98:Number xorc #104:Number xorc h(exp(
+    #101:Number, n(client2, #102:Fresh)))) ; #105:PubKey)) * n(client2,
+    #102:Fresh))), (#0:Msg notLeq sign(genPriv(client3, #107:Fresh), h(h(
+    client1 ; client2 ; client3 ; #108:Hash ; #109:Hash ; h(n(client3,
+    #110:Fresh))) ; h(#111:Number ; (#112:Number xorc #113:Number xorc h(exp(
+    #111:Number, n(client3, #114:Fresh)))) ; #115:PubKey ; #116:Number ; (
+    #112:Number xorc #117:Number xorc #118:Number xorc h(exp(#111:Number, n(
+    client1, #114:Fresh)))) ; #119:PubKey ; exp(g, n(client3, #114:Fresh)) ; n(
+    client3, #110:Fresh) ; getPub(genPriv(client3, #107:Fresh))))) ; (n(
+    client3, #120:Fresh) - h(h(client1 ; client2 ; client3 ; #108:Hash ;
+    #109:Hash ; h(n(client3, #110:Fresh))) ; h(#111:Number ; (#112:Number xorc
+    #113:Number xorc h(exp(#111:Number, n(client3, #114:Fresh)))) ; #115:PubKey
+    ; #116:Number ; (#112:Number xorc #117:Number xorc #118:Number xorc h(exp(
+    #111:Number, n(client1, #114:Fresh)))) ; #119:PubKey ; exp(g, n(client3,
+    #114:Fresh)) ; n(client3, #110:Fresh) ; getPub(genPriv(client3,
+    #107:Fresh)))) * n(client3, #114:Fresh))), (#0:Msg notLeq exp(g, n(client1,
+    #121:Fresh)) ; getPub(genPriv(client1, #122:Fresh))), (#0:Msg notLeq exp(g,
+    n(client2, #123:Fresh)) ; getPub(genPriv(client2, #124:Fresh))), (#0:Msg
+    notLeq exp(g, n(client3, #125:Fresh)) ; getPub(genPriv(client3,
+    #126:Fresh))), (#0:Msg notLeq (h(exp(#127:Number, n(client1, #128:Fresh)))
+    xorc n(client1, #129:Fresh)) ; h(exp(#127:Number, n(client1, #128:Fresh)))
+    xorc h(exp(#130:Number, n(client1, #128:Fresh)))), (#0:Msg notLeq (h(exp(
+    #131:Number, n(client2, #132:Fresh))) xorc n(client2, #133:Fresh)) ; h(exp(
+    #131:Number, n(client2, #132:Fresh))) xorc h(exp(#134:Number, n(client2,
+    #132:Fresh)))), #0:Msg notLeq (h(exp(#135:Number, n(client3, #136:Fresh)))
+    xorc n(client3, #137:Fresh)) ; h(exp(#135:Number, n(client3, #136:Fresh)))
+    xorc h(exp(#138:Number, n(client3, #136:Fresh))) => (#139:Msg ; #0:Msg) inL
+    .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Msg ; #2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .} usingGrammar 
+grl empty => (#1:Msg ; #2:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
+    notLeq getPub(#1:PrivKey)), (#0:Number notLeq h(#2:Msg)), (#0:Number notLeq
+    n(client1, #3:Fresh)), (#0:Number notLeq n(client2, #4:Fresh)), (#0:Number
+    notLeq n(client3, #5:Fresh)), (#0:Number notLeq n(intruder, #6:Fresh)), (
+    #0:Number notLeq genPriv(intruder, #7:Fresh)), (#0:Number notLeq exp(
+    #8:Gen, #9:Number)), (#0:Number notLeq #10:Number * #11:Number), (#0:Number
+    notLeq #12:Number + #13:Number), (#0:Number notLeq (#14:Number -
+    #15:Number)), #0:Number notLeq #16:Number xorc #17:Number => (#0:Number
+    xorc #18:Number) inL . ; 
+grl (#1:Number xorc #0:Number) notInI, (#1:Number notLeq g), (#1:Number notLeq
+    0), (#1:Number notLeq getPub(#2:PrivKey)), (#1:Number notLeq h(#3:Msg)), (
+    #1:Number notLeq n(client1, #4:Fresh)), (#1:Number notLeq n(client2,
+    #5:Fresh)), (#1:Number notLeq n(client3, #6:Fresh)), (#1:Number notLeq n(
+    intruder, #7:Fresh)), (#1:Number notLeq genPriv(intruder, #8:Fresh)), (
+    #1:Number notLeq exp(#9:Gen, #10:Number)), (#1:Number notLeq #11:Number *
+    #12:Number), (#1:Number notLeq #13:Number + #14:Number), (#1:Number notLeq
+    (#15:Number - #16:Number)), (#1:Number xorc #0:Number) notLeq #17:Number
+    xorc #18:Number => #1:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number xorc #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number xorc #2:Number) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:SimmKey notInI => dec(#0:SimmKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => dec(#1:SimmKey, #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => dec(#1:SimmKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .} usingGrammar 
+grl empty => dec(#1:SimmKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:SimmKey notInI => enc(#0:SimmKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => enc(#1:SimmKey, #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => enc(#1:SimmKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .} usingGrammar 
+grl empty => enc(#1:SimmKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI => exp(#0:Number, #1:Number) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq n(client1, #1:Fresh)), (#0:Number
+    notLeq n(client2, #2:Fresh)), #0:Number notLeq n(client3, #3:Fresh) => exp(
+    #4:Number, #0:Number) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl exp(#0:Number, #1:Number) notLeq exp(#2:Gen, #3:Number) => exp(#0:Number,
+    #1:Number) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl genPriv(#0:Name, #1:Fresh) notLeq genPriv(intruder, #2:Fresh) => genPriv(
+    #0:Name, #1:Fresh) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PrivKey notInI, (#0:PrivKey notLeq genPriv(client1, #1:Fresh)), (
+    #0:PrivKey notLeq genPriv(client2, #2:Fresh)), #0:PrivKey notLeq genPriv(
+    client3, #3:Fresh) => getPub(#0:PrivKey) inL .)
+| (errorNoHeuristicApplied {
+grl empty => getPub(#1:PrivKey) inL .,none,
+grl empty => #1:PrivKey inL .,none,
+grl empty => #1:PrivKey inL .} usingGrammar 
+grl empty => getPub(#1:PrivKey) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq n(client1, #1:Fresh)), (#0:Msg notLeq n(
+    client2, #2:Fresh)), (#0:Msg notLeq n(client3, #3:Fresh)), (#0:Msg notLeq
+    client1 ; client2 ; client3 ; #4:Hash ; h(n(client2, #5:Fresh)) ; #6:Hash),
+    (#0:Msg notLeq client1 ; client2 ; client3 ; #7:Hash ; #8:Hash ; h(n(
+    client3, #9:Fresh))), #0:Msg notLeq client1 ; client2 ; client3 ; h(n(
+    client1, #10:Fresh)) ; #11:Hash ; #12:Hash => h(#0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => h(#1:Msg) inL .,none,
+grl empty => #1:Msg inL .,none,
+grl empty => #1:Msg inL .} usingGrammar 
+grl empty => h(#1:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl n(#0:Name, #1:Fresh) notLeq n(intruder, #2:Fresh) => n(#0:Name, #1:Fresh)
+    inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PrivKey notInI, (#0:PrivKey notLeq genPriv(client1, #1:Fresh)), (
+    #0:PrivKey notLeq genPriv(client2, #2:Fresh)), #0:PrivKey notLeq genPriv(
+    client3, #3:Fresh) => sign(#0:PrivKey, #4:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq h(h(client1 ; client2 ; client3 ; #1:Hash ;
+    #2:Hash ; h(n(client3, #3:Fresh))) ; h(#4:Number ; (#5:Number xorc
+    #6:Number xorc h(exp(#4:Number, n(client3, #7:Fresh)))) ; #8:PubKey ;
+    #9:Number ; (#5:Number xorc #10:Number xorc #11:Number xorc h(exp(
+    #4:Number, n(client1, #7:Fresh)))) ; #12:PubKey ; exp(g, n(client3,
+    #7:Fresh)) ; n(client3, #3:Fresh) ; getPub(genPriv(client3, #13:Fresh))))),
+    (#0:Msg notLeq h(h(client1 ; client2 ; client3 ; #14:Hash ; h(n(client2,
+    #15:Fresh)) ; #16:Hash) ; h(#17:Number ; (#18:Number xorc #19:Number xorc
+    #20:Number xorc h(exp(#21:Number, n(client2, #22:Fresh)))) ; #23:PubKey ;
+    exp(g, n(client2, #22:Fresh)) ; n(client2, #15:Fresh) ; getPub(genPriv(
+    client2, #24:Fresh)) ; #21:Number ; (#19:Number xorc #25:Number xorc h(exp(
+    #21:Number, n(client2, #22:Fresh)))) ; #26:PubKey))), #0:Msg notLeq h(h(
+    client1 ; client2 ; client3 ; h(n(client1, #27:Fresh)) ; #28:Hash ;
+    #29:Hash) ; h(exp(g, n(client1, #30:Fresh)) ; n(client1, #27:Fresh) ;
+    getPub(genPriv(client1, #31:Fresh)) ; #32:Number ; (#33:Number xorc
+    #34:Number xorc h(exp(#32:Number, n(client1, #30:Fresh)))) ; #35:PubKey ;
+    #36:Number ; (#33:Number xorc #37:Number xorc #38:Number xorc h(exp(
+    #32:Number, n(client1, #30:Fresh)))) ; #39:PubKey)) => sign(#40:PrivKey,
+    #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => sign(#1:PrivKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:PrivKey) inL .,none,
+grl empty => (#2:Msg,#1:PrivKey) inL .} usingGrammar 
+grl empty => sign(#1:PrivKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PubKey notInI => sverify(#0:PubKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => sverify(#1:PubKey, #0:Msg) inL .)
+| errorNoHeuristicApplied {
+grl empty => sverify(#1:PubKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:PubKey) inL .,none,
+grl empty => (#2:Msg,#1:PubKey) inL .} usingGrammar 
+grl empty => sverify(#1:PubKey, #2:Msg) inL .
+==========================================
+reduce in MAUDE-NPA : run(0) .
+rewrites: 13748 in 156ms cpu (307ms real) (88128 rewrites/second)
+result IdSystem: < 1 > 
+:: fr_k:Fresh,fr_x:Fresh,fr_r:Fresh,fr_s:Fresh ::
+[ nil, 
+   +(client1 ; h(n(client1, fr_k:Fresh)) ; exp(g, n(client1, fr_x:Fresh)) ;
+    getPub(genPriv(client1, fr_s:Fresh))), 
+   -(client2 ; k2_h:Hash ; y2:Number ; S2:PubKey), 
+   -(client3 ; k3_h:Hash ; y3:Number ; S3:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k:Fresh)) ;
+    k2_h:Hash ; k3_h:Hash) ; exp(g, n(client1, fr_r:Fresh))), 
+   -(client2 ; sid2:Hash ; z2:Number), 
+   -(client3 ; sid3:Hash ; z3:Number), 
+   +(client1 ; (h(exp(y2:Number, n(client1, fr_x:Fresh))) xorc n(client1,
+    fr_k:Fresh)) ; h(exp(y2:Number, n(client1, fr_x:Fresh))) xorc h(exp(
+    y3:Number, n(client1, fr_x:Fresh)))), 
+   -(client2 ; k2_tr2:Number ; T2:Number), 
+   -(client3 ; k3_tr3:Number ; T3:Number), 
+   +(client1 ; sign(genPriv(client1, fr_s:Fresh), h(h(client1 ; client2 ;
+    client3 ; h(n(client1, fr_k:Fresh)) ; k2_h:Hash ; k3_h:Hash) ; h(exp(g, n(
+    client1, fr_x:Fresh)) ; n(client1, fr_k:Fresh) ; getPub(genPriv(client1,
+    fr_s:Fresh)) ; y2:Number ; (T2:Number xorc k2_tr2:Number xorc h(exp(
+    y2:Number, n(client1, fr_x:Fresh)))) ; S2:PubKey ; y3:Number ; (T2:Number
+    xorc T3:Number xorc k3_tr3:Number xorc h(exp(y2:Number, n(client1,
+    fr_x:Fresh)))) ; S3:PubKey))) ; (n(client1, fr_r:Fresh) - h(h(client1 ;
+    client2 ; client3 ; h(n(client1, fr_k:Fresh)) ; k2_h:Hash ; k3_h:Hash) ; h(
+    exp(g, n(client1, fr_x:Fresh)) ; n(client1, fr_k:Fresh) ; getPub(genPriv(
+    client1, fr_s:Fresh)) ; y2:Number ; (T2:Number xorc k2_tr2:Number xorc h(
+    exp(y2:Number, n(client1, fr_x:Fresh)))) ; S2:PubKey ; y3:Number ; (
+    T2:Number xorc T3:Number xorc k3_tr3:Number xorc h(exp(y2:Number, n(
+    client1, fr_x:Fresh)))) ; S3:PubKey)) * n(client1, fr_x:Fresh))), 
+   -(client2 ; c2_signed:Msg ; d2:Number), 
+   -(client3 ; c3_signed:Msg ; d3:Number) | nil] 
+|| 
+n(client1, fr_k:Fresh) inI
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : summary(1) .
+rewrites: 9437486 in 25044ms cpu (47269ms real) (376836 rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(2) .
+rewrites: 76 in 0ms cpu (1ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(3) .
+rewrites: 76 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(4) .
+rewrites: 76 in 4ms cpu (0ms real) (19000 rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(5) .
+rewrites: 76 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(6) .
+rewrites: 76 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(7) .
+rewrites: 76 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(8) .
+rewrites: 76 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(9) .
+rewrites: 76 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(10) .
+rewrites: 76 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(11) .
+rewrites: 76 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(12) .
+rewrites: 76 in 4ms cpu (0ms real) (19000 rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : run(1) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(2) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(3) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(4) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(5) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(6) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(7) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(8) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(9) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(10) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(11) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run(12) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+Maude> Bye.

@@ -11,7 +11,9 @@
 	CLients that represent people (or, more spesificly, their chat clients)
 	wishing to interact with each other.
 	
-	Algebraic properties.
+	Algebraic properties are those for exponent, exlusive-or operation, 
+	encription and decription properties, signing and signature 
+	verifying.
 )***
 
 --- protocol syntax - types and operations
@@ -20,27 +22,17 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	protecting DEFINITION-PROTOCOL-RULES .
 
 	--- Sort Information
-	sorts Name Nonce Number Gen Exp Key GenvExp Secret Modulo Boolean Hash PubKey PrivKey SimmKey .
-	----subsort Gen Exp < GenvExp .
-	subsort Gen Key Modulo Hash Nonce Boolean < Number .
-	subsort Name Number GenvExp Secret Key Hash < Msg .
-	subsort Exp PubKey PrivKey SimmKey < Key .
+	sorts Name Nonce Number Gen Key Hash PubKey PrivKey SimmKey .
+	subsort Gen Key Hash Nonce < Number .
+	subsort Name Number Key Hash < Msg .
+	subsort PubKey PrivKey SimmKey < Key .
 	subsort Name < Public . --- means that Name info is publicly availible
 	subsort Gen < Public .
-	subsort Modulo < Public .
 	
 	--- Principals -- name constants
-	ops client-1 client-2 client-3 intruder : -> Name .
-	op q : -> Modulo . --- modules for nesessary calculations
-	op p : -> Modulo . --- modules for nesessary calculations
+	ops client1 client2 client3 intruder : -> Name .
   	op g : -> Gen . --- Group generator
-	op 1 : -> Number . --- Base numbers
 	op 0 : -> Number . 
-	op true : -> Boolean .
-	op false : -> Boolean .
- 
-	--- Secret
-	op sec : Name Fresh -> Secret [frozen] .
 
 	--- Nonce operator
 	op n : Name Fresh -> Nonce [frozen] .
@@ -59,11 +51,8 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	op h : Msg -> Hash .
 
   	--- Exponent
-  	op exp : Gen Number -> Exp [frozen] .
+  	op exp : Number Number -> Number [frozen] .
 	
-	--- Modulo operation
-	op _mod(_) : Number Modulo -> Number .
-
   	--- Multiplication
   	op _*_ : Number Number -> Number [frozen assoc comm] .
 
@@ -73,12 +62,11 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	--- Sub
   	op _-_ : Number Number -> Number [frozen] .
 
-	--- XOR
-	op _xor_ : Number Number -> Number [frozen assoc comm] .
+	--- xorc
+	op _xorc_ : Number Number -> Number [frozen assoc comm] .
 	
 	--- Concatenation
-	op _;_ : Msg Msg -> Msg [frozen gather (e E)] . --- operator prop-es-see man
-
+	op _;_ : Msg Msg -> Msg [frozen gather (e E)] . --- operator prop-es - see manual
 
 endfm
 
@@ -102,22 +90,243 @@ fmod PROTOCOL-EXAMPLE-ALGBRAIC is
 	eq sign(kpriv:PrivKey, sverify(kpub:PubKey, M:Msg)) 
 	= M:Msg [nonexec metadata "variant"] . 
 
-	--- xor properties -- will this be logical xor of bit xor?
-	eq X:Number * X:Number * Y:Number = Y:Number [nonexec metadata "variant"] .
-	eq X:Number * X:Number = 0 [nonexec metadata "variant"] .
-	eq X:Number * 0 = X:Number [nonexec metadata "variant"] .
+	--- xorc properties -- will this be logical xorc of bit xorc?
+	eq X:Number xorc X:Number xorc Y:Number = Y:Number [nonexec metadata "variant"] .
+	eq X:Number xorc X:Number = 0 [nonexec metadata "variant"] .
+	eq X:Number xorc 0 = X:Number [nonexec metadata "variant"] .
 
-	***(
-	--- mult properties
-	eq N:Number * 0 = 0 [nonexec metadata "variant"] .
-	eq N:Number * 1 = N:Number [nonexec metadata "variant"] .
+endfm
 
-	--- sum properties
-	eq N:Number + 0 = N:Number [nonexec metadata "variant"] .
+--- Protocol strands (what's that?)
+fmod PROTOCOL-SPECIFICATION is
+	protecting PROTOCOL-EXAMPLE-SYMBOLS .
+	protecting DEFINITION-PROTOCOL-RULES .
+	protecting DEFINITION-CONSTRAINTS-INPUT .
+
+	vars M M1 M2 : Msg .
+	var Ke : SimmKey .
+	vars kpub S1 S2 S3 : PubKey .
+	vars kpriv s1 s2 s3 : PrivKey .
+	vars Num Num1 Num2 Num3 : Number .
+	vars N Name1 Name2 : Name .
+	vars GE : Gen .
+	vars x1 x2 x3 : Number . --- secret ones
+	vars y1 y2 y3 z1 z2 z3 : Number . 
+	vars T1 T2 T3 : Number .
+	vars k1_tr1 k2_tr2 k3_tr3 : Number .
+	vars d1 d2 d3 : Number .
+	vars k1 k2 k3 : Number . --- for simmkey Generation
+	vars fr fr_k fr_x fr_r fr_s : Fresh .
+	vars k1_h k2_h k3_h sid1 sid2 sid3 : Hash .
+	vars c1_signed c2_signed c3_signed : Msg .
 	
-	--- sub properties
-	eq N:Number - 0 = N:Number [nonexec metadata "variant"] .
+	--- Actions an intruder can perform
+	eq STRANDS-DOLEVYAO =
+	    --- concatenation
+		:: nil :: [ nil | -(M1 ; M2), +(M1), nil ] &
+		:: nil :: [ nil | -(M1 ; M2), +(M2), nil ] &
+		:: nil :: [ nil | -(M1), -(M2), +(M1 ; M2), nil ] &
+     	:: nil :: [ nil | -(Ke), -(M), +(enc(Ke,M)), nil ] &
+     	:: nil :: [ nil | -(Ke), -(M), +(dec(Ke,M)), nil ] &
+     	:: nil :: [ nil | -(GE), -(Num), +(exp(GE,Num)), nil ] &
+     	:: nil :: [ nil | -(M), +(h(M)), nil ] &
+     	:: nil :: [ nil | -(kpriv), -(M), +(sign(kpriv,M)), nil ] &
+     	:: nil :: [ nil | -(kpub), -(M), +(sverify(kpub,M)), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 * Num2), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 + Num2), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 - Num2), nil ] &
+     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 xorc Num2), nil ] &
+     	:: fr ::  [ nil | +(n(intruder,fr)), nil ] &
+     	:: fr ::  [ nil | +(genPriv(intruder, fr)), nil ] &
+     	:: nil :: [ nil | -(kpriv), +(getPub( kpriv)), nil ] &
+     	:: nil :: [ nil | +(g), nil ] &
+     	:: nil :: [ nil | +(0), nil ] &
+     	:: nil :: [ nil | +(N), nil ]
+	[nonexec] .
 
+	eq STRANDS-PROTOCOL =
+		--- client1 ---
+		:: fr_k, fr_x, fr_s, fr_r :: 
+		[nil | --- Round 1 ---
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, n(client1, fr_x)) ;  getPub(genPriv(client1, fr_s))),
+			   -(client2 ; k2_h ; y2 ;  S2),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client1, fr_r))),
+			   -(client2 ; sid2 ; z2),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, n(client1, fr_x)))) ;  (h(exp(y3, n(client1, fr_x))) xorc h(exp(y2, n(client1, fr_x))))),
+			   -(client2 ; k2_tr2 ; T2),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   --- we have a lot of checking on this round --- where to put them?
+			   --- Next phase may be
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3))) * n(client1, fr_x)))), 
+			   -(client2 ; c2_signed ; d2),
+			   -(client3 ; c3_signed ; d3),
+			   nil ]
+		&	
+		--- client2 ---
+		:: fr_k, fr_x, fr_s, fr_r :: 
+		[nil | --- Round 1 ---
+			   -(client1 ; k1_h ; y1 ;  S1),
+		       +(client2 ; h(n(client2, fr_k)) ; exp(g, n(client2, fr_x)) ;  getPub(genPriv(client2, fr_s))),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+			   -(client1 ; sid1 ; z1),
+		       +(client2 ; h(client1 ; client2 ; client3 ; k1_h ; h(n(client2, fr_k)) ; k3_h) ; exp(g, n(client2, fr_r))),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   -(client1 ; k1_tr1 ; T1),
+			   +(client2 ; (n(client2, fr_k) xorc h(exp(y3, n(client2, fr_x)))) ;  (h(exp(y1, n(client2, fr_x))) xorc h(exp(y3, n(client2, fr_x))))),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   --- we have a lot of checking on this round --- where to put them?
+			   --- Next phase may be
+			   -(client1 ; c1_signed ; d1),
+			   +(client2 ; sign(genPriv(client2, fr_s), (h(h(client1 ; client2 ; client3 ; k1_h ;  h(n(client2, fr_k)) ; k3_h) ; h(y1 ; (k1_tr1 xorc (T1 xorc (T3 xorc h(exp(y3, n(client2, fr_x)))))) ; S1 ; exp(g, n(client2, fr_x)) ; n(client2, fr_k) ; getPub(genPriv(client2, fr_s)) ; y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, n(client2, fr_x))))) ; S3)))) ; (n(client2, fr_r) - (h(h(client1 ; client2 ; client3 ; k1_h ; h(n(client2, fr_k)) ; k3_h) ; h(y1 ; (k1_tr1 xorc (T1 xorc (T3 xorc h(exp(y3, n(client2, fr_x)))))) ; S1 ; exp(g, n(client2, fr_x)) ; n(client2, fr_k) ; getPub(genPriv(client2, fr_s)) ; y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, n(client2, fr_x))))) ; S3))) * n(client2, fr_x))), 
+			   -(client3 ; c3_signed ; d3),
+			   nil ]
+		&
+		--- client3 ---
+		:: fr_k, fr_x, fr_s, fr_r :: 
+		[nil | --- Round 1 ---
+			   -(client1 ; k1_h ; y1 ;  S1),
+			   -(client2 ; k2_h ; y2 ;  S2),
+		       +(client3 ; h(n(client3, fr_k)) ; exp(g, n(client3, fr_x)) ;  getPub(genPriv(client3, fr_s))),
+			   --- Round 2 --- 
+			   -(client1 ; sid1 ; z1),
+			   -(client2 ; sid2 ; z2),
+		       +(client3 ; h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; exp(g, n(client3, fr_r))),
+			   --- Round 3 ---
+			   -(client1 ; k1_tr1 ; T1),
+			   -(client2 ; k2_tr2 ; T2), 
+			   +(client3 ; (n(client3, fr_k) xorc h(exp(y1, n(client3, fr_x)))) ;  (h(exp(y2, n(client3, fr_x))) xorc h(exp(y1, n(client3, fr_x))))),
+			   --- Round 4 ---
+			   --- we have a lot of checking on this round --- where to put them?
+			   --- Next phase may be
+			   -(client1 ; c1_signed ; d1),
+			   -(client2 ; c2_signed ; d2),
+			   +(client3 ; sign(genPriv(client3, fr_s), (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; h(y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, n(client3, fr_x))))) ; S1 ; y2 ; (k2_tr2 xorc (T2 xorc (T1 xorc h(exp(y1, n(client1, fr_x)))))) ; S2 ; exp(g, n(client3, fr_x)) ; n(client3, fr_k) ; getPub(genPriv(client3, fr_s)))))) ; (n(client3, fr_r) - (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; h(y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, n(client3, fr_x))))) ; S1 ; y2 ; (k2_tr2 xorc (T2 xorc (T1 xorc h(exp(y1, n(client1, fr_x)))))) ; S2 ; exp(g, n(client3, fr_x)) ; n(client3, fr_k) ; getPub(genPriv(client3, fr_s))))) * n(client3, fr_x))), 
+			   nil ]
+	[nonexec] .
+	
+	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
+	--- [nonexec] .
+
+	eq ATTACK-STATE(0) = --- stealing info for simmKey Generation (k_1)
+		--- client1 ---
+		:: fr_k, fr_x, fr_s, fr_r :: 
+		[nil, --- Round 1 ---
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, n(client1, fr_x)) ;  getPub(genPriv(client1, fr_s))),
+			   -(client2 ; k2_h ; y2 ;  S2),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client1, fr_r))),
+			   -(client2 ; sid2 ; z2),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, n(client1, fr_x)))) ;  (h(exp(y3, n(client1, fr_x))) xorc h(exp(y2, n(client1, fr_x))))),
+			   -(client2 ; k2_tr2 ; T2),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3))) * n(client1, fr_x)))), 
+			   -(client2 ; c2_signed ; d2),
+			   -(client3 ; c3_signed ; d3)   
+			   |
+			   nil ]
+		
+		|| n(client1, fr_k) inI
+		
+		|| nil
+		|| nil
+		|| nil 
+	[nonexec] .
+	
+	eq ATTACK-STATE(1) = --- stealing private part of auth info (x_1)
+		--- client1 ---
+		:: fr_k, fr_x, fr_s, fr_r :: 
+		[nil, --- Round 1 ---
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, n(client1, fr_x)) ;  getPub(genPriv(client1, fr_s))),
+			   -(client2 ; k2_h ; y2 ;  S2),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client1, fr_r))),
+			   -(client2 ; sid2 ; z2),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, n(client1, fr_x)))) ;  (h(exp(y3, n(client1, fr_x))) xorc h(exp(y2, n(client1, fr_x))))),
+			   -(client2 ; k2_tr2 ; T2),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3))) * n(client1, fr_x)))), 
+			   -(client2 ; c2_signed ; d2),
+			   -(client3 ; c3_signed ; d3)   
+			   |
+			   nil ]
+		
+		|| n(client1, fr_x) inI
+		
+		|| nil
+		|| nil
+		|| nil 
+	[nonexec] .
+	
+	eq ATTACK-STATE(2) = --- stealing private ephemeral singature key (s_1)
+		--- client1 ---
+		:: fr_k, fr_x, fr_s, fr_r :: 
+		[nil, --- Round 1 ---
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, n(client1, fr_x)) ;  getPub(genPriv(client1, fr_s))),
+			   -(client2 ; k2_h ; y2 ;  S2),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client1, fr_r))),
+			   -(client2 ; sid2 ; z2),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, n(client1, fr_x)))) ;  (h(exp(y3, n(client1, fr_x))) xorc h(exp(y2, n(client1, fr_x))))),
+			   -(client2 ; k2_tr2 ; T2),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3))) * n(client1, fr_x)))), 
+			   -(client2 ; c2_signed ; d2),
+			   -(client3 ; c3_signed ; d3)   
+			   |
+			   nil ]
+		
+		|| genPriv(client1, fr_s) inI
+		
+		|| nil
+		|| nil
+		|| nil 
+	[nonexec] .
+	
+
+endfm
+
+
+--- THIS HAS TO BE THE LAST LOADED MODULE !!!!
+select MAUDE-NPA .
+
+
+
+
+***(             TRASH CAN
+
+	op q : -> Modulo . --- modules for nesessary calculations
+	op p : -> Modulo . --- modules for nesessary calculations
+	
+	subsort Modulo < Public .
+	
+	--- Modulo operation
+	op _mod(_) : Number Modulo -> Number .
+	
+	eq N:Number + Md:Modulo = N:Number mod ( Md:Modulo ) .
+	eq N:Number - Md:Modulo = N:Number mod ( Md:Modulo ) .
+	eq Md:Modulo + N:Number = N:Number mod ( Md:Modulo ) .
+	---eq N:Number = (N:Number + Md:Modulo) mod ( Md:Modulo ) .
+	---eq N:Number = (N:Number - Md:Modulo) mod ( Md:Modulo ) .
 	--- modulo definition & property
 	eq Md:Modulo mod ( Md:Modulo ) = 0 .
 	eq (N:Number + Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
@@ -131,127 +340,41 @@ fmod PROTOCOL-EXAMPLE-ALGBRAIC is
   	--- choosing q, p and g
 	eq (p - 1) = 0 mod(q) . --- q is (p-1)'s divider
 	eq exp(g, q) = 1 mod(p) . --- g is Zp group generator 
+
+	op 1 : -> Number . --- Base numbers
+	op 0 : -> Number . 
+	
+	***(
+	--- mult properties
+	eq N:Number * 0 = 0 [nonexec metadata "variant"] .
+	eq N:Number * 1 = N:Number [nonexec metadata "variant"] .
+
+	--- sum properties
+	eq N:Number + 0 = N:Number [nonexec metadata "variant"] .
+	
+	--- sub properties
+	eq N:Number - 0 = N:Number [nonexec metadata "variant"] .
+
 	)***
 
-endfm
-
---- Protocol strands (what's that?)
-fmod PROTOCOL-SPECIFICATION is
-	protecting PROTOCOL-EXAMPLE-SYMBOLS .
-	protecting DEFINITION-PROTOCOL-RULES .
-	protecting DEFINITION-CONSTRAINTS-INPUT .
-
-	vars M M1 M2 : Msg .
-	var Ke : SimmKey .
-	var kpub S1 S2 S3 : PubKey .
-	var kpriv s1 s2 s3 : PrivKey .
-	vars Num Num1 Num2 Num3 : Number .
-	var N Name1 Name2 : Name .
-	var GE x1 x2 x3 : Gen .
-	vars y1 y2 y3 z1 z2 z3 : Number . --- or Exp? Is the reciver able to check the type?
-	vars T1 T2 T3 : Number .
-	vars k1_tr1 k2_tr2 k3_tr3 : Number .
-	vars d1 d2 d3 : Number .
-	vars k1 k2 k3 : Number . --- for symmkey Generation
-	vars fr fr_k fr_x fr_r fr_s : Fresh .
-	var Mod1 : Modulo .
-	vars k1_h k2_h k3_h sid1 sid2 sid3 : Hash .
-	vars c1_signed c2_signed c3_signed : Msg .
+    
 	
-	--- Actions an intruder can perform
-	eq STRANDS-DOLEVYAO =
-	    --- concatenation
-		:: nil :: [ nil | -(M1 ; M2), +(M1), nil ] &
-		:: nil :: [ nil | -(M1 ; M2), +(M2), nil ] &
-		:: nil :: [ nil | -(M1), -(M2), +(M1 ; M2), nil ] &
-		:: nil :: [ nil | +(N), nil ] &
-     	:: nil :: [ nil | -(Ke), -(M), +(enc(Ke,M)), nil ] &
-     	:: nil :: [ nil | -(Ke), -(M), +(dec(Ke,M)), nil ] &
-     	:: nil :: [ nil | -(M), +(h(M)), nil ] &
-     	:: nil :: [ nil | -(kpriv), -(M), +(sign(kpriv,M)), nil ] &
-     	:: nil :: [ nil | -(kpub), -(M), +(sverify(kpub,M)), nil ] &
-     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 * Num2), nil ] &
-     	:: nil :: [ nil | -(GE), -(Num), +(exp(GE,Num)), nil ] &
-     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 + Num2), nil ] &
-     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 - Num2), nil ] &
-     	:: nil :: [ nil | -(Num1), -(Num2), +(Num1 xor Num2), nil ] &
-     	:: nil :: [ nil | -(Num1), -(Mod1), +(Num1 mod( Mod1 )), nil ] &
-     	:: fr ::   [ nil | +(n(intruder,fr)), nil ] &
-     	:: nil :: [ nil | +(g), nil ] &
      	:: nil :: [ nil | +(p), nil ] &
      	:: nil :: [ nil | +(q), nil ] &
-     	:: nil :: [ nil | +(0), nil ] &
      	:: nil :: [ nil | +(1), nil ] &
-     	:: nil :: [ nil | +(true), nil ] &
-     	:: nil :: [ nil | +(false), nil ] &
-     	:: nil :: [ nil | +(N), nil ]
-	[nonexec] .
-
-	eq STRANDS-PROTOCOL =
-		:: fr_k, fr_x, fr_s, fr_r :: 
-		[nil | --- Round 1 ---
-		       +(client-1 ; h(n(client-1, fr_k)) ; exp(g, n(client-1, fr_x)) ;  getPub(genPriv(client-1, fr_s))),
-			   -(client-2 ; k2_h ; y2 ;  S2),
-			   -(client-3 ; k3_h ; y3 ;  S3),
-			   --- Round 2 --- 
-		       +(client-1 ; h(client-1 ; client-2 ; client-3 ; h(n(client-1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client-1, fr_r))),
-			   -(client-2 ; sid2 ; z2),
-			   -(client-3 ; sid3 ; z3),
-			   --- Round 3 ---
-			   +(client-1 ; n(client-1, fr_k) xor h(exp(y2, n(client-1, fr_x))) ;  h(exp(y3, n(client-1, fr_x))) xor h(exp(y2, n(client-1, fr_x)))),
-			   -(client-2 ; k2_tr2 ; T2),
-			   -(client-3 ; k3_tr3 ; T3),
-			   --- Round 4 ---
-			   --- we have a lot of checking on this round --- where to put them?
-			   --- Next phase may be
-			   +(client-1 ; sign(genPriv(client-1, fr_s), (h(h(client-1 ; client-2 ; client-3 ; h(n(client-1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client-1, fr_x)) ; n(client-1, fr_k) ; getPub(genPriv(client-1, fr_s)) ; y2 ; k2 ; S2 ; y3 ; k3 ; S3)))) ; exp(g, n(client-1, fr_r)) - ((h(h(client-1 ; client-2 ; client-3 ; h(n(client-1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client-1, fr_x)) ; n(client-1, fr_k) ; getPub(genPriv(client-1, fr_s)) ; y2 ; k2_tr2 xor (T2 xor h(exp(y2, n(client-1, fr_x)))); S2 ; y3 ; k3_tr3 xor (T3 xor (T2 xor h(exp(y2, n(client-1, fr_x))))) ; S3))) * n(client-1, fr_x))), 
-			   -(client-2 ; c2_signed ; d2),
-			   -(client-3 ; c3_signed ; d3),
-			   nil ]
-			  
-			  
-			  ***(
-			  c1 = h(sid1 ; sproof1)
-			  c1 = h(h(client-1 ; client-2 ; client-3 ; h(n(client-1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client-1, fr_x)) ; n(client-1, fr_k) ; getPub(genPriv(client-1, fr_s)) ; y2 ; k2 ; S2 ; y3 ; k3 ; S3))
-			  c1 = h(h(client-1 ; client-2 ; client-3 ; h(n(client-1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client-1, fr_x)) ; n(client-1, fr_k) ; getPub(genPriv(client-1, fr_s)) ; y2 ; k2_tr2 xor (T2 xor h(exp(y2, n(client-1, fr_x)))); S2 ; y3 ; k3_tr3 xor (T3 xor (T2 xor h(exp(y2, n(client-1, fr_x))))) ; S3))
-			  d1 = r1 - (c1 * x1)
-			  d1 = exp(g, n(client-1, fr_r))- (h(h(client-1 ; client-2 ; client-3 ; h(n(client-1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client-1, fr_x)) ; n(client-1, fr_k) ; getPub(genPriv(client-1, fr_s)) ; y2 ; k2_tr2 xor (T2 xor h(exp(y2, n(client-1, fr_x)))); S2 ; y3 ; k3_tr3 xor (T3 xor (T2 xor h(exp(y2, n(client-1, fr_x))))) ; S3))      * n(client-1, fr_x))
-			  k2 = k2_tr2 xor (T2 xor tr1)
-			  k2 = k2_tr2 xor (T2 xor h(exp(y2, n(client-1, fr_x))))
-			  k3 = k3_tr3 xor (T3 xor tr2)
-			  k3 = k3_tr3 xor (T3 xor (T2 xor h(exp(y2, n(client-1, fr_x)))))
-			  k3 = k3_tr3 xor (T3 xor tr2)
-			 )***
-		***(&
-		:: nil ::
-		[nil | -(client-1 ; fxMess),
-			   +(client-2 ; fxMess),
-			   -(client-3 ; fxMess), nil]
-		&
-		:: nil ::
-		[nil | -(client-1 ; fxMess),
-			   -(client-2 ; fxMess),
-			   +(client-3 ; fxMess), nil] )***
-	[nonexec] .
 	
-	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
-	--- [nonexec] .
+	:: nil :: [ nil | -(Num1), -(Mod1), +(Num1 mod( Mod1 )), nil ] &
 
+
+)***
 	***(
-	eq ATTACK-STATE(0) = 
-	  	empty
-		|| empty
-		|| nil
-		|| nil
-		|| nil 
-	[nonexec] .
 
 	eq ATTACK-STATE(1) = 
 		:: nil ::
 		[nil,  -(Name1 ; fxMess),
-			   +(client-2 ; fxMess),
+			   +(client2 ; fxMess),
 			   -(Name2 ; fxMess) | nil]
-		|| Name1 != client-1 
+		|| Name1 != client1 
 		|| nil
 		|| nil
 		|| nil
@@ -260,9 +383,9 @@ fmod PROTOCOL-SPECIFICATION is
 	eq ATTACK-STATE(2) =
 		:: nil ::
 		[nil,  -(Name1 ; fxMess),
-			   +(client-2 ; fxMess),
+			   +(client2 ; fxMess),
 			   -(Name2 ; fxMess) | nil]
-		|| Name2 != client-3 
+		|| Name2 != client3 
 		|| nil
 		|| nil
 		|| nil
@@ -271,27 +394,28 @@ fmod PROTOCOL-SPECIFICATION is
 	eq ATTACK-STATE(3) =
 		:: nil ::
 		[nil,  -(Name1 ; fxMess),
-			   +(client-2 ; fxMess),
+			   +(client2 ; fxMess),
 			   -(Name2 ; fxMess) | nil]
-		|| Name1 != client-1, 
-		   Name2 != client-3
+		|| Name1 != client1, 
+		   Name2 != client3
 		|| nil
 		|| nil
 		|| nil
 	[nonexec] .)***
-
-endfm
-
-
---- THIS HAS TO BE THE LAST LOADED MODULE !!!!
-select MAUDE-NPA .
-
-***(             TRASH CAN
-
-	eq N:Number + Md:Modulo = N:Number mod ( Md:Modulo ) .
-	eq N:Number - Md:Modulo = N:Number mod ( Md:Modulo ) .
-	eq Md:Modulo + N:Number = N:Number mod ( Md:Modulo ) .
-	---eq N:Number = (N:Number + Md:Modulo) mod ( Md:Modulo ) .
-	---eq N:Number = (N:Number - Md:Modulo) mod ( Md:Modulo ) .
-
-)***
+			  ***( that long-long string-message
+			  --- +(client1 ; sign(genPriv(client1, fr_s), k1) ; (n(client1, fr_r) - x1)),
+			  c1 = h(sid1 ; sproof1)
+			  c1 = h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2 ; S2 ; y3 ; k3 ; S3))
+			  c1 = h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))); S2 ; y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S3))
+			  d1 = r1 - (c1 * x1)
+			  d1 = n(client1, fr_r)- (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))); S2 ; y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S3)) * n(client1, fr_x))
+			  k2 = k2_tr2 xorc (T2 xorc tr1)
+			  k2 = k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))
+			  k3 = k3_tr3 xorc (T3 xorc tr2)
+			  k3 = k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))
+			  k3 = k3_tr3 xorc (T3 xorc tr2)
+			 )***
+		***(:: nil ::
+		[nil | -(client1 ; fxMess),
+			   -(client2 ; fxMess),
+			   +(client3 ; fxMess), nil] )***
