@@ -1,0 +1,54 @@
+mpOTR_verif
+===========
+
+This is mpOTR protocol analysis wich is connected to another project:
+
+https://github.com/maria-msu-seclab/mpotrDevelopment
+
+mpOTR is a protocol for encrypted group communications with deniability 
+feature. Current project aims to verify security properties of the protocol
+and\or find the possible attacks.
+
+The tool we use for protocol analysis and verification is Maude-NPA 
+developed by University of Illinois at Urbana-Champaign:
+
+http://maude.cs.uiuc.edu/tools/Maude-NPA/
+
+We higly appreciate your ideas, questions and any other comments, see our 
+info at AUTHORS
+
+
+Work in progress:
+ * Connection phase -- Done
+ * Auth phase -- Done  
+ * Need More Auth attacks (like impersonation)
+ * Communication phase + OldBlue
+ * Finilising phase -- make finalisation checks
+ * Protocol as a whole
+ * Overall attacks
+
+ Questions: 
+ * What to do with verification checks? Just omit them? *Logical*
+ * What's with the long-term private-public key usage at Auth stage? (!!!)
+   -- May be describe x_i as permanent private Key
+   There is nothing about it yet
+ * How to describe attack on the deniability feature?
+   -- Some kind of that there is no connection between (s_i, S_i) and (x_i, y_i)
+      mpCat draft && that paper, depends on the deniability definition.
+ * How to describe attack on the PFC feature?
+   -- No connection between long-term key and session simm key 
+Ideas for previous two is 
+      if intruder knows the long-term secret keys she cannot guess the 
+	  session key and ephemeral private key. Will this be equal to the 
+	  abcence of a proof of that the certain long-term private key has 
+	  participated in particular conversation?
+ * What's with Old Blue protocol? (Full description?)
+    Only if we are able to decribe attacks like preventing message delivery or
+	reply attacks or mixing messages attacks, that's not only the channel issue.
+ * What other kinds of attacks could be for AKE?
+ * (And what kind of features do we support and need to check with the Maude-
+   NPA checker?)
+ * I'd really need some kind of variables -- the messages grow bigger and bigger
+ * What should I be telling during the presentation the other week?
+ * Do we need to make finalization checks like those that we have no more messages in the channel (May be not, that's a realization stuff) or that the transcript is consistent (May be yes, we need to be be consistent at the end,  but only if we use the OldBlue protocol)?
+

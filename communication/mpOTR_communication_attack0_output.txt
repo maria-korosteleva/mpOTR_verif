@@ -1,0 +1,222 @@
+		     \||||||||||||||||||/
+		   --- Welcome to Maude ---
+		     /||||||||||||||||||\
+	    Maude 2.6 built: Dec  9 2010 18:28:39
+	    Copyright 1997-2010 SRI International
+		   Fri Oct 31 16:02:09 2014
+Maude> 
+	    Full Maude 2.5b January 14th 2011
+
+
+	    Maude-NPA Version: 11/26/2011
+	    Copyright (c) 2012, University of Illinois
+	    All rights reserved.
+
+==========================================
+reduce in MAUDE-NPA : genGrammars .
+rewrites: 97480 in 1180ms cpu (1210ms real) (82610 rewrites/second)
+result GrammarList: (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => (#0:Msg ; #1:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => (#1:Msg ; #0:Msg) inL .)
+| errorNoHeuristicApplied {
+grl empty => (#1:Msg ; #2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .} usingGrammar 
+grl empty => (#1:Msg ; #2:Msg) inL .
+==========================================
+reduce in MAUDE-NPA : run(0, 0) .
+rewrites: 2234 in 96ms cpu (96ms real) (23270 rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : summary(0, 1) .
+rewrites: 119 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 2) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 3) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 4) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 5) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 6) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 7) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 8) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 9) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 10) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 11) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(0, 12) .
+rewrites: 87 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 1 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : run(0, 1) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 2) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 3) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 4) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 5) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 6) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 7) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 8) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 9) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 10) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 11) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(0, 12) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 > empty
+|| empty
+|| 
+nil
+|| 
+nil
+|| 
+nil
+Maude> Bye.

@@ -22,10 +22,10 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	protecting DEFINITION-PROTOCOL-RULES .
 
 	--- Sort Information
-	sorts Name Nonce Number Gen Key Hash PubKey PrivKey SimmKey .
+	sorts Name Nonce Number Gen Key Hash PubKey PrivKey SimmKey LTPrivKey .
 	subsort Gen Key Hash Nonce < Number .
 	subsort Name Number Key Hash < Msg .
-	subsort PubKey PrivKey SimmKey < Key .
+	subsort PubKey PrivKey SimmKey LTPrivKey < Key .
 	subsort Name < Public . --- means that Name info is publicly availible
 	subsort Gen < Public .
 	
@@ -33,6 +33,7 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	ops client1 client2 client3 intruder : -> Name .
   	op g : -> Gen . --- Group generator
 	op 0 : -> Number . 
+	ops x1 x2 x3 : -> LTPrivKey .
 
 	--- Nonce operator
 	op n : Name Fresh -> Nonce [frozen] .
@@ -110,13 +111,13 @@ fmod PROTOCOL-SPECIFICATION is
 	vars Num Num1 Num2 Num3 : Number .
 	vars N Name1 Name2 : Name .
 	vars GE : Gen .
-	vars x1 x2 x3 : Number . --- secret ones
+	--- vars x1 x2 x3 : Number . --- secret ones
 	vars y1 y2 y3 z1 z2 z3 : Number . 
 	vars T1 T2 T3 : Number .
 	vars k1_tr1 k2_tr2 k3_tr3 : Number .
 	vars d1 d2 d3 : Number .
 	vars k1 k2 k3 : Number . --- for simmkey Generation
-	vars fr fr_k fr_x fr_r fr_s : Fresh .
+	vars fr fr_k fr_r fr_s : Fresh .
 	vars k1_h k2_h k3_h sid1 sid2 sid3 : Hash .
 	vars c1_signed c2_signed c3_signed : Msg .
 	
@@ -146,9 +147,9 @@ fmod PROTOCOL-SPECIFICATION is
 
 	eq STRANDS-PROTOCOL =
 		--- client1 ---
-		:: fr_k, fr_x, fr_s, fr_r :: 
+		:: fr_k, fr_s, fr_r :: 
 		[nil | --- Round 1 ---
-		       +(client1 ; h(n(client1, fr_k)) ; exp(g, n(client1, fr_x)) ;  getPub(genPriv(client1, fr_s))),
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, x1) ;  getPub(genPriv(client1, fr_s))),
 			   -(client2 ; k2_h ; y2 ;  S2),
 			   -(client3 ; k3_h ; y3 ;  S3),
 			   --- Round 2 --- 
@@ -156,22 +157,22 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client2 ; sid2 ; z2),
 			   -(client3 ; sid3 ; z3),
 			   --- Round 3 ---
-			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, n(client1, fr_x)))) ;  (h(exp(y3, n(client1, fr_x))) xorc h(exp(y2, n(client1, fr_x))))),
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, x1))) ;  (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
 			   -(client2 ; k2_tr2 ; T2),
 			   -(client3 ; k3_tr3 ; T3), 
 			   --- Round 4 ---
 			   --- we have a lot of checking on this round --- where to put them?
 			   --- Next phase may be
-			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3))) * n(client1, fr_x)))), 
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3))) * x1))), 
 			   -(client2 ; c2_signed ; d2),
 			   -(client3 ; c3_signed ; d3),
 			   nil ]
 		&	
 		--- client2 ---
-		:: fr_k, fr_x, fr_s, fr_r :: 
+		:: fr_k, fr_s, fr_r :: 
 		[nil | --- Round 1 ---
 			   -(client1 ; k1_h ; y1 ;  S1),
-		       +(client2 ; h(n(client2, fr_k)) ; exp(g, n(client2, fr_x)) ;  getPub(genPriv(client2, fr_s))),
+		       +(client2 ; h(n(client2, fr_k)) ; exp(g, x2) ;  getPub(genPriv(client2, fr_s))),
 			   -(client3 ; k3_h ; y3 ;  S3),
 			   --- Round 2 --- 
 			   -(client1 ; sid1 ; z1),
@@ -179,22 +180,22 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client3 ; sid3 ; z3),
 			   --- Round 3 ---
 			   -(client1 ; k1_tr1 ; T1),
-			   +(client2 ; (n(client2, fr_k) xorc h(exp(y3, n(client2, fr_x)))) ;  (h(exp(y1, n(client2, fr_x))) xorc h(exp(y3, n(client2, fr_x))))),
+			   +(client2 ; (n(client2, fr_k) xorc h(exp(y3, x2))) ;  (h(exp(y1, x2)) xorc h(exp(y3, x2)))),
 			   -(client3 ; k3_tr3 ; T3), 
 			   --- Round 4 ---
 			   --- we have a lot of checking on this round --- where to put them?
 			   --- Next phase may be
 			   -(client1 ; c1_signed ; d1),
-			   +(client2 ; sign(genPriv(client2, fr_s), (h(h(client1 ; client2 ; client3 ; k1_h ;  h(n(client2, fr_k)) ; k3_h) ; h(y1 ; (k1_tr1 xorc (T1 xorc (T3 xorc h(exp(y3, n(client2, fr_x)))))) ; S1 ; exp(g, n(client2, fr_x)) ; n(client2, fr_k) ; getPub(genPriv(client2, fr_s)) ; y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, n(client2, fr_x))))) ; S3)))) ; (n(client2, fr_r) - (h(h(client1 ; client2 ; client3 ; k1_h ; h(n(client2, fr_k)) ; k3_h) ; h(y1 ; (k1_tr1 xorc (T1 xorc (T3 xorc h(exp(y3, n(client2, fr_x)))))) ; S1 ; exp(g, n(client2, fr_x)) ; n(client2, fr_k) ; getPub(genPriv(client2, fr_s)) ; y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, n(client2, fr_x))))) ; S3))) * n(client2, fr_x))), 
+			   +(client2 ; sign(genPriv(client2, fr_s), (h(h(client1 ; client2 ; client3 ; k1_h ;  h(n(client2, fr_k)) ; k3_h) ; h(y1 ; (k1_tr1 xorc (T1 xorc (T3 xorc h(exp(y3, x2))))) ; S1 ; exp(g, x2) ; n(client2, fr_k) ; getPub(genPriv(client2, fr_s)) ; y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3)))) ; (n(client2, fr_r) - (h(h(client1 ; client2 ; client3 ; k1_h ; h(n(client2, fr_k)) ; k3_h) ; h(y1 ; (k1_tr1 xorc (T1 xorc (T3 xorc h(exp(y3, x2))))) ; S1 ; exp(g, x2) ; n(client2, fr_k) ; getPub(genPriv(client2, fr_s)) ; y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3))) * x2)), 
 			   -(client3 ; c3_signed ; d3),
 			   nil ]
 		&
 		--- client3 ---
-		:: fr_k, fr_x, fr_s, fr_r :: 
+		:: fr_k, fr_s, fr_r :: 
 		[nil | --- Round 1 ---
 			   -(client1 ; k1_h ; y1 ;  S1),
 			   -(client2 ; k2_h ; y2 ;  S2),
-		       +(client3 ; h(n(client3, fr_k)) ; exp(g, n(client3, fr_x)) ;  getPub(genPriv(client3, fr_s))),
+		       +(client3 ; h(n(client3, fr_k)) ; exp(g, x3) ;  getPub(genPriv(client3, fr_s))),
 			   --- Round 2 --- 
 			   -(client1 ; sid1 ; z1),
 			   -(client2 ; sid2 ; z2),
@@ -202,13 +203,13 @@ fmod PROTOCOL-SPECIFICATION is
 			   --- Round 3 ---
 			   -(client1 ; k1_tr1 ; T1),
 			   -(client2 ; k2_tr2 ; T2), 
-			   +(client3 ; (n(client3, fr_k) xorc h(exp(y1, n(client3, fr_x)))) ;  (h(exp(y2, n(client3, fr_x))) xorc h(exp(y1, n(client3, fr_x))))),
+			   +(client3 ; (n(client3, fr_k) xorc h(exp(y1, x3))) ;  (h(exp(y2, x3)) xorc h(exp(y1, x3)))),
 			   --- Round 4 ---
 			   --- we have a lot of checking on this round --- where to put them?
 			   --- Next phase may be
 			   -(client1 ; c1_signed ; d1),
 			   -(client2 ; c2_signed ; d2),
-			   +(client3 ; sign(genPriv(client3, fr_s), (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; h(y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, n(client3, fr_x))))) ; S1 ; y2 ; (k2_tr2 xorc (T2 xorc (T1 xorc h(exp(y1, n(client1, fr_x)))))) ; S2 ; exp(g, n(client3, fr_x)) ; n(client3, fr_k) ; getPub(genPriv(client3, fr_s)))))) ; (n(client3, fr_r) - (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; h(y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, n(client3, fr_x))))) ; S1 ; y2 ; (k2_tr2 xorc (T2 xorc (T1 xorc h(exp(y1, n(client1, fr_x)))))) ; S2 ; exp(g, n(client3, fr_x)) ; n(client3, fr_k) ; getPub(genPriv(client3, fr_s))))) * n(client3, fr_x))), 
+			   +(client3 ; sign(genPriv(client3, fr_s), (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; h(y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) ; S1 ; y2 ; (k2_tr2 xorc (T2 xorc (T1 xorc h(exp(y1, x1))))) ; S2 ; exp(g, x3) ; n(client3, fr_k) ; getPub(genPriv(client3, fr_s)))))) ; (n(client3, fr_r) - (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; h(y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) ; S1 ; y2 ; (k2_tr2 xorc (T2 xorc (T1 xorc h(exp(y1, x1))))) ; S2 ; exp(g, x3) ; n(client3, fr_k) ; getPub(genPriv(client3, fr_s))))) * x3)), 
 			   nil ]
 	[nonexec] .
 	
@@ -217,9 +218,9 @@ fmod PROTOCOL-SPECIFICATION is
 
 	eq ATTACK-STATE(0) = --- stealing info for simmKey Generation (k_1)
 		--- client1 ---
-		:: fr_k, fr_x, fr_s, fr_r :: 
+		:: fr_k, fr_s, fr_r :: 
 		[nil, --- Round 1 ---
-		       +(client1 ; h(n(client1, fr_k)) ; exp(g, n(client1, fr_x)) ;  getPub(genPriv(client1, fr_s))),
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, x1) ;  getPub(genPriv(client1, fr_s))),
 			   -(client2 ; k2_h ; y2 ;  S2),
 			   -(client3 ; k3_h ; y3 ;  S3),
 			   --- Round 2 --- 
@@ -227,11 +228,11 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client2 ; sid2 ; z2),
 			   -(client3 ; sid3 ; z3),
 			   --- Round 3 ---
-			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, n(client1, fr_x)))) ;  (h(exp(y3, n(client1, fr_x))) xorc h(exp(y2, n(client1, fr_x))))),
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, x1))) ;  (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
 			   -(client2 ; k2_tr2 ; T2),
 			   -(client3 ; k3_tr3 ; T3), 
 			   --- Round 4 ---
-			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3))) * n(client1, fr_x)))), 
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3))) * x1))), 
 			   -(client2 ; c2_signed ; d2),
 			   -(client3 ; c3_signed ; d3)   
 			   |
@@ -246,9 +247,9 @@ fmod PROTOCOL-SPECIFICATION is
 	
 	eq ATTACK-STATE(1) = --- stealing private part of auth info (x_1)
 		--- client1 ---
-		:: fr_k, fr_x, fr_s, fr_r :: 
+		:: fr_k, fr_s, fr_r :: 
 		[nil, --- Round 1 ---
-		       +(client1 ; h(n(client1, fr_k)) ; exp(g, n(client1, fr_x)) ;  getPub(genPriv(client1, fr_s))),
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, x1) ;  getPub(genPriv(client1, fr_s))),
 			   -(client2 ; k2_h ; y2 ;  S2),
 			   -(client3 ; k3_h ; y3 ;  S3),
 			   --- Round 2 --- 
@@ -256,17 +257,17 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client2 ; sid2 ; z2),
 			   -(client3 ; sid3 ; z3),
 			   --- Round 3 ---
-			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, n(client1, fr_x)))) ;  (h(exp(y3, n(client1, fr_x))) xorc h(exp(y2, n(client1, fr_x))))),
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, x1))) ;  (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
 			   -(client2 ; k2_tr2 ; T2),
 			   -(client3 ; k3_tr3 ; T3), 
 			   --- Round 4 ---
-			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3))) * n(client1, fr_x)))), 
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3))) * x1))), 
 			   -(client2 ; c2_signed ; d2),
 			   -(client3 ; c3_signed ; d3)   
 			   |
 			   nil ]
 		
-		|| n(client1, fr_x) inI
+		|| x1 inI
 		
 		|| nil
 		|| nil
@@ -275,9 +276,9 @@ fmod PROTOCOL-SPECIFICATION is
 	
 	eq ATTACK-STATE(2) = --- stealing private ephemeral singature key (s_1)
 		--- client1 ---
-		:: fr_k, fr_x, fr_s, fr_r :: 
+		:: fr_k, fr_s, fr_r :: 
 		[nil, --- Round 1 ---
-		       +(client1 ; h(n(client1, fr_k)) ; exp(g, n(client1, fr_x)) ;  getPub(genPriv(client1, fr_s))),
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, x1) ;  getPub(genPriv(client1, fr_s))),
 			   -(client2 ; k2_h ; y2 ;  S2),
 			   -(client3 ; k3_h ; y3 ;  S3),
 			   --- Round 2 --- 
@@ -285,11 +286,11 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client2 ; sid2 ; z2),
 			   -(client3 ; sid3 ; z3),
 			   --- Round 3 ---
-			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, n(client1, fr_x)))) ;  (h(exp(y3, n(client1, fr_x))) xorc h(exp(y2, n(client1, fr_x))))),
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, x1))) ;  (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
 			   -(client2 ; k2_tr2 ; T2),
 			   -(client3 ; k3_tr3 ; T3), 
 			   --- Round 4 ---
-			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))) ; S3))) * n(client1, fr_x)))), 
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3))) * x1))), 
 			   -(client2 ; c2_signed ; d2),
 			   -(client3 ; c3_signed ; d3)   
 			   |
@@ -405,14 +406,14 @@ select MAUDE-NPA .
 			  ***( that long-long string-message
 			  --- +(client1 ; sign(genPriv(client1, fr_s), k1) ; (n(client1, fr_r) - x1)),
 			  c1 = h(sid1 ; sproof1)
-			  c1 = h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2 ; S2 ; y3 ; k3 ; S3))
-			  c1 = h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))); S2 ; y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S3))
+			  c1 = h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2 ; S2 ; y3 ; k3 ; S3))
+			  c1 = h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, x1))); S2 ; y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1)))) ; S3))
 			  d1 = r1 - (c1 * x1)
-			  d1 = n(client1, fr_r)- (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, n(client1, fr_x)) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))); S2 ; y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))) ; S3)) * n(client1, fr_x))
+			  d1 = n(client1, fr_r)- (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, x1))); S2 ; y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1)))) ; S3)) * x1)
 			  k2 = k2_tr2 xorc (T2 xorc tr1)
-			  k2 = k2_tr2 xorc (T2 xorc h(exp(y2, n(client1, fr_x))))
+			  k2 = k2_tr2 xorc (T2 xorc h(exp(y2, x1)))
 			  k3 = k3_tr3 xorc (T3 xorc tr2)
-			  k3 = k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, n(client1, fr_x)))))
+			  k3 = k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))
 			  k3 = k3_tr3 xorc (T3 xorc tr2)
 			 )***
 		***(:: nil ::
