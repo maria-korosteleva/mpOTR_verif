@@ -1,33 +1,11 @@
 ***(
 	These are the first steps towards mpOTR protocol verification and security
 	analysis.
-	This module focuses on the Communication phase of mpOTR.
-	You can have a look at the phase description online:
-	http://mpotr.secsem.ru/mpOTRDev/CommunicationPhase
-
-	The basic version of Communication Phase message is simple ---
-	it a tuple
-	      +(clientID, sid, C, sign)
-		where sid is a session ID, C is a chypher text of the desired message 
-		with the session key usage, sign is a signature of tuple (sid, C), 
-		that is created using ephemeral signature key.
-	However, to ensure the transcript soundness, we gonna use the OldBlue
-	protocol (http://matt.singlethink.net/projects/mpotr/oldblue-draft.pdf),
-	and add messageId and parentIDs to the basic version 
-	of Communication Phase message as follows:
-	      +(clientID, sid, mID, mpID0, ..mpID(n-1), C, sign)
-		where sid is a session ID, mID is a current message's ID, mpIDi 
-		for i=0..(n-1) are the parents messages IDs, C is a chypher text 
-		of the desired message with the session key usage, sign is 
-		a signature of tuple (sid, mID, mpID0, ..mpID(n-1), C), 
-		that is created using ephemeral signature key.
-		Message Id's are generated as a digest over the author, the ids of all
-		causal predecessors (or 0 if that's the first one), 
-		and the message payload (in this order).
-		
-	We descibe parts of the OldBlue	protocol through the messages' transcript
-	modeling different possible situations. Though we still have a question
-	about the attacks we should perform.
+	This module focuses on the Athentication an Key Exchange phase of mpOTR.
+	The protocol of the AKE phase is to big to be sited here so you can have
+	a look at it online:
+	http://mpotr.secsem.ru/mpOTRDev/AuthenticationKeyExchange
+	We describe the Improved Deniable Signature Key-Exchange scheme here.
 	
 	To represent the multy-party property of mpOTR we gonna use three 
 	CLients that represent people (or, more spesificly, their chat clients)
@@ -35,9 +13,7 @@
 	
 	Algebraic properties are those for exponent, exlusive-or operation, 
 	encription and decription properties, signing and signature 
-	verifying (the fmods PROTOCOL-EXAMPLE-SYMBOLS and 
-	PROTOCOL-EXAMPLE-ALGEBRAIC) -- same as in the Authentication part.
-
+	verifying.
 )***
 
 --- protocol syntax - types and operations
@@ -46,23 +22,18 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	protecting DEFINITION-PROTOCOL-RULES .
 
 	--- Sort Information
-	sorts Name Nonce Number Gen Key Hash PubKey PrivKey SimmKey LTPrivKey FixedMessage .
+	sorts Name Nonce Number Gen Key Hash PubKey PrivKey SimmKey LTPrivKey .
 	subsort Gen Key Hash Nonce < Number .
 	subsort Name Number Key Hash < Msg .
 	subsort PubKey PrivKey SimmKey LTPrivKey < Key .
 	subsort Name < Public . --- means that Name info is publicly availible
-	subsort Gen FixedMessage < Public .
+	subsort Gen < Public .
 	
 	--- Principals -- name constants
 	ops client1 client2 client3 intruder : -> Name .
   	op g : -> Gen . --- Group generator
 	op 0 : -> Number . 
 	ops x1 x2 x3 : -> LTPrivKey .
-	op sessKey : -> SimmKey . --- session Key
-	op sid : -> Hash . --- Session ID
-	ops Hello Hi HowAreYou Fine Ok What Where WillWeMeet Yes No AtTheCafe : -> Msg . --- some Examples
-	ops LostMsgReq LostMsgResponse : -> FixedMessage . --- special messages
-	ops s1 s2 s3 : -> PrivKey .
 
 	--- Nonce operator
 	op n : Name Fresh -> Nonce [frozen] .
@@ -78,7 +49,7 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	op sverify : PubKey Msg -> Msg [frozen] .
 	
 	--- Hash function
-	op h : Msg -> Hash [frozen] .
+	op h : Msg -> Hash .
 
   	--- Exponent
   	op exp : Number Number -> Number [frozen] .
@@ -136,8 +107,7 @@ fmod PROTOCOL-SPECIFICATION is
 	vars M M1 M2 : Msg .
 	var Ke : SimmKey .
 	vars kpub S1 S2 S3 : PubKey .
-	var kpriv : PrivKey .
-	--- vars s1 s2 s3 : PrivKey .
+	vars kpriv s1 s2 s3 : PrivKey .
 	vars Num Num1 Num2 Num3 : Number .
 	vars N Name1 Name2 : Name .
 	vars GE : Gen .
@@ -150,12 +120,7 @@ fmod PROTOCOL-SPECIFICATION is
 	vars fr fr_k fr_r fr_s : Fresh .
 	vars k1_h k2_h k3_h sid1 sid2 sid3 : Hash .
 	vars c1_signed c2_signed c3_signed : Msg .
-
-	vars idM11 idM12 idM13 idM21 idM22 idM23 idM31 idM32 idM33 : Hash .
-	vars sigM11 sigM12 sigM13 sigM21 sigM22 sigM23 sigM31 sigM32 sigM33 : Msg .
-	vars sigM21Req : Msg .
-	vars sigM11Response : Msg .
-
+	
 	--- Actions an intruder can perform
 	eq STRANDS-DOLEVYAO =
 	    --- concatenation
@@ -177,73 +142,132 @@ fmod PROTOCOL-SPECIFICATION is
      	:: nil :: [ nil | -(kpriv), +(getPub( kpriv)), nil ] &
      	:: nil :: [ nil | +(g), nil ] &
      	:: nil :: [ nil | +(0), nil ] &
-     	:: nil :: [ nil | +(N), nil ]
+     	:: nil :: [ nil | +(N), nil ] &
+		--- By this we assume intruder was able to get long-term keys
+     	:: nil :: [ nil | +(x1), nil ] &
+     	:: nil :: [ nil | +(x2), nil ] &
+     	:: nil :: [ nil | +(x3), nil ] 
 	[nonexec] .
 
 	eq STRANDS-PROTOCOL =
 		--- client1 ---
-		:: nil :: 
-		[nil | +(client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
-			   -(client2 ; sid ; idM21 ; enc(sessKey, Hi) ; sigM21),
-			   -(client3 ; sid ; idM31 ; idM11 ; enc(sessKey, WillWeMeet) ; sigM31),
-			   -(client2 ; LostMsgReq ; idM11 ; sigM21Req),
-			   +(client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
+		:: fr_k, fr_s, fr_r :: 
+		[nil | --- Round 1 ---
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, x1) ;  getPub(genPriv(client1, fr_s))),
+			   -(client2 ; k2_h ; y2 ;  S2),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client1, fr_r))),
+			   -(client2 ; sid2 ; z2),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, x1))) ;  (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
+			   -(client2 ; k2_tr2 ; T2),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   --- we have a lot of checking on this round --- where to put them?
+			   --- Next phase may be
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3))) * x1))), 
+			   -(client2 ; c2_signed ; d2),
+			   -(client3 ; c3_signed ; d3),
 			   nil ]
 		&	
 		--- client2 ---
-		:: nil :: 
-		[nil | --- client2 has not recieved the client1's first message
-			   +(client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(s2, (client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)))),
-			   -(client3 ; sid ; idM31 ; idM11 ; enc(sessKey, WillWeMeet) ; sigM31),
-			   --- realises that client2 do not have the idM11 message!
-			   +(client2 ; LostMsgReq ; idM11 ; sign(s2, (client2 ; LostMsgReq ; idM11))),
-			   -(client1 ; LostMsgResponse ; sid ; idM11 ; enc(sessKey, Hello) ; sigM11Response),
+		:: fr_k, fr_s, fr_r :: 
+		[nil | --- Round 1 ---
+			   -(client1 ; k1_h ; y1 ;  S1),
+		       +(client2 ; h(n(client2, fr_k)) ; exp(g, x2) ;  getPub(genPriv(client2, fr_s))),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+			   -(client1 ; sid1 ; z1),
+		       +(client2 ; h(client1 ; client2 ; client3 ; k1_h ; h(n(client2, fr_k)) ; k3_h) ; exp(g, n(client2, fr_r))),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   -(client1 ; k1_tr1 ; T1),
+			   +(client2 ; (n(client2, fr_k) xorc h(exp(y3, x2))) ;  (h(exp(y1, x2)) xorc h(exp(y3, x2)))),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   --- we have a lot of checking on this round --- where to put them?
+			   --- Next phase may be
+			   -(client1 ; c1_signed ; d1),
+			   +(client2 ; sign(genPriv(client2, fr_s), (h(h(client1 ; client2 ; client3 ; k1_h ;  h(n(client2, fr_k)) ; k3_h) ; h(y1 ; (k1_tr1 xorc (T1 xorc (T3 xorc h(exp(y3, x2))))) ; S1 ; exp(g, x2) ; n(client2, fr_k) ; getPub(genPriv(client2, fr_s)) ; y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3)))) ; (n(client2, fr_r) - (h(h(client1 ; client2 ; client3 ; k1_h ; h(n(client2, fr_k)) ; k3_h) ; h(y1 ; (k1_tr1 xorc (T1 xorc (T3 xorc h(exp(y3, x2))))) ; S1 ; exp(g, x2) ; n(client2, fr_k) ; getPub(genPriv(client2, fr_s)) ; y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3))) * x2)), 
+			   -(client3 ; c3_signed ; d3),
 			   nil ]
 		&
 		--- client3 ---
-		:: nil :: 
-		[nil | -(client1 ; sid ; idM11 ; enc(sessKey, Hello) ; sigM11),
-			   +(client3 ; sid ; h(client3 ; idM11 ; WillWeMeet) ; idM11 ; enc(sessKey, WillWeMeet) ; sign(s3, (client3 ; sid ; h(client3 ; idM11 ; WillWeMeet) ; enc(sessKey, WillWeMeet)))),
-			   -(client2 ; sid ; idM21 ; enc(sessKey, Hi) ; sigM21),
-			   -(client2 ; LostMsgReq ; idM11 ; sigM21Req),
-			   -(client1 ; LostMsgResponse ; sid ; idM11 ; enc(sessKey, Hello) ; sigM11),
-			   nil ] 
+		:: fr_k, fr_s, fr_r :: 
+		[nil | --- Round 1 ---
+			   -(client1 ; k1_h ; y1 ;  S1),
+			   -(client2 ; k2_h ; y2 ;  S2),
+		       +(client3 ; h(n(client3, fr_k)) ; exp(g, x3) ;  getPub(genPriv(client3, fr_s))),
+			   --- Round 2 --- 
+			   -(client1 ; sid1 ; z1),
+			   -(client2 ; sid2 ; z2),
+		       +(client3 ; h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; exp(g, n(client3, fr_r))),
+			   --- Round 3 ---
+			   -(client1 ; k1_tr1 ; T1),
+			   -(client2 ; k2_tr2 ; T2), 
+			   +(client3 ; (n(client3, fr_k) xorc h(exp(y1, x3))) ;  (h(exp(y2, x3)) xorc h(exp(y1, x3)))),
+			   --- Round 4 ---
+			   --- we have a lot of checking on this round --- where to put them?
+			   --- Next phase may be
+			   -(client1 ; c1_signed ; d1),
+			   -(client2 ; c2_signed ; d2),
+			   +(client3 ; sign(genPriv(client3, fr_s), (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; h(y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) ; S1 ; y2 ; (k2_tr2 xorc (T2 xorc (T1 xorc h(exp(y1, x1))))) ; S2 ; exp(g, x3) ; n(client3, fr_k) ; getPub(genPriv(client3, fr_s)))))) ; (n(client3, fr_r) - (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(n(client3, fr_k))) ; h(y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) ; S1 ; y2 ; (k2_tr2 xorc (T2 xorc (T1 xorc h(exp(y1, x1))))) ; S2 ; exp(g, x3) ; n(client3, fr_k) ; getPub(genPriv(client3, fr_s))))) * x3)), 
+			   nil ]
 	[nonexec] .
 	
 	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
 	--- [nonexec] .
 
-	***(
-	eq ATTACK-STATE(0) = --- stealing info for simmKey Generation (k_1)
+	eq ATTACK-STATE(3) = --- stealing info for simmKey Generation (k_1)
 		--- client1 ---
 		:: fr_k, fr_s, fr_r :: 
 		[nil, --- Round 1 ---
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, x1) ;  getPub(genPriv(client1, fr_s))),
+			   -(client2 ; k2_h ; y2 ;  S2),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client1, fr_r))),
+			   -(client2 ; sid2 ; z2),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, x1))) ;  (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
+			   -(client2 ; k2_tr2 ; T2),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3))) * x1))), 
+			   -(client2 ; c2_signed ; d2),
+			   -(client3 ; c3_signed ; d3)   
 			   |
 			   nil ]
+		
 		|| n(client1, fr_k) inI
-		|| nil
-		|| nil
-		|| nil 
-	[nonexec] .
-	
-	eq ATTACK-STATE(1) = --- stealing private part of auth info (x_1)
-		--- client1 ---
-		:: fr_k, fr_s, fr_r :: 
-		[nil, --- Round 1 ---
-			   |
-			   nil ]
-		
-		|| x1 inI
 		
 		|| nil
 		|| nil
 		|| nil 
 	[nonexec] .
 	
-	eq ATTACK-STATE(2) = --- stealing private ephemeral singature key (s_1)
+	eq ATTACK-STATE(4) = --- stealing private ephemeral singature key (s_1)
 		--- client1 ---
 		:: fr_k, fr_s, fr_r :: 
 		[nil, --- Round 1 ---
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, x1) ;  getPub(genPriv(client1, fr_s))),
+			   -(client2 ; k2_h ; y2 ;  S2),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client1, fr_r))),
+			   -(client2 ; sid2 ; z2),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, x1))) ;  (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
+			   -(client2 ; k2_tr2 ; T2),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3))) * x1))), 
+			   -(client2 ; c2_signed ; d2),
+			   -(client3 ; c3_signed ; d3)   
 			   |
 			   nil ]
 		
@@ -253,8 +277,8 @@ fmod PROTOCOL-SPECIFICATION is
 		|| nil
 		|| nil 
 	[nonexec] .
-	)***
 	
+
 endfm
 
 

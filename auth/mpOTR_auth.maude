@@ -49,7 +49,7 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	op sverify : PubKey Msg -> Msg [frozen] .
 	
 	--- Hash function
-	op h : Msg -> Hash .
+	op h : Msg -> Hash [frozen] .
 
   	--- Exponent
   	op exp : Number Number -> Number [frozen] .
@@ -72,7 +72,7 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 endfm
 
 --- Algebraic properties of the protocol
-fmod PROTOCOL-EXAMPLE-ALGBRAIC is
+fmod PROTOCOL-EXAMPLE-ALGEBRAIC is
 	protecting PROTOCOL-EXAMPLE-SYMBOLS .
   
 	--- exponent's property

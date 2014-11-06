@@ -28,10 +28,19 @@ Work in progress:
  * Overall attacks
 
  Questions: 
- * What to do with verification checks? Just omit them? *Logical*
- * What's with the long-term private-public key usage at Auth stage? (!!!)
-   -- May be describe x_i as permanent private Key
-   There is nothing about it yet
+ * OldBlue : Do we send request to only one client or we broadcast it?
+ * OldBlue : Do we send the response to only one lient or we broadcast it?
+ 	For both questions it seems like the answer is "broadcast" because that is
+	what the channel (underlying protocol) allow us to do. Other ways will 
+	require intelligent underlying protocol thus require making our own 
+	channel protocol or limiting the usage of existing ones (not really
+	desirable).
+	* How to distinguish between the message itself and the second message 
+	sended as a response for LostMessageRequest for those clients who
+	have recieved the original one.
+		We need some kind of flag. -- Done
+ * What attacks we can do at Communication phase?
+ 
  * How to describe attack on the deniability feature?
    -- Some kind of that there is no connection between (s_i, S_i) and (x_i, y_i)
       mpCat draft && that paper, depends on the deniability definition.
@@ -42,13 +51,6 @@ Ideas for previous two is
 	  session key and ephemeral private key. Will this be equal to the 
 	  abcence of a proof of that the certain long-term private key has 
 	  participated in particular conversation?
- * What's with Old Blue protocol? (Full description?)
-    Only if we are able to decribe attacks like preventing message delivery or
-	reply attacks or mixing messages attacks, that's not only the channel issue.
- * What other kinds of attacks could be for AKE?
- * (And what kind of features do we support and need to check with the Maude-
-   NPA checker?)
- * I'd really need some kind of variables -- the messages grow bigger and bigger
- * What should I be telling during the presentation the other week?
- * Do we need to make finalization checks like those that we have no more messages in the channel (May be not, that's a realization stuff) or that the transcript is consistent (May be yes, we need to be be consistent at the end,  but only if we use the OldBlue protocol)?
+ *	КАК ОПИСАТЬ, ЕСЛИ НАРУШИТЕЛЬ -- ОДИН ИЗ УЧАСТНИКОВ?? пОПРОБОВАТЬ ТАКИЕ АТАКИ. 
+
 
