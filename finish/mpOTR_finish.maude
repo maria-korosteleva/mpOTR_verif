@@ -1,9 +1,11 @@
 ***(
 	These are the first steps towards mpOTR protocol verification and security
 	analysis.
-	This module focuses on the Communication phase of mpOTR.
-	You can have a look at the phase description online:
+	This module focuses on the Communication and Shutdown phases of mpOTR with
+	attacks on the second one.
+	You can have a look at the phases descriptions online:
 	http://mpotr.secsem.ru/mpOTRDev/CommunicationPhase
+	http://mpotr.secsem.ru/mpOTRDev/Shutdown%20Phase
 
 	The basic version of Communication Phase message is simple ---
 	it a tuple
@@ -26,8 +28,14 @@
 		and the message payload (in this order).
 		
 	We descibe parts of the OldBlue	protocol through the messages' transcript
-	modeling different possible situations. Though we still have a question
-	about the attacks we should perform.
+	modeling different possible situations. 
+
+	The Shutdown phase is quite simple. We just need to 
+	1. Ensure the transcript soundness and indicate the start of shutdown 
+	   phase sending message with shutdown flag and empy payload. 
+	2. Make confirmation check (to ensure that none of the shutdown flags 
+	   were losted) 
+	3. Publish (send in plaintext) private ephemeral keys.
 	
 	To represent the multy-party property of mpOTR we gonna use three 
 	CLients that represent people (or, more spesificly, their chat clients)
@@ -61,7 +69,7 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	op sessKey : -> SimmKey . --- session Key
 	op sid : -> Hash . --- Session ID
 	ops Hello Hi HowAreYou Fine Ok What Where WillWeMeet Yes No AtTheCafe : -> Msg . --- some Examples
-	ops LostMsgReq LostMsgResponse : -> FixedMessage . --- special messages
+	ops LostMsgReq LostMsgResponse Shutdown ShutdownConfirm : -> FixedMessage . --- special messages
 	ops s1 s2 s3 : -> PrivKey .
 
 	--- Nonce operator
@@ -155,6 +163,8 @@ fmod PROTOCOL-SPECIFICATION is
 	vars sigM11 sigM12 sigM13 sigM21 sigM22 sigM23 sigM31 sigM32 sigM33 : Msg .
 	vars sigM21Req : Msg .
 	vars sigM11Response : Msg .
+	vars sig11Shutdown sig21Shutdown sig31Shutdown : Msg .
+	vars sig12Shutdown sig22Shutdown sig32Shutdown : Msg .
 
 	--- Actions an intruder can perform
 	eq STRANDS-DOLEVYAO =
@@ -188,6 +198,19 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client3 ; sid ; idM31 ; idM11 ; enc(sessKey, WillWeMeet) ; sigM31),
 			   -(client2 ; LostMsgReq ; idM11 ; sigM21Req),
 			   +(client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
+			 --- Shutdown phase ---  
+			 --- Start ---
+			   +(client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31 ; sign(s1, (client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31))), --- No payload
+			   -(client2 ; Shutdown ; sid ; idM22 ; idM31 ; idM21 ; sig21Shutdown),
+			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
+			 --- Confirm ---
+			   +(client1 ; ShutdownConfirm ; sid ; sign(s1, (client1 ; ShutdownConfirm ; sid))), 
+			   -(client2 ; ShutdownConfirm ; sid ; sig22Shutdown), 
+			   -(client3 ; ShutdownConfirm ; sid ; sig32Shutdown), 
+			 --- Publish ---
+			   +(client1 ; s1),
+			   -(client2 ; s1),
+			   -(client3 ; s1),
 			   nil ]
 		&	
 		--- client2 ---
@@ -198,15 +221,41 @@ fmod PROTOCOL-SPECIFICATION is
 			   --- realises that client2 do not have the idM11 message!
 			   +(client2 ; LostMsgReq ; idM11 ; sign(s2, (client2 ; LostMsgReq ; idM11))),
 			   -(client1 ; LostMsgResponse ; sid ; idM11 ; enc(sessKey, Hello) ; sigM11Response),
+			 --- Shutdown phase ---  
+			 --- Start ---
+			   +(client2 ; Shutdown ; sid ; h(client2 ; h(client2 ; 0 ; Hi) ; idM31) ; h(client2 ; 0 ; Hi) ; idM31 ; sign(s2, (client2 ; Shutdown ; sid ; h(client2 ; h(client2 ; 0 ; Hi) ; idM31) ; h(client2 ; 0 ; Hi) ; idM31))),
+			   -(client1 ; Shutdown ; sid ; idM12 ; idM31 ; idM21 ; sig11Shutdown),
+			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
+			 --- Confirm ---
+			   -(client1 ; ShutdownConfirm ; sid ; sig12Shutdown), 
+			   +(client2 ; ShutdownConfirm ; sid ; sign(s2, (client2 ; ShutdownConfirm ; sid))), 
+			   -(client3 ; ShutdownConfirm ; sid ; sig32Shutdown), 
+			 --- Publish ---
+			   -(client1 ; s1),
+			   +(client2 ; s1),
+			   -(client3 ; s1),
 			   nil ]
 		&
 		--- client3 ---
 		:: nil :: 
 		[nil | -(client1 ; sid ; idM11 ; enc(sessKey, Hello) ; sigM11),
-			   +(client3 ; sid ; h(client3 ; idM11 ; WillWeMeet) ; idM11 ; enc(sessKey, WillWeMeet) ; sign(s3, (client3 ; sid ; h(client3 ; idM11 ; WillWeMeet) ; enc(sessKey, WillWeMeet)))),
+			   +(client3 ; sid ; h(client3 ; idM11 ; WillWeMeet) ; idM11 ; enc(sessKey, WillWeMeet) ; sign(s3, (client3 ; sid ; h(client3 ; idM11 ; WillWeMeet) ; idM11 ; enc(sessKey, WillWeMeet)))),
 			   -(client2 ; sid ; idM21 ; enc(sessKey, Hi) ; sigM21),
 			   -(client2 ; LostMsgReq ; idM11 ; sigM21Req),
 			   -(client1 ; LostMsgResponse ; sid ; idM11 ; enc(sessKey, Hello) ; sigM11),
+			 --- Shutdown phase ---  
+			 --- Start ---
+			   -(client1 ; Shutdown ; sid ; idM12 ; idM31 ; idM21 ; sig11Shutdown),
+			   -(client2 ; Shutdown ; sid ; idM22 ; idM31 ; idM21 ; sig21Shutdown),
+			   +(client3 ; Shutdown ; sid ; h(client3 ; idM22) ; idM22 ; sign(s3, (client3 ; Shutdown ; sid ; h(client1 ; idM22) ; idM22))), 
+			 --- Confirm ---
+			   -(client1 ; ShutdownConfirm ; sid ; sig12Shutdown), 
+			   -(client2 ; ShutdownConfirm ; sid ; sig22Shutdown), 
+			   +(client3 ; ShutdownConfirm ; sid ; sign(s3, (client3 ; ShutdownConfirm ; sid))), 
+			 --- Publish ---
+			   -(client1 ; s1),
+			   -(client2 ; s1),
+			   +(client3 ; s1),
 			   nil ] 
 	[nonexec] .
 	
