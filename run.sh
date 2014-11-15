@@ -1,7 +1,7 @@
 #!/bin/bash
 # the script assumes two parameters -- $1 is a module name and $2 is 
 # the attack number 
-/home/mary/maude/maude.linux64 > /home/mary/mpOTR_verif/$1/mpOTR_$1_attack0_output.txt <<EOF
+/home/mary/maude/maude.linux64 > /home/mary/mpOTR_verif/$1/mpOTR_$1_attack$2_output.txt <<EOF
 load /home/mary/maude/full-maude26.maude
 load /home/mary/maude-npa-v2_0/maude-npa.maude
 load /home/mary/mpOTR_verif/$1/mpOTR_$1.maude

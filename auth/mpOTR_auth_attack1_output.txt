@@ -3,7 +3,7 @@
 		     /||||||||||||||||||\
 	    Maude 2.6 built: Dec  9 2010 18:28:39
 	    Copyright 1997-2010 SRI International
-		   Fri Oct 31 15:30:18 2014
+		   Thu Nov 13 20:44:35 2014
 Maude> 
 	    Full Maude 2.5b January 14th 2011
 

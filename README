@@ -48,7 +48,7 @@ Work in progress:
    -- No connection between long-term key and session simm key 
 Ideas for previous two is 
       if intruder knows the long-term secret keys she cannot guess the 
-	  session key and ephemeral private key. Will this be equal to the 
+	  session key (attack 0) and ephemeral private key (attack 2). Will this be equal to the 
 	  abcence of a proof of that the certain long-term private key has 
 	  participated in particular conversation?
  *	КАК ОПИСАТЬ, ЕСЛИ НАРУШИТЕЛЬ -- ОДИН ИЗ УЧАСТНИКОВ?? пОПРОБОВАТЬ ТАКИЕ АТАКИ. 

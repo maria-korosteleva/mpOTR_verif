@@ -142,7 +142,10 @@ fmod PROTOCOL-SPECIFICATION is
      	:: nil :: [ nil | -(kpriv), +(getPub( kpriv)), nil ] &
      	:: nil :: [ nil | +(g), nil ] &
      	:: nil :: [ nil | +(0), nil ] &
-     	:: nil :: [ nil | +(N), nil ]
+     	:: nil :: [ nil | +(N), nil ] &
+     	:: nil :: [ nil | +(x1), nil ] &
+     	:: nil :: [ nil | +(x2), nil ] &
+     	:: nil :: [ nil | +(x3), nil ]
 	[nonexec] .
 
 	eq STRANDS-PROTOCOL =
@@ -238,7 +241,7 @@ fmod PROTOCOL-SPECIFICATION is
 			   |
 			   nil ]
 		
-		|| n(client1, fr_k) inI
+		|| n(client1, fr_k) inI --- Part needed for session key
 		
 		|| nil
 		|| nil
@@ -267,7 +270,7 @@ fmod PROTOCOL-SPECIFICATION is
 			   |
 			   nil ]
 		
-		|| x1 inI
+		|| x1 inI --- LT private key
 		
 		|| nil
 		|| nil
@@ -296,7 +299,7 @@ fmod PROTOCOL-SPECIFICATION is
 			   |
 			   nil ]
 		
-		|| genPriv(client1, fr_s) inI
+		|| genPriv(client1, fr_s) inI --- ephemeral private key
 		
 		|| nil
 		|| nil

@@ -49,7 +49,7 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	op sverify : PubKey Msg -> Msg [frozen] .
 	
 	--- Hash function
-	op h : Msg -> Hash .
+	op h : Msg -> Hash [frozen] .
 
   	--- Exponent
   	op exp : Number Number -> Number [frozen] .
@@ -142,11 +142,7 @@ fmod PROTOCOL-SPECIFICATION is
      	:: nil :: [ nil | -(kpriv), +(getPub( kpriv)), nil ] &
      	:: nil :: [ nil | +(g), nil ] &
      	:: nil :: [ nil | +(0), nil ] &
-     	:: nil :: [ nil | +(N), nil ] &
-		--- By this we assume intruder was able to get long-term keys
-     	:: nil :: [ nil | +(x1), nil ] &
-     	:: nil :: [ nil | +(x2), nil ] &
-     	:: nil :: [ nil | +(x3), nil ] 
+     	:: nil :: [ nil | +(N), nil ]
 	[nonexec] .
 
 	eq STRANDS-PROTOCOL =
@@ -220,7 +216,7 @@ fmod PROTOCOL-SPECIFICATION is
 	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
 	--- [nonexec] .
 
-	eq ATTACK-STATE(3) = --- stealing info for simmKey Generation (k_1)
+	eq ATTACK-STATE(0) = --- stealing info for simmKey Generation (k_1)
 		--- client1 ---
 		:: fr_k, fr_s, fr_r :: 
 		[nil, --- Round 1 ---
@@ -242,14 +238,14 @@ fmod PROTOCOL-SPECIFICATION is
 			   |
 			   nil ]
 		
-		|| n(client1, fr_k) inI
+		|| n(client1, fr_k) inI --- Part needed for session key
 		
 		|| nil
 		|| nil
 		|| nil 
 	[nonexec] .
 	
-	eq ATTACK-STATE(4) = --- stealing private ephemeral singature key (s_1)
+	eq ATTACK-STATE(1) = --- stealing private part of auth info (x_1)
 		--- client1 ---
 		:: fr_k, fr_s, fr_r :: 
 		[nil, --- Round 1 ---
@@ -271,7 +267,36 @@ fmod PROTOCOL-SPECIFICATION is
 			   |
 			   nil ]
 		
-		|| genPriv(client1, fr_s) inI
+		|| x1 inI --- LT private key
+		
+		|| nil
+		|| nil
+		|| nil 
+	[nonexec] .
+	
+	eq ATTACK-STATE(2) = --- stealing private ephemeral singature key (s_1)
+		--- client1 ---
+		:: fr_k, fr_s, fr_r :: 
+		[nil, --- Round 1 ---
+		       +(client1 ; h(n(client1, fr_k)) ; exp(g, x1) ;  getPub(genPriv(client1, fr_s))),
+			   -(client2 ; k2_h ; y2 ;  S2),
+			   -(client3 ; k3_h ; y3 ;  S3),
+			   --- Round 2 --- 
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; exp(g, n(client1, fr_r))),
+			   -(client2 ; sid2 ; z2),
+			   -(client3 ; sid3 ; z3),
+			   --- Round 3 ---
+			   +(client1 ; (n(client1, fr_k) xorc h(exp(y2, x1))) ;  (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
+			   -(client2 ; k2_tr2 ; T2),
+			   -(client3 ; k3_tr3 ; T3), 
+			   --- Round 4 ---
+			   +(client1 ; sign(genPriv(client1, fr_s), (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3)))) ; (n(client1, fr_r) - ((h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))); S2 ; y3 ; (k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))) ; S3))) * x1))), 
+			   -(client2 ; c2_signed ; d2),
+			   -(client3 ; c3_signed ; d3)   
+			   |
+			   nil ]
+		
+		|| genPriv(client1, fr_s) inI --- ephemeral private key
 		
 		|| nil
 		|| nil

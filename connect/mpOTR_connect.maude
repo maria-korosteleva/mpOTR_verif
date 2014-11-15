@@ -24,13 +24,14 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 	protecting DEFINITION-PROTOCOL-RULES .
 
 	--- Sort Information
-	sorts Name FixedMessage .
-	subsort Name FixedMessage < Msg .
+	sorts Name FixedMessage Key .
+	subsort Name FixedMessage Key < Msg .
 	subsort Name < Public . --- means that Name info is publicly availible
 	subsort FixedMessage < Public .
 
 	--- Principals -- name constants
 	ops client-1 client-2 client-3 intruder : -> Name .
+	op x1 : -> Key .
 
 	--- [Get] Fixed Message
 	op fxMess : -> FixedMessage .
@@ -41,7 +42,7 @@ fmod PROTOCOL-EXAMPLE-SYMBOLS is
 endfm
 
 --- Algebraic properties of the protocol
-fmod PROTOCOL-EXAMPLE-ALGBRAIC is
+fmod PROTOCOL-EXAMPLE-ALGEBRAIC is
 	protecting PROTOCOL-EXAMPLE-SYMBOLS .
 
 endfm
@@ -62,7 +63,8 @@ fmod PROTOCOL-SPECIFICATION is
 		:: nil :: [ nil | -(M1 ; M2), +(M2), nil ] &
 		:: nil :: [ nil | -(M1), -(M2), +(M1 ; M2), nil ] &
 		:: nil :: [ nil | +(fM), nil ] &
-		:: nil :: [ nil | +(N), nil ]
+		:: nil :: [ nil | +(N), nil ] &
+		:: nil :: [ nil | +(x1), nil ] 
 	[nonexec] .
 
 	eq STRANDS-PROTOCOL =
@@ -110,6 +112,17 @@ fmod PROTOCOL-SPECIFICATION is
 			   +(client-2 ; fxMess),
 			   -(Name2 ; fxMess) | nil]
 		|| Name2 != client-3 
+		|| nil
+		|| nil
+		|| nil
+	[nonexec] .
+	
+	eq ATTACK-STATE(3) =
+		:: nil ::
+		[nil,  -(Name1 ; fxMess),
+			   +(client-2 ; fxMess),
+			   -(Name2 ; fxMess) | nil]
+		|| x1 inI
 		|| nil
 		|| nil
 		|| nil

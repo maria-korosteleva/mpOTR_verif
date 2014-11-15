@@ -1,0 +1,668 @@
+		     \||||||||||||||||||/
+		   --- Welcome to Maude ---
+		     /||||||||||||||||||\
+	    Maude 2.6 built: Dec  9 2010 18:28:39
+	    Copyright 1997-2010 SRI International
+		   Thu Nov 13 20:43:04 2014
+Maude> 
+	    Full Maude 2.5b January 14th 2011
+
+
+	    Maude-NPA Version: 11/26/2011
+	    Copyright (c) 2012, University of Illinois
+	    All rights reserved.
+
+==========================================
+reduce in MAUDE-NPA : genGrammars .
+rewrites: 100064 in 432ms cpu (450ms real) (231629 rewrites/second)
+result GrammarList: (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => (#0:Msg ; #1:Msg) inL .)
+| (
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => (#1:Msg ; #0:Msg) inL .)
+| errorNoHeuristicApplied {
+grl empty => (#1:Msg ; #2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .} usingGrammar 
+grl empty => (#1:Msg ; #2:Msg) inL .
+==========================================
+reduce in MAUDE-NPA : run(3, 0) .
+rewrites: 2358 in 28ms cpu (31ms real) (84214 rewrites/second)
+result IdSystem: < 1 > 
+:: nil ::
+[ nil, 
+   -(Name1:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(Name2:Name ; fxMess) | nil] 
+|| 
+x1 inI
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : summary(3, 1) .
+rewrites: 74806 in 264ms cpu (271ms real) (283356 rewrites/second)
+result Summary: States>> 2 Solutions>> 1
+==========================================
+reduce in MAUDE-NPA : summary(3, 2) .
+rewrites: 14316 in 24ms cpu (23ms real) (596500 rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 3) .
+rewrites: 207 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 4) .
+rewrites: 175 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 5) .
+rewrites: 175 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 6) .
+rewrites: 175 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 7) .
+rewrites: 175 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 8) .
+rewrites: 175 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 9) .
+rewrites: 175 in 4ms cpu (0ms real) (43750 rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 10) .
+rewrites: 175 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 11) .
+rewrites: 175 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : summary(3, 12) .
+rewrites: 175 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 2 Solutions>> 2
+==========================================
+reduce in MAUDE-NPA : run(3, 1) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil, 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess) | 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 2) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 3) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 4) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 5) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 6) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 7) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 8) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 9) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 10) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 11) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run(3, 12) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 11 > 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] 
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(x1), 
+generatedByIntruder(#1:Name ; fxMess), 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil)
+< 1 . 1 . 1 > (
+:: nil ::
+[ nil | 
+   +(x1), nil]  & 
+:: nil ::
+[ nil | 
+   -(#0:Name ; fxMess), 
+   +(client-2 ; fxMess), 
+   -(#1:Name ; fxMess), nil] )
+|| 
+x1 !inI,
+(#1:Name ; fxMess) !inI,
+(#0:Name ; fxMess) !inI
+|| 
+generatedByIntruder(#0:Name ; fxMess), 
+-(#0:Name ; fxMess), 
++(client-2 ; fxMess), 
+generatedByIntruder(#1:Name ; fxMess), 
++(x1), 
+-(#1:Name ; fxMess)
+|| 
+nil
+|| 
+nil
+Maude> Bye.
