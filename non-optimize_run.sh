@@ -1,10 +1,10 @@
 #!/bin/bash
 # the script assumes two parameters -- $1 is a module name and $2 is 
 # the attack number 
-/home/mary/maude/maude.linux64 > /home/mary/mpOTR_verif/$1/mpOTR_$1_attack0_output.txt <<EOF
-load /home/mary/maude/full-maude26.maude
-load /home/mary/maude-npa-v2_0/maude-npa.maude
-load /home/mary/mpOTR_verif/$1/mpOTR_$1.maude
+maude/maude.linux64 > $1/mpOTR_$1_attack0_output.txt <<EOF
+load maude/full-maude26.maude
+load maude-npa-v2_0/maude-npa.maude
+load $1/mpOTR_$1.maude
 red genGrammars .
 red run($2, 0, none) .
 red summary($2, 1, none) .

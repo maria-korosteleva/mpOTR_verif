@@ -3,14 +3,7 @@
 		     /||||||||||||||||||\
 	    Maude 2.6 built: Dec  9 2010 18:28:39
 	    Copyright 1997-2010 SRI International
-		   Fri Nov 21 17:56:30 2014
+		   Sun Nov 23 00:10:03 2014
 Maude> 
 	    Full Maude 2.5b January 14th 2011
 
-
-	    Maude-NPA Version: 11/26/2011
-	    Copyright (c) 2012, University of Illinois
-	    All rights reserved.
-
-==========================================
-reduce in MAUDE-NPA : genGrammars .

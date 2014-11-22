@@ -1,0 +1,350 @@
+real	24m16.302s
+user	24m11.132s
+sys	0m2.872s
+
+			 \||||||||||||||||||/
+		   --- Welcome to Maude ---
+		     /||||||||||||||||||\
+	    Maude 2.6 built: Dec  9 2010 18:28:39
+	    Copyright 1997-2010 SRI International
+		   Fri Nov 21 14:00:45 2014
+Maude> 
+	    Full Maude 2.5b January 14th 2011
+
+
+	    Maude-NPA Version: 11/26/2011
+	    Copyright (c) 2012, University of Illinois
+	    All rights reserved.
+
+==========================================
+reduce in MAUDE-NPA : genGrammars .
+rewrites: 264712010 in 1430328ms cpu (1449177ms real) (185070 rewrites/second)
+result GrammarList: (errorNoHeuristicApplied {
+grl #0:Number inL => (#1:Number xorc #0:Number) inL .,none,
+grl #0:Number inL => (#1:Number,#0:Number) inL .,none,
+grl (#3:Number * #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq getPub(#4:PrivKey)), (#0:Number notLeq h(#5:Msg)), (
+    #0:Number notLeq n(intruder, #6:Fresh)), (#0:Number notLeq genPriv(
+    intruder, #7:Fresh)), (#0:Number notLeq exp(#8:Gen, #9:Number)), (#0:Number
+    notLeq #10:Number + #11:Number), (#0:Number notLeq (#12:Number -
+    #13:Number)), (#0:Number notLeq #14:Number xorc #15:Number), (#3:Number *
+    #0:Number) notLeq #16:Number * #17:Number => (#1:Number,#0:Number) inL .}
+    usingGrammar 
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    getPub(#1:PrivKey)), (#0:Number notLeq h(#2:Msg)), (#0:Number notLeq n(
+    intruder, #3:Fresh)), (#0:Number notLeq genPriv(intruder, #4:Fresh)), (
+    #0:Number notLeq exp(#5:Gen, #6:Number)), (#0:Number notLeq #7:Number *
+    #8:Number), (#0:Number notLeq #9:Number + #10:Number), (#0:Number notLeq (
+    #11:Number - #12:Number)), #0:Number notLeq #13:Number xorc #14:Number => (
+    #0:Number * #15:Number) inL . ; 
+grl (#1:Number * #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq getPub(#2:PrivKey)), (#0:Number notLeq h(#3:Msg)), (
+    #0:Number notLeq n(intruder, #4:Fresh)), (#0:Number notLeq genPriv(
+    intruder, #5:Fresh)), (#0:Number notLeq exp(#6:Gen, #7:Number)), (#0:Number
+    notLeq #8:Number + #9:Number), (#0:Number notLeq (#10:Number -
+    #11:Number)), (#0:Number notLeq #12:Number xorc #13:Number), (#1:Number *
+    #0:Number) notLeq #14:Number * #15:Number => #0:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number * #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number * #2:Number) inL .)
+| (errorNoHeuristicApplied {
+grl #0:Number inL => (#1:Number xorc #0:Number) inL .,none,
+grl #0:Number inL => (#1:Number,#0:Number) inL .,none,
+grl (#3:Number + #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq getPub(#4:PrivKey)), (#0:Number notLeq h(#5:Msg)), (
+    #0:Number notLeq n(intruder, #6:Fresh)), (#0:Number notLeq genPriv(
+    intruder, #7:Fresh)), (#0:Number notLeq exp(#8:Gen, #9:Number)), (#0:Number
+    notLeq #10:Number * #11:Number), (#0:Number notLeq (#12:Number -
+    #13:Number)), (#0:Number notLeq #14:Number xorc #15:Number), (#3:Number +
+    #0:Number) notLeq #16:Number + #17:Number => (#1:Number,#0:Number) inL .}
+    usingGrammar 
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    getPub(#1:PrivKey)), (#0:Number notLeq h(#2:Msg)), (#0:Number notLeq n(
+    intruder, #3:Fresh)), (#0:Number notLeq genPriv(intruder, #4:Fresh)), (
+    #0:Number notLeq exp(#5:Gen, #6:Number)), (#0:Number notLeq #7:Number *
+    #8:Number), (#0:Number notLeq #9:Number + #10:Number), (#0:Number notLeq (
+    #11:Number - #12:Number)), #0:Number notLeq #13:Number xorc #14:Number => (
+    #0:Number + #15:Number) inL . ; 
+grl (#1:Number + #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq getPub(#2:PrivKey)), (#0:Number notLeq h(#3:Msg)), (
+    #0:Number notLeq n(intruder, #4:Fresh)), (#0:Number notLeq genPriv(
+    intruder, #5:Fresh)), (#0:Number notLeq exp(#6:Gen, #7:Number)), (#0:Number
+    notLeq #8:Number * #9:Number), (#0:Number notLeq (#10:Number -
+    #11:Number)), (#0:Number notLeq #12:Number xorc #13:Number), (#1:Number +
+    #0:Number) notLeq #14:Number + #15:Number => #0:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number + #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number + #2:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+grl #0:Number notInI => (#0:Number - #1:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+grl #0:Number notInI => (#1:Number - #0:Number) inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number - #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number - #2:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq h(n(client1, #1:Fresh))), #0:Msg notLeq exp(
+    g, x1) => (#0:Msg ; #2:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq getPub(genPriv(client1, #1:Fresh))), (#0:Msg
+    notLeq h(n(client1, #2:Fresh)) ; exp(g, x1) ; getPub(genPriv(client1,
+    #3:Fresh))), #0:Msg notLeq exp(g, x1) ; getPub(genPriv(client1, #4:Fresh))
+    => (#5:Msg ; #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Msg ; #2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .} usingGrammar 
+grl empty => (#1:Msg ; #2:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl #0:Number inL => (#1:Number xorc #0:Number) inL .,none,
+grl #0:Number inL => (#1:Number,#0:Number) inL .,none,
+grl (#3:Number xorc #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq
+    x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    getPub(#4:PrivKey)), (#0:Number notLeq h(#5:Msg)), (#0:Number notLeq n(
+    intruder, #6:Fresh)), (#0:Number notLeq genPriv(intruder, #7:Fresh)), (
+    #0:Number notLeq exp(#8:Gen, #9:Number)), (#0:Number notLeq #10:Number *
+    #11:Number), (#0:Number notLeq #12:Number + #13:Number), (#0:Number notLeq
+    (#14:Number - #15:Number)), (#3:Number xorc #0:Number) notLeq #16:Number
+    xorc #17:Number => (#1:Number,#0:Number) inL .} usingGrammar 
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq x1), (#0:Number
+    notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq getPub(#1:PrivKey)), (
+    #0:Number notLeq h(#2:Msg)), (#0:Number notLeq n(intruder, #3:Fresh)), (
+    #0:Number notLeq genPriv(intruder, #4:Fresh)), (#0:Number notLeq exp(
+    #5:Gen, #6:Number)), (#0:Number notLeq #7:Number * #8:Number), (#0:Number
+    notLeq #9:Number + #10:Number), (#0:Number notLeq (#11:Number -
+    #12:Number)), #0:Number notLeq #13:Number xorc #14:Number => (#0:Number
+    xorc #15:Number) inL . ; 
+grl (#1:Number xorc #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq
+    x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    getPub(#2:PrivKey)), (#0:Number notLeq h(#3:Msg)), (#0:Number notLeq n(
+    intruder, #4:Fresh)), (#0:Number notLeq genPriv(intruder, #5:Fresh)), (
+    #0:Number notLeq exp(#6:Gen, #7:Number)), (#0:Number notLeq #8:Number *
+    #9:Number), (#0:Number notLeq #10:Number + #11:Number), (#0:Number notLeq (
+    #12:Number - #13:Number)), (#1:Number xorc #0:Number) notLeq #14:Number
+    xorc #15:Number => #0:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number xorc #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number xorc #2:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:SimmKey notInI => dec(#0:SimmKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => dec(#1:SimmKey, #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => dec(#1:SimmKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .} usingGrammar 
+grl empty => dec(#1:SimmKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:SimmKey notInI => enc(#0:SimmKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => enc(#1:SimmKey, #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => enc(#1:SimmKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .} usingGrammar 
+grl empty => enc(#1:SimmKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+grl #0:Number notInI => exp(#0:Number, #1:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+grl #0:Number notInI, #0:Number notLeq x1 => exp(#1:Number, #0:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+grl exp(#0:Number, #1:Number) notLeq exp(#2:Gen, #3:Number) => exp(#0:Number,
+    #1:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PrivKey inL => (#1:Number xorc #0:PrivKey) inL . ; 
+grl genPriv(#0:Name, #1:Fresh) notLeq genPriv(intruder, #2:Fresh) => genPriv(
+    #0:Name, #1:Fresh) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PubKey inL => (#1:Number xorc #0:PubKey) inL . ; 
+grl #0:PrivKey notInI, #0:PrivKey notLeq genPriv(client1, #1:Fresh) => getPub(
+    #0:PrivKey) inL .)
+| (errorNoHeuristicApplied {
+grl empty => getPub(#1:PrivKey) inL .,none,
+grl empty => #1:PrivKey inL .,none,
+grl empty => #1:PrivKey inL .} usingGrammar 
+grl empty => getPub(#1:PrivKey) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Hash inL => (#0:Hash xorc #1:Number) inL . ; 
+grl #0:Msg notInI, #0:Msg notLeq n(client1, #1:Fresh) => h(#0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => h(#1:Msg) inL .,none,
+grl empty => #1:Msg inL .,none,
+grl empty => #1:Msg inL .} usingGrammar 
+grl empty => h(#1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Nonce inL => (#1:Number xorc #0:Nonce) inL . ; 
+grl n(#0:Name, #1:Fresh) notLeq n(intruder, #2:Fresh) => n(#0:Name, #1:Fresh)
+    inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PrivKey notInI => sign(#0:PrivKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => sign(#1:PrivKey, #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => sign(#1:PrivKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:PrivKey) inL .,none,
+grl empty => (#2:Msg,#1:PrivKey) inL .} usingGrammar 
+grl empty => sign(#1:PrivKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PubKey notInI => sverify(#0:PubKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => sverify(#1:PubKey, #0:Msg) inL .)
+| errorNoHeuristicApplied {
+grl empty => sverify(#1:PubKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:PubKey) inL .,none,
+grl empty => (#2:Msg,#1:PubKey) inL .} usingGrammar 
+grl empty => sverify(#1:PubKey, #2:Msg) inL .
+Maude> Bye.
