@@ -225,7 +225,7 @@ fmod PROTOCOL-SPECIFICATION is
 			 --- Shutdown phase ---  
 			 --- Start ---
 			   -(client1 ; Shutdown ; sid ; idM12 ; idM21 ; idM31 ; sig11Shutdown),
-			   +(client2 ; Shutdown ; sid ; h(client2 ; id12 ; h(client2 ; 0 ; Hi) ; idM31) ; idM12 ; h(client2 ; 0 ; Hi) ; idM31 ; sign(s2, (client2 ; Shutdown ; sid ; h(client2 ; idM12 ; h(client2 ; 0 ; Hi) ; idM31) ; idM12 ; h(client2 ; 0 ; Hi) ; idM31))),
+			   +(client2 ; Shutdown ; sid ; h(client2 ; idM12 ; h(client2 ; 0 ; Hi) ; idM31) ; idM12 ; h(client2 ; 0 ; Hi) ; idM31 ; sign(s2, (client2 ; Shutdown ; sid ; h(client2 ; idM12 ; h(client2 ; 0 ; Hi) ; idM31) ; idM12 ; h(client2 ; 0 ; Hi) ; idM31))),
 			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
 			 --- Confirm ---
 			   -(client1 ; ShutdownConfirm ; sid ; sig12Shutdown), 
