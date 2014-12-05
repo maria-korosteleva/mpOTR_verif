@@ -158,7 +158,8 @@ fmod PROTOCOL-SPECIFICATION is
 	vars fr fr_k fr_r fr_s : Fresh .
 	vars k1_h k2_h k3_h sid1 sid2 sid3 : Hash .
 	vars c1_signed c2_signed c3_signed : Msg .
-
+	--- signatures and messagies
+	--- The first digit is the client's number, the second - number of the message 
 	vars idM11 idM12 idM13 idM21 idM22 idM23 idM31 idM32 idM33 : Hash .
 	vars sigM11 sigM12 sigM13 sigM21 sigM22 sigM23 sigM31 sigM32 sigM33 : Msg .
 	vars sigM21Req : Msg .
@@ -201,7 +202,7 @@ fmod PROTOCOL-SPECIFICATION is
 			 --- Shutdown phase ---  
 			 --- Start ---
 			   +(client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31 ; sign(s1, (client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31))), --- No payload
-			   -(client2 ; Shutdown ; sid ; idM22 ; idM31 ; idM21 ; sig21Shutdown),
+			   -(client2 ; Shutdown ; sid ; idM22 ; idM12; idM21 ; idM31 ; sig21Shutdown),
 			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
 			 --- Confirm ---
 			   +(client1 ; ShutdownConfirm ; sid ; sign(s1, (client1 ; ShutdownConfirm ; sid))), 
@@ -209,8 +210,8 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client3 ; ShutdownConfirm ; sid ; sig32Shutdown), 
 			 --- Publish ---
 			   +(client1 ; s1),
-			   -(client2 ; s1),
-			   -(client3 ; s1),
+			   -(client2 ; s2),
+			   -(client3 ; s3),
 			   nil ]
 		&	
 		--- client2 ---
@@ -223,8 +224,8 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client1 ; LostMsgResponse ; sid ; idM11 ; enc(sessKey, Hello) ; sigM11Response),
 			 --- Shutdown phase ---  
 			 --- Start ---
-			   +(client2 ; Shutdown ; sid ; h(client2 ; h(client2 ; 0 ; Hi) ; idM31) ; h(client2 ; 0 ; Hi) ; idM31 ; sign(s2, (client2 ; Shutdown ; sid ; h(client2 ; h(client2 ; 0 ; Hi) ; idM31) ; h(client2 ; 0 ; Hi) ; idM31))),
-			   -(client1 ; Shutdown ; sid ; idM12 ; idM31 ; idM21 ; sig11Shutdown),
+			   -(client1 ; Shutdown ; sid ; idM12 ; idM21 ; idM31 ; sig11Shutdown),
+			   +(client2 ; Shutdown ; sid ; h(client2 ; id12 ; h(client2 ; 0 ; Hi) ; idM31) ; idM12 ; h(client2 ; 0 ; Hi) ; idM31 ; sign(s2, (client2 ; Shutdown ; sid ; h(client2 ; idM12 ; h(client2 ; 0 ; Hi) ; idM31) ; idM12 ; h(client2 ; 0 ; Hi) ; idM31))),
 			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
 			 --- Confirm ---
 			   -(client1 ; ShutdownConfirm ; sid ; sig12Shutdown), 
@@ -232,8 +233,8 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client3 ; ShutdownConfirm ; sid ; sig32Shutdown), 
 			 --- Publish ---
 			   -(client1 ; s1),
-			   +(client2 ; s1),
-			   -(client3 ; s1),
+			   +(client2 ; s2),
+			   -(client3 ; s3),
 			   nil ]
 		&
 		--- client3 ---
@@ -245,8 +246,8 @@ fmod PROTOCOL-SPECIFICATION is
 			   -(client1 ; LostMsgResponse ; sid ; idM11 ; enc(sessKey, Hello) ; sigM11),
 			 --- Shutdown phase ---  
 			 --- Start ---
-			   -(client1 ; Shutdown ; sid ; idM12 ; idM31 ; idM21 ; sig11Shutdown),
-			   -(client2 ; Shutdown ; sid ; idM22 ; idM31 ; idM21 ; sig21Shutdown),
+			   -(client1 ; Shutdown ; sid ; idM12 ; idM21 ; idM31 ; sig11Shutdown),
+			   -(client2 ; Shutdown ; sid ; idM22 ; idM12 ; idM21 ; idM31 ; sig21Shutdown),
 			   +(client3 ; Shutdown ; sid ; h(client3 ; idM22) ; idM22 ; sign(s3, (client3 ; Shutdown ; sid ; h(client1 ; idM22) ; idM22))), 
 			 --- Confirm ---
 			   -(client1 ; ShutdownConfirm ; sid ; sig12Shutdown), 
@@ -254,8 +255,8 @@ fmod PROTOCOL-SPECIFICATION is
 			   +(client3 ; ShutdownConfirm ; sid ; sign(s3, (client3 ; ShutdownConfirm ; sid))), 
 			 --- Publish ---
 			   -(client1 ; s1),
-			   -(client2 ; s1),
-			   +(client3 ; s1),
+			   -(client2 ; s2),
+			   +(client3 ; s3),
 			   nil ] 
 	[nonexec] .
 	
