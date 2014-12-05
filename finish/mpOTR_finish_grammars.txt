@@ -3,7 +3,7 @@
 		     /||||||||||||||||||\
 	    Maude 2.6 built: Dec  9 2010 18:28:39
 	    Copyright 1997-2010 SRI International
-		   Fri Dec  5 13:54:38 2014
+		   Fri Dec  5 14:01:43 2014
 Maude> 
 	    Full Maude 2.5b January 14th 2011
 
@@ -14,7 +14,7 @@ Maude>
 
 ==========================================
 reduce in MAUDE-NPA : genGrammars .
-rewrites: 7580 in 104ms cpu (101ms real) (72880 rewrites/second)
+rewrites: 7580 in 96ms cpu (97ms real) (78953 rewrites/second)
 result GrammarList: errorInProtocolStrands
 | errorInProtocolStrands
 | errorInProtocolStrands

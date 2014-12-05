@@ -202,7 +202,7 @@ fmod PROTOCOL-SPECIFICATION is
 			 --- Shutdown phase ---  
 			 --- Start ---
 			   +(client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31 ; sign(s1, (client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31))), --- No payload
-			   -(client2 ; Shutdown ; sid ; idM22 ; idM12; idM21 ; idM31 ; sig21Shutdown),
+			   -(client2 ; Shutdown ; sid ; idM22 ; idM12 ; idM21 ; idM31 ; sig21Shutdown),
 			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
 			 --- Confirm ---
 			   +(client1 ; ShutdownConfirm ; sid ; sign(s1, (client1 ; ShutdownConfirm ; sid))), 
