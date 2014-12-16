@@ -5,7 +5,7 @@ maude/maude.linux64 > $1/mpOTR_$1_attack$2_output.txt <<EOF
 load maude/full-maude26.maude
 load maude-npa-v2_0/maude-npa.maude
 load $1/mpOTR_$1.maude
-red genGrammars .
+#red genGrammars .
 red run($2, 0) .
 red summary($2, 1) .
 red summary($2, 2) .

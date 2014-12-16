@@ -263,19 +263,941 @@ fmod PROTOCOL-SPECIFICATION is
 	--- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
 	--- [nonexec] .
 
-	***(
-	eq ATTACK-STATE(0) = --- stealing info for simmKey Generation (k_1)
+	eq GENERATED-GRAMMARS =
+		(
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+		grl #0:Number notInI => (#0:Number - #1:Number) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+		grl #0:Number notInI => (#1:Number - #0:Number) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq sid), (#0:Msg notLeq h(client1 ; #1:Hash)), (
+		    #0:Msg notLeq h(client1 ; 0 ; Hello)), (#0:Msg notLeq h(client1 ; #2:Hash ;
+		    #3:Hash)), (#0:Msg notLeq h(client2 ; 0 ; Hi)), (#0:Msg notLeq h(client2 ;
+		    #4:Hash ; h(client2 ; 0 ; Hi) ; #5:Hash)), (#0:Msg notLeq h(client3 ;
+		    #6:Hash)), (#0:Msg notLeq h(client3 ; #7:Hash ; WillWeMeet)), (#0:Msg
+		    notLeq enc(sessKey, Hello)), (#0:Msg notLeq enc(sessKey, Hi)), #0:Msg
+		    notLeq enc(sessKey, WillWeMeet) => (#0:Msg ; #8:Msg) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq s1), (#0:Msg notLeq s2), (#0:Msg notLeq s3),
+		    (#0:Msg notLeq #1:Hash), (#0:Msg notLeq enc(sessKey, Hello)), (#0:Msg
+		    notLeq enc(sessKey, Hi)), (#0:Msg notLeq enc(sessKey, WillWeMeet)), (#0:Msg
+		    notLeq sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey,
+		    Hello))), (#0:Msg notLeq sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sign(s1,
+		    client1 ; Shutdown ; sid ; h(client1 ; #2:Hash ; #3:Hash) ; #2:Hash ;
+		    #3:Hash)), (#0:Msg notLeq sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey,
+		    Hi))), (#0:Msg notLeq sign(s2, client2 ; LostMsgReq ; #4:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #5:Hash ; h(client2
+		    ; 0 ; Hi) ; #6:Hash) ; #5:Hash ; h(client2 ; 0 ; Hi) ; #6:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sign(s3,
+		    client3 ; sid ; h(client3 ; #7:Hash ; WillWeMeet) ; #7:Hash ; enc(sessKey,
+		    WillWeMeet))), (#0:Msg notLeq sign(s3, client3 ; Shutdown ; sid ; h(client1
+		    ; #8:Hash) ; #8:Hash)), (#0:Msg notLeq sign(s3, client3 ; ShutdownConfirm ;
+		    sid)), (#0:Msg notLeq sid ; sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sid ; sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg
+		    notLeq sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sid
+		    ; h(client1 ; #9:Hash) ; #9:Hash), (#0:Msg notLeq sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello)
+		    ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1 ; 0
+		    ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; #10:Hash
+		    ; #11:Hash) ; #10:Hash ; #11:Hash), (#0:Msg notLeq sid ; h(client1 ;
+		    #12:Hash ; #13:Hash) ; #12:Hash ; #13:Hash ; sign(s1, client1 ; Shutdown ;
+		    sid ; h(client1 ; #12:Hash ; #13:Hash) ; #12:Hash ; #13:Hash)), (#0:Msg
+		    notLeq sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq sid ;
+		    h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(s2, client2 ; sid ; h(client2
+		    ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg notLeq sid ; h(client2 ; #14:Hash ;
+		    h(client2 ; 0 ; Hi) ; #15:Hash) ; #14:Hash ; h(client2 ; 0 ; Hi) ;
+		    #15:Hash), (#0:Msg notLeq sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi)
+		    ; #17:Hash) ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash ; sign(s2, client2
+		    ; Shutdown ; sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash) ;
+		    #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash)), (#0:Msg notLeq sid ; h(client3
+		    ; #18:Hash) ; #18:Hash ; sign(s3, client3 ; Shutdown ; sid ; h(client1 ;
+		    #18:Hash) ; #18:Hash)), (#0:Msg notLeq sid ; h(client3 ; #19:Hash ;
+		    WillWeMeet) ; #19:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq sid ; h(
+		    client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq LostMsgReq ; #21:Hash), (#0:Msg
+		    notLeq LostMsgReq ; #22:Hash ; sign(s2, client2 ; LostMsgReq ; #22:Hash)),
+		    (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello)), (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ;
+		    h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq Shutdown ;
+		    sid ; h(client1 ; #23:Hash) ; #23:Hash), (#0:Msg notLeq Shutdown ; sid ; h(
+		    client1 ; #24:Hash ; #25:Hash) ; #24:Hash ; #25:Hash), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ; #26:Hash ; #27:Hash ;
+		    sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ;
+		    #26:Hash ; #27:Hash)), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #28:Hash
+		    ; h(client2 ; 0 ; Hi) ; #29:Hash) ; #28:Hash ; h(client2 ; 0 ; Hi) ;
+		    #29:Hash), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2
+		    ; 0 ; Hi) ; #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash ; sign(
+		    s2, client2 ; Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2 ; 0 ; Hi) ;
+		    #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash)), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client3 ; #32:Hash) ; #32:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #32:Hash) ; #32:Hash)), (#0:Msg notLeq
+		    ShutdownConfirm ; sid), (#0:Msg notLeq ShutdownConfirm ; sid ; sign(s1,
+		    client1 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm ; sid ;
+		    sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm
+		    ; sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq #33:Hash
+		    ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq #34:Hash ; enc(sessKey,
+		    WillWeMeet) ; sign(s3, client3 ; sid ; h(client3 ; #34:Hash ; WillWeMeet) ;
+		    #34:Hash ; enc(sessKey, WillWeMeet))), (#0:Msg notLeq #36:Hash ; #37:Hash),
+		    (#0:Msg notLeq #35:Hash ; sign(s2, client2 ; LostMsgReq ; #35:Hash)), (
+		    #0:Msg notLeq #38:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ;
+		    #39:Hash ; #38:Hash) ; #39:Hash ; #38:Hash)), (#0:Msg notLeq #40:Hash ;
+		    #41:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #40:Hash ;
+		    #41:Hash) ; #40:Hash ; #41:Hash)), (#0:Msg notLeq #42:Hash ; sign(s2,
+		    client2 ; Shutdown ; sid ; h(client2 ; #43:Hash ; h(client2 ; 0 ; Hi) ;
+		    #42:Hash) ; #43:Hash ; h(client2 ; 0 ; Hi) ; #42:Hash)), (#0:Msg notLeq
+		    #44:Hash ; h(client2 ; 0 ; Hi) ; #45:Hash), (#0:Msg notLeq #46:Hash ; h(
+		    client2 ; 0 ; Hi) ; #47:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(
+		    client2 ; #46:Hash ; h(client2 ; 0 ; Hi) ; #47:Hash) ; #46:Hash ; h(client2
+		    ; 0 ; Hi) ; #47:Hash)), (#0:Msg notLeq #48:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #48:Hash) ; #48:Hash)), (#0:Msg notLeq h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1
+		    ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; #49:Hash ;
+		    #50:Hash) ; #49:Hash ; #50:Hash), (#0:Msg notLeq h(client1 ; #51:Hash ;
+		    #52:Hash) ; #51:Hash ; #52:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(
+		    client1 ; #51:Hash ; #52:Hash) ; #51:Hash ; #52:Hash)), (#0:Msg notLeq h(
+		    client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ;
+		    #53:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #54:Hash ; h(
+		    client2 ; 0 ; Hi) ; #53:Hash) ; #54:Hash ; h(client2 ; 0 ; Hi) ;
+		    #53:Hash)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(
+		    s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg
+		    notLeq h(client2 ; #55:Hash ; h(client2 ; 0 ; Hi) ; #56:Hash) ; #55:Hash ;
+		    h(client2 ; 0 ; Hi) ; #56:Hash), (#0:Msg notLeq h(client2 ; #57:Hash ; h(
+		    client2 ; 0 ; Hi) ; #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash ;
+		    sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #57:Hash ; h(client2 ; 0 ;
+		    Hi) ; #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash)), (#0:Msg
+		    notLeq h(client3 ; #59:Hash) ; #59:Hash ; sign(s3, client3 ; Shutdown ; sid
+		    ; h(client1 ; #59:Hash) ; #59:Hash)), (#0:Msg notLeq h(client3 ; #60:Hash ;
+		    WillWeMeet) ; #60:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq h(
+		    client3 ; #61:Hash ; WillWeMeet) ; #61:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #61:Hash ; WillWeMeet) ; #61:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq enc(sessKey, Hello) ; sign(s1,
+		    client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg
+		    notLeq enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq enc(sessKey,
+		    Hi) ; sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))),
+		    #0:Msg notLeq enc(sessKey, WillWeMeet) ; sign(s3, client3 ; sid ; h(client3
+		    ; #62:Hash ; WillWeMeet) ; #62:Hash ; enc(sessKey, WillWeMeet)) => (
+		    Shutdown ; sid ; #0:Msg ; #63:Hash ; #64:Hash ; #65:Hash ; #66:Msg) inL . ;
+		    
+		grl #0:Msg notInI, (#0:Msg notLeq s1), (#0:Msg notLeq s2), (#0:Msg notLeq s3),
+		    (#0:Msg notLeq #1:Hash), (#0:Msg notLeq enc(sessKey, Hello)), (#0:Msg
+		    notLeq enc(sessKey, Hi)), (#0:Msg notLeq enc(sessKey, WillWeMeet)), (#0:Msg
+		    notLeq sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey,
+		    Hello))), (#0:Msg notLeq sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sign(s1,
+		    client1 ; Shutdown ; sid ; h(client1 ; #2:Hash ; #3:Hash) ; #2:Hash ;
+		    #3:Hash)), (#0:Msg notLeq sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey,
+		    Hi))), (#0:Msg notLeq sign(s2, client2 ; LostMsgReq ; #4:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #5:Hash ; h(client2
+		    ; 0 ; Hi) ; #6:Hash) ; #5:Hash ; h(client2 ; 0 ; Hi) ; #6:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sign(s3,
+		    client3 ; sid ; h(client3 ; #7:Hash ; WillWeMeet) ; #7:Hash ; enc(sessKey,
+		    WillWeMeet))), (#0:Msg notLeq sign(s3, client3 ; Shutdown ; sid ; h(client1
+		    ; #8:Hash) ; #8:Hash)), (#0:Msg notLeq sign(s3, client3 ; ShutdownConfirm ;
+		    sid)), (#0:Msg notLeq sid ; sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sid ; sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg
+		    notLeq sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sid
+		    ; h(client1 ; #9:Hash) ; #9:Hash), (#0:Msg notLeq sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello)
+		    ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1 ; 0
+		    ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; #10:Hash
+		    ; #11:Hash) ; #10:Hash ; #11:Hash), (#0:Msg notLeq sid ; h(client1 ;
+		    #12:Hash ; #13:Hash) ; #12:Hash ; #13:Hash ; sign(s1, client1 ; Shutdown ;
+		    sid ; h(client1 ; #12:Hash ; #13:Hash) ; #12:Hash ; #13:Hash)), (#0:Msg
+		    notLeq sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq sid ;
+		    h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(s2, client2 ; sid ; h(client2
+		    ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg notLeq sid ; h(client2 ; #14:Hash ;
+		    h(client2 ; 0 ; Hi) ; #15:Hash) ; #14:Hash ; h(client2 ; 0 ; Hi) ;
+		    #15:Hash), (#0:Msg notLeq sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi)
+		    ; #17:Hash) ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash ; sign(s2, client2
+		    ; Shutdown ; sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash) ;
+		    #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash)), (#0:Msg notLeq sid ; h(client3
+		    ; #18:Hash) ; #18:Hash ; sign(s3, client3 ; Shutdown ; sid ; h(client1 ;
+		    #18:Hash) ; #18:Hash)), (#0:Msg notLeq sid ; h(client3 ; #19:Hash ;
+		    WillWeMeet) ; #19:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq sid ; h(
+		    client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq LostMsgReq ; #21:Hash), (#0:Msg
+		    notLeq LostMsgReq ; #22:Hash ; sign(s2, client2 ; LostMsgReq ; #22:Hash)),
+		    (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello)), (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ;
+		    h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq Shutdown ;
+		    sid ; h(client1 ; #23:Hash) ; #23:Hash), (#0:Msg notLeq Shutdown ; sid ; h(
+		    client1 ; #24:Hash ; #25:Hash) ; #24:Hash ; #25:Hash), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ; #26:Hash ; #27:Hash ;
+		    sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ;
+		    #26:Hash ; #27:Hash)), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #28:Hash
+		    ; h(client2 ; 0 ; Hi) ; #29:Hash) ; #28:Hash ; h(client2 ; 0 ; Hi) ;
+		    #29:Hash), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2
+		    ; 0 ; Hi) ; #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash ; sign(
+		    s2, client2 ; Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2 ; 0 ; Hi) ;
+		    #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash)), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client3 ; #32:Hash) ; #32:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #32:Hash) ; #32:Hash)), (#0:Msg notLeq
+		    ShutdownConfirm ; sid), (#0:Msg notLeq ShutdownConfirm ; sid ; sign(s1,
+		    client1 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm ; sid ;
+		    sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm
+		    ; sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq #33:Hash
+		    ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq #34:Hash ; enc(sessKey,
+		    WillWeMeet) ; sign(s3, client3 ; sid ; h(client3 ; #34:Hash ; WillWeMeet) ;
+		    #34:Hash ; enc(sessKey, WillWeMeet))), (#0:Msg notLeq #36:Hash ; #37:Hash),
+		    (#0:Msg notLeq #35:Hash ; sign(s2, client2 ; LostMsgReq ; #35:Hash)), (
+		    #0:Msg notLeq #38:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ;
+		    #39:Hash ; #38:Hash) ; #39:Hash ; #38:Hash)), (#0:Msg notLeq #40:Hash ;
+		    #41:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #40:Hash ;
+		    #41:Hash) ; #40:Hash ; #41:Hash)), (#0:Msg notLeq #42:Hash ; sign(s2,
+		    client2 ; Shutdown ; sid ; h(client2 ; #43:Hash ; h(client2 ; 0 ; Hi) ;
+		    #42:Hash) ; #43:Hash ; h(client2 ; 0 ; Hi) ; #42:Hash)), (#0:Msg notLeq
+		    #44:Hash ; h(client2 ; 0 ; Hi) ; #45:Hash), (#0:Msg notLeq #46:Hash ; h(
+		    client2 ; 0 ; Hi) ; #47:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(
+		    client2 ; #46:Hash ; h(client2 ; 0 ; Hi) ; #47:Hash) ; #46:Hash ; h(client2
+		    ; 0 ; Hi) ; #47:Hash)), (#0:Msg notLeq #48:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #48:Hash) ; #48:Hash)), (#0:Msg notLeq h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1
+		    ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; #49:Hash ;
+		    #50:Hash) ; #49:Hash ; #50:Hash), (#0:Msg notLeq h(client1 ; #51:Hash ;
+		    #52:Hash) ; #51:Hash ; #52:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(
+		    client1 ; #51:Hash ; #52:Hash) ; #51:Hash ; #52:Hash)), (#0:Msg notLeq h(
+		    client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ;
+		    #53:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #54:Hash ; h(
+		    client2 ; 0 ; Hi) ; #53:Hash) ; #54:Hash ; h(client2 ; 0 ; Hi) ;
+		    #53:Hash)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(
+		    s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg
+		    notLeq h(client2 ; #55:Hash ; h(client2 ; 0 ; Hi) ; #56:Hash) ; #55:Hash ;
+		    h(client2 ; 0 ; Hi) ; #56:Hash), (#0:Msg notLeq h(client2 ; #57:Hash ; h(
+		    client2 ; 0 ; Hi) ; #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash ;
+		    sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #57:Hash ; h(client2 ; 0 ;
+		    Hi) ; #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash)), (#0:Msg
+		    notLeq h(client3 ; #59:Hash) ; #59:Hash ; sign(s3, client3 ; Shutdown ; sid
+		    ; h(client1 ; #59:Hash) ; #59:Hash)), (#0:Msg notLeq h(client3 ; #60:Hash ;
+		    WillWeMeet) ; #60:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq h(
+		    client3 ; #61:Hash ; WillWeMeet) ; #61:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #61:Hash ; WillWeMeet) ; #61:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq enc(sessKey, Hello) ; sign(s1,
+		    client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg
+		    notLeq enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq enc(sessKey,
+		    Hi) ; sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))),
+		    #0:Msg notLeq enc(sessKey, WillWeMeet) ; sign(s3, client3 ; sid ; h(client3
+		    ; #62:Hash ; WillWeMeet) ; #62:Hash ; enc(sessKey, WillWeMeet)) => (
+		    Shutdown ; sid ; #63:Hash ; #64:Hash ; #0:Msg ; #65:Msg) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq s1), (#0:Msg notLeq s2), (#0:Msg notLeq s3),
+		    (#0:Msg notLeq #1:Hash), (#0:Msg notLeq enc(sessKey, Hello)), (#0:Msg
+		    notLeq enc(sessKey, Hi)), (#0:Msg notLeq enc(sessKey, WillWeMeet)), (#0:Msg
+		    notLeq sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey,
+		    Hello))), (#0:Msg notLeq sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sign(s1,
+		    client1 ; Shutdown ; sid ; h(client1 ; #2:Hash ; #3:Hash) ; #2:Hash ;
+		    #3:Hash)), (#0:Msg notLeq sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey,
+		    Hi))), (#0:Msg notLeq sign(s2, client2 ; LostMsgReq ; #4:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #5:Hash ; h(client2
+		    ; 0 ; Hi) ; #6:Hash) ; #5:Hash ; h(client2 ; 0 ; Hi) ; #6:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sign(s3,
+		    client3 ; sid ; h(client3 ; #7:Hash ; WillWeMeet) ; #7:Hash ; enc(sessKey,
+		    WillWeMeet))), (#0:Msg notLeq sign(s3, client3 ; Shutdown ; sid ; h(client1
+		    ; #8:Hash) ; #8:Hash)), (#0:Msg notLeq sign(s3, client3 ; ShutdownConfirm ;
+		    sid)), (#0:Msg notLeq sid ; sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sid ; sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg
+		    notLeq sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sid
+		    ; h(client1 ; #9:Hash) ; #9:Hash), (#0:Msg notLeq sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello)
+		    ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1 ; 0
+		    ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; #10:Hash
+		    ; #11:Hash) ; #10:Hash ; #11:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(
+		    client1 ; #10:Hash ; #11:Hash) ; #10:Hash ; #11:Hash)), (#0:Msg notLeq sid
+		    ; h(client1 ; #12:Hash ; #13:Hash) ; #12:Hash ; #13:Hash), (#0:Msg notLeq
+		    sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq sid ; h(
+		    client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(s2, client2 ; sid ; h(client2 ;
+		    0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg notLeq sid ; h(client2 ; #14:Hash ;
+		    h(client2 ; 0 ; Hi) ; #15:Hash) ; #14:Hash ; h(client2 ; 0 ; Hi) ;
+		    #15:Hash), (#0:Msg notLeq sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi)
+		    ; #17:Hash) ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash ; sign(s2, client2
+		    ; Shutdown ; sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash) ;
+		    #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash)), (#0:Msg notLeq sid ; h(client3
+		    ; #18:Hash) ; #18:Hash ; sign(s3, client3 ; Shutdown ; sid ; h(client1 ;
+		    #18:Hash) ; #18:Hash)), (#0:Msg notLeq sid ; h(client3 ; #19:Hash ;
+		    WillWeMeet) ; #19:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq sid ; h(
+		    client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq LostMsgReq ; #21:Hash), (#0:Msg
+		    notLeq LostMsgReq ; #22:Hash ; sign(s2, client2 ; LostMsgReq ; #22:Hash)),
+		    (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello)), (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ;
+		    h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq Shutdown ;
+		    sid ; h(client1 ; #23:Hash) ; #23:Hash), (#0:Msg notLeq Shutdown ; sid ; h(
+		    client1 ; #24:Hash ; #25:Hash) ; #24:Hash ; #25:Hash), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ; #26:Hash ; #27:Hash ;
+		    sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ;
+		    #26:Hash ; #27:Hash)), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #28:Hash
+		    ; h(client2 ; 0 ; Hi) ; #29:Hash) ; #28:Hash ; h(client2 ; 0 ; Hi) ;
+		    #29:Hash), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2
+		    ; 0 ; Hi) ; #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash ; sign(
+		    s2, client2 ; Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2 ; 0 ; Hi) ;
+		    #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash)), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client3 ; #32:Hash) ; #32:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #32:Hash) ; #32:Hash)), (#0:Msg notLeq
+		    ShutdownConfirm ; sid), (#0:Msg notLeq ShutdownConfirm ; sid ; sign(s1,
+		    client1 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm ; sid ;
+		    sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm
+		    ; sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq #33:Hash
+		    ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq #34:Hash ; enc(sessKey,
+		    WillWeMeet) ; sign(s3, client3 ; sid ; h(client3 ; #34:Hash ; WillWeMeet) ;
+		    #34:Hash ; enc(sessKey, WillWeMeet))), (#0:Msg notLeq #36:Hash ; #37:Hash),
+		    (#0:Msg notLeq #35:Hash ; sign(s2, client2 ; LostMsgReq ; #35:Hash)), (
+		    #0:Msg notLeq #38:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ;
+		    #39:Hash ; #38:Hash) ; #39:Hash ; #38:Hash)), (#0:Msg notLeq #40:Hash ;
+		    #41:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #40:Hash ;
+		    #41:Hash) ; #40:Hash ; #41:Hash)), (#0:Msg notLeq #42:Hash ; sign(s2,
+		    client2 ; Shutdown ; sid ; h(client2 ; #43:Hash ; h(client2 ; 0 ; Hi) ;
+		    #42:Hash) ; #43:Hash ; h(client2 ; 0 ; Hi) ; #42:Hash)), (#0:Msg notLeq
+		    #44:Hash ; h(client2 ; 0 ; Hi) ; #45:Hash), (#0:Msg notLeq #46:Hash ; h(
+		    client2 ; 0 ; Hi) ; #47:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(
+		    client2 ; #46:Hash ; h(client2 ; 0 ; Hi) ; #47:Hash) ; #46:Hash ; h(client2
+		    ; 0 ; Hi) ; #47:Hash)), (#0:Msg notLeq #48:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #48:Hash) ; #48:Hash)), (#0:Msg notLeq h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1
+		    ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; #49:Hash ;
+		    #50:Hash) ; #49:Hash ; #50:Hash), (#0:Msg notLeq h(client1 ; #51:Hash ;
+		    #52:Hash) ; #51:Hash ; #52:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(
+		    client1 ; #51:Hash ; #52:Hash) ; #51:Hash ; #52:Hash)), (#0:Msg notLeq h(
+		    client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ;
+		    #53:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #54:Hash ; h(
+		    client2 ; 0 ; Hi) ; #53:Hash) ; #54:Hash ; h(client2 ; 0 ; Hi) ;
+		    #53:Hash)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(
+		    s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg
+		    notLeq h(client2 ; #55:Hash ; h(client2 ; 0 ; Hi) ; #56:Hash) ; #55:Hash ;
+		    h(client2 ; 0 ; Hi) ; #56:Hash), (#0:Msg notLeq h(client2 ; #57:Hash ; h(
+		    client2 ; 0 ; Hi) ; #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash ;
+		    sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #57:Hash ; h(client2 ; 0 ;
+		    Hi) ; #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash)), (#0:Msg
+		    notLeq h(client3 ; #59:Hash) ; #59:Hash ; sign(s3, client3 ; Shutdown ; sid
+		    ; h(client1 ; #59:Hash) ; #59:Hash)), (#0:Msg notLeq h(client3 ; #60:Hash ;
+		    WillWeMeet) ; #60:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq h(
+		    client3 ; #61:Hash ; WillWeMeet) ; #61:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #61:Hash ; WillWeMeet) ; #61:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq enc(sessKey, Hello) ; sign(s1,
+		    client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg
+		    notLeq enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq enc(sessKey,
+		    Hi) ; sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))),
+		    #0:Msg notLeq enc(sessKey, WillWeMeet) ; sign(s3, client3 ; sid ; h(client3
+		    ; #62:Hash ; WillWeMeet) ; #62:Hash ; enc(sessKey, WillWeMeet)) => (sid ;
+		    #0:Msg ; #63:Hash ; enc(sessKey, WillWeMeet) ; #64:Msg) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq s1), (#0:Msg notLeq s2), (#0:Msg notLeq s3),
+		    (#0:Msg notLeq #1:Hash), (#0:Msg notLeq enc(sessKey, Hello)), (#0:Msg
+		    notLeq enc(sessKey, Hi)), (#0:Msg notLeq enc(sessKey, WillWeMeet)), (#0:Msg
+		    notLeq sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey,
+		    Hello))), (#0:Msg notLeq sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sign(s1,
+		    client1 ; Shutdown ; sid ; h(client1 ; #2:Hash ; #3:Hash) ; #2:Hash ;
+		    #3:Hash)), (#0:Msg notLeq sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey,
+		    Hi))), (#0:Msg notLeq sign(s2, client2 ; LostMsgReq ; #4:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #5:Hash ; h(client2
+		    ; 0 ; Hi) ; #6:Hash) ; #5:Hash ; h(client2 ; 0 ; Hi) ; #6:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sign(s3,
+		    client3 ; sid ; h(client3 ; #7:Hash ; WillWeMeet) ; #7:Hash ; enc(sessKey,
+		    WillWeMeet))), (#0:Msg notLeq sign(s3, client3 ; Shutdown ; sid ; h(client1
+		    ; #8:Hash) ; #8:Hash)), (#0:Msg notLeq sign(s3, client3 ; ShutdownConfirm ;
+		    sid)), (#0:Msg notLeq sid ; sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sid ; sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg
+		    notLeq sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sid
+		    ; h(client1 ; #9:Hash) ; #9:Hash), (#0:Msg notLeq sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello)
+		    ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1 ; 0
+		    ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; #10:Hash
+		    ; #11:Hash) ; #10:Hash ; #11:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(
+		    client1 ; #10:Hash ; #11:Hash) ; #10:Hash ; #11:Hash)), (#0:Msg notLeq sid
+		    ; h(client1 ; #12:Hash ; #13:Hash) ; #12:Hash ; #13:Hash), (#0:Msg notLeq
+		    sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq sid ; h(
+		    client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(s2, client2 ; sid ; h(client2 ;
+		    0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg notLeq sid ; h(client2 ; #14:Hash ;
+		    h(client2 ; 0 ; Hi) ; #15:Hash) ; #14:Hash ; h(client2 ; 0 ; Hi) ;
+		    #15:Hash), (#0:Msg notLeq sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi)
+		    ; #17:Hash) ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash ; sign(s2, client2
+		    ; Shutdown ; sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash) ;
+		    #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash)), (#0:Msg notLeq sid ; h(client3
+		    ; #18:Hash) ; #18:Hash ; sign(s3, client3 ; Shutdown ; sid ; h(client1 ;
+		    #18:Hash) ; #18:Hash)), (#0:Msg notLeq sid ; h(client3 ; #19:Hash ;
+		    WillWeMeet) ; #19:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq sid ; h(
+		    client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq LostMsgReq ; #21:Hash), (#0:Msg
+		    notLeq LostMsgReq ; #22:Hash ; sign(s2, client2 ; LostMsgReq ; #22:Hash)),
+		    (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello)), (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ;
+		    h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq Shutdown ;
+		    sid ; h(client1 ; #23:Hash) ; #23:Hash), (#0:Msg notLeq Shutdown ; sid ; h(
+		    client1 ; #24:Hash ; #25:Hash) ; #24:Hash ; #25:Hash), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ; #26:Hash ; #27:Hash ;
+		    sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ;
+		    #26:Hash ; #27:Hash)), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #28:Hash
+		    ; h(client2 ; 0 ; Hi) ; #29:Hash) ; #28:Hash ; h(client2 ; 0 ; Hi) ;
+		    #29:Hash), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2
+		    ; 0 ; Hi) ; #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash ; sign(
+		    s2, client2 ; Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2 ; 0 ; Hi) ;
+		    #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash)), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client3 ; #32:Hash) ; #32:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #32:Hash) ; #32:Hash)), (#0:Msg notLeq
+		    ShutdownConfirm ; sid), (#0:Msg notLeq ShutdownConfirm ; sid ; sign(s1,
+		    client1 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm ; sid ;
+		    sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm
+		    ; sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq #33:Hash
+		    ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq #34:Hash ; enc(sessKey,
+		    WillWeMeet) ; sign(s3, client3 ; sid ; h(client3 ; #34:Hash ; WillWeMeet) ;
+		    #34:Hash ; enc(sessKey, WillWeMeet))), (#0:Msg notLeq #36:Hash ; #37:Hash),
+		    (#0:Msg notLeq #35:Hash ; sign(s2, client2 ; LostMsgReq ; #35:Hash)), (
+		    #0:Msg notLeq #38:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ;
+		    #39:Hash ; #38:Hash) ; #39:Hash ; #38:Hash)), (#0:Msg notLeq #40:Hash ;
+		    #41:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #40:Hash ;
+		    #41:Hash) ; #40:Hash ; #41:Hash)), (#0:Msg notLeq #42:Hash ; sign(s2,
+		    client2 ; Shutdown ; sid ; h(client2 ; #43:Hash ; h(client2 ; 0 ; Hi) ;
+		    #42:Hash) ; #43:Hash ; h(client2 ; 0 ; Hi) ; #42:Hash)), (#0:Msg notLeq
+		    #44:Hash ; h(client2 ; 0 ; Hi) ; #45:Hash), (#0:Msg notLeq #46:Hash ; h(
+		    client2 ; 0 ; Hi) ; #47:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(
+		    client2 ; #46:Hash ; h(client2 ; 0 ; Hi) ; #47:Hash) ; #46:Hash ; h(client2
+		    ; 0 ; Hi) ; #47:Hash)), (#0:Msg notLeq #48:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #48:Hash) ; #48:Hash)), (#0:Msg notLeq h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1
+		    ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; #49:Hash ;
+		    #50:Hash) ; #49:Hash ; #50:Hash), (#0:Msg notLeq h(client1 ; #51:Hash ;
+		    #52:Hash) ; #51:Hash ; #52:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(
+		    client1 ; #51:Hash ; #52:Hash) ; #51:Hash ; #52:Hash)), (#0:Msg notLeq h(
+		    client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ;
+		    #53:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #54:Hash ; h(
+		    client2 ; 0 ; Hi) ; #53:Hash) ; #54:Hash ; h(client2 ; 0 ; Hi) ;
+		    #53:Hash)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(
+		    s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg
+		    notLeq h(client2 ; #55:Hash ; h(client2 ; 0 ; Hi) ; #56:Hash) ; #55:Hash ;
+		    h(client2 ; 0 ; Hi) ; #56:Hash), (#0:Msg notLeq h(client2 ; #57:Hash ; h(
+		    client2 ; 0 ; Hi) ; #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash ;
+		    sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #57:Hash ; h(client2 ; 0 ;
+		    Hi) ; #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash)), (#0:Msg
+		    notLeq h(client3 ; #59:Hash) ; #59:Hash ; sign(s3, client3 ; Shutdown ; sid
+		    ; h(client1 ; #59:Hash) ; #59:Hash)), (#0:Msg notLeq h(client3 ; #60:Hash ;
+		    WillWeMeet) ; #60:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq h(
+		    client3 ; #61:Hash ; WillWeMeet) ; #61:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #61:Hash ; WillWeMeet) ; #61:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq enc(sessKey, Hello) ; sign(s1,
+		    client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg
+		    notLeq enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq enc(sessKey,
+		    Hi) ; sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))),
+		    #0:Msg notLeq enc(sessKey, WillWeMeet) ; sign(s3, client3 ; sid ; h(client3
+		    ; #62:Hash ; WillWeMeet) ; #62:Hash ; enc(sessKey, WillWeMeet)) => (sid ;
+		    #63:Hash ; #0:Msg ; enc(sessKey, WillWeMeet) ; #64:Msg) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq s1), (#0:Msg notLeq s2), (#0:Msg notLeq s3),
+		    (#0:Msg notLeq #1:Hash), (#0:Msg notLeq enc(sessKey, Hello)), (#0:Msg
+		    notLeq enc(sessKey, Hi)), (#0:Msg notLeq enc(sessKey, WillWeMeet)), (#0:Msg
+		    notLeq sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey,
+		    Hello))), (#0:Msg notLeq sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sign(s1,
+		    client1 ; Shutdown ; sid ; h(client1 ; #2:Hash ; #3:Hash) ; #2:Hash ;
+		    #3:Hash)), (#0:Msg notLeq sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey,
+		    Hi))), (#0:Msg notLeq sign(s2, client2 ; LostMsgReq ; #4:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #5:Hash ; h(client2
+		    ; 0 ; Hi) ; #6:Hash) ; #5:Hash ; h(client2 ; 0 ; Hi) ; #6:Hash)), (#0:Msg
+		    notLeq sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sign(s3,
+		    client3 ; sid ; h(client3 ; #7:Hash ; WillWeMeet) ; #7:Hash ; enc(sessKey,
+		    WillWeMeet))), (#0:Msg notLeq sign(s3, client3 ; Shutdown ; sid ; h(client1
+		    ; #8:Hash) ; #8:Hash)), (#0:Msg notLeq sign(s3, client3 ; ShutdownConfirm ;
+		    sid)), (#0:Msg notLeq sid ; sign(s1, client1 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sid ; sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg
+		    notLeq sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sid
+		    ; h(client1 ; #9:Hash) ; #9:Hash), (#0:Msg notLeq sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello)
+		    ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1 ; 0
+		    ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; #10:Hash
+		    ; #11:Hash) ; #10:Hash ; #11:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(
+		    client1 ; #10:Hash ; #11:Hash) ; #10:Hash ; #11:Hash)), (#0:Msg notLeq sid
+		    ; h(client1 ; #12:Hash ; #13:Hash) ; #12:Hash ; #13:Hash), (#0:Msg notLeq
+		    sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq sid ; h(
+		    client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(s2, client2 ; sid ; h(client2 ;
+		    0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg notLeq sid ; h(client2 ; #14:Hash ;
+		    h(client2 ; 0 ; Hi) ; #15:Hash) ; #14:Hash ; h(client2 ; 0 ; Hi) ;
+		    #15:Hash), (#0:Msg notLeq sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi)
+		    ; #17:Hash) ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash ; sign(s2, client2
+		    ; Shutdown ; sid ; h(client2 ; #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash) ;
+		    #16:Hash ; h(client2 ; 0 ; Hi) ; #17:Hash)), (#0:Msg notLeq sid ; h(client3
+		    ; #18:Hash) ; #18:Hash ; sign(s3, client3 ; Shutdown ; sid ; h(client1 ;
+		    #18:Hash) ; #18:Hash)), (#0:Msg notLeq sid ; h(client3 ; #19:Hash ;
+		    WillWeMeet) ; #19:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq sid ; h(
+		    client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #20:Hash ; WillWeMeet) ; #20:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq LostMsgReq ; #21:Hash), (#0:Msg
+		    notLeq LostMsgReq ; #22:Hash ; sign(s2, client2 ; LostMsgReq ; #22:Hash)),
+		    (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello)), (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ;
+		    h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq Shutdown ;
+		    sid ; h(client1 ; #23:Hash) ; #23:Hash), (#0:Msg notLeq Shutdown ; sid ; h(
+		    client1 ; #24:Hash ; #25:Hash) ; #24:Hash ; #25:Hash), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ; #26:Hash ; #27:Hash ;
+		    sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #26:Hash ; #27:Hash) ;
+		    #26:Hash ; #27:Hash)), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #28:Hash
+		    ; h(client2 ; 0 ; Hi) ; #29:Hash) ; #28:Hash ; h(client2 ; 0 ; Hi) ;
+		    #29:Hash), (#0:Msg notLeq Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2
+		    ; 0 ; Hi) ; #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash ; sign(
+		    s2, client2 ; Shutdown ; sid ; h(client2 ; #30:Hash ; h(client2 ; 0 ; Hi) ;
+		    #31:Hash) ; #30:Hash ; h(client2 ; 0 ; Hi) ; #31:Hash)), (#0:Msg notLeq
+		    Shutdown ; sid ; h(client3 ; #32:Hash) ; #32:Hash ; sign(s3, client3 ;
+		    Shutdown ; sid ; h(client1 ; #32:Hash) ; #32:Hash)), (#0:Msg notLeq
+		    ShutdownConfirm ; sid), (#0:Msg notLeq ShutdownConfirm ; sid ; sign(s1,
+		    client1 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm ; sid ;
+		    sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq ShutdownConfirm
+		    ; sid ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq #33:Hash
+		    ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq #34:Hash ; enc(sessKey,
+		    WillWeMeet) ; sign(s3, client3 ; sid ; h(client3 ; #34:Hash ; WillWeMeet) ;
+		    #34:Hash ; enc(sessKey, WillWeMeet))), (#0:Msg notLeq #36:Hash ; sign(s1,
+		    client1 ; Shutdown ; sid ; h(client1 ; #37:Hash ; #36:Hash) ; #37:Hash ;
+		    #36:Hash)), (#0:Msg notLeq #35:Hash ; sign(s2, client2 ; LostMsgReq ;
+		    #35:Hash)), (#0:Msg notLeq #38:Hash ; #39:Hash), (#0:Msg notLeq #40:Hash ;
+		    #41:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #40:Hash ;
+		    #41:Hash) ; #40:Hash ; #41:Hash)), (#0:Msg notLeq #42:Hash ; sign(s2,
+		    client2 ; Shutdown ; sid ; h(client2 ; #43:Hash ; h(client2 ; 0 ; Hi) ;
+		    #42:Hash) ; #43:Hash ; h(client2 ; 0 ; Hi) ; #42:Hash)), (#0:Msg notLeq
+		    #44:Hash ; h(client2 ; 0 ; Hi) ; #45:Hash), (#0:Msg notLeq #46:Hash ; sign(
+		    s3, client3 ; Shutdown ; sid ; h(client1 ; #46:Hash) ; #46:Hash)), (#0:Msg
+		    notLeq #47:Hash ; h(client2 ; 0 ; Hi) ; #48:Hash ; sign(s2, client2 ;
+		    Shutdown ; sid ; h(client2 ; #47:Hash ; h(client2 ; 0 ; Hi) ; #48:Hash) ;
+		    #47:Hash ; h(client2 ; 0 ; Hi) ; #48:Hash)), (#0:Msg notLeq h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello))), (#0:Msg notLeq h(client1 ; 0 ; Hello) ; enc(sessKey,
+		    Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello)
+		    ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; #49:Hash ; #50:Hash) ;
+		    #49:Hash ; #50:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ;
+		    #49:Hash ; #50:Hash) ; #49:Hash ; #50:Hash)), (#0:Msg notLeq h(client1 ;
+		    #51:Hash ; #52:Hash) ; #51:Hash ; #52:Hash), (#0:Msg notLeq h(client2 ; 0 ;
+		    Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ; #53:Hash ;
+		    sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #54:Hash ; h(client2 ; 0 ;
+		    Hi) ; #53:Hash) ; #54:Hash ; h(client2 ; 0 ; Hi) ; #53:Hash)), (#0:Msg
+		    notLeq h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(s2, client2 ; sid ; h(
+		    client2 ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg notLeq h(client2 ; #55:Hash
+		    ; h(client2 ; 0 ; Hi) ; #56:Hash) ; #55:Hash ; h(client2 ; 0 ; Hi) ;
+		    #56:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #55:Hash ; h(
+		    client2 ; 0 ; Hi) ; #56:Hash) ; #55:Hash ; h(client2 ; 0 ; Hi) ;
+		    #56:Hash)), (#0:Msg notLeq h(client2 ; #57:Hash ; h(client2 ; 0 ; Hi) ;
+		    #58:Hash) ; #57:Hash ; h(client2 ; 0 ; Hi) ; #58:Hash), (#0:Msg notLeq h(
+		    client3 ; #59:Hash) ; #59:Hash ; sign(s3, client3 ; Shutdown ; sid ; h(
+		    client1 ; #59:Hash) ; #59:Hash)), (#0:Msg notLeq h(client3 ; #60:Hash ;
+		    WillWeMeet) ; #60:Hash ; enc(sessKey, WillWeMeet) ; sign(s3, client3 ; sid
+		    ; h(client3 ; #60:Hash ; WillWeMeet) ; #60:Hash ; enc(sessKey,
+		    WillWeMeet))), (#0:Msg notLeq h(client3 ; #61:Hash ; WillWeMeet) ; #61:Hash
+		    ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq enc(sessKey, Hello) ; sign(s1,
+		    client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg
+		    notLeq enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq enc(sessKey,
+		    Hi) ; sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))),
+		    #0:Msg notLeq enc(sessKey, WillWeMeet) ; sign(s3, client3 ; sid ; h(client3
+		    ; #62:Hash ; WillWeMeet) ; #62:Hash ; enc(sessKey, WillWeMeet)) => (#63:Msg
+		    ; #0:Msg) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq sid), (#0:Msg notLeq s1), (#0:Msg notLeq s2),
+		    (#0:Msg notLeq s3), (#0:Msg notLeq h(client1 ; #1:Hash)), (#0:Msg notLeq h(
+		    client1 ; 0 ; Hello)), (#0:Msg notLeq h(client1 ; #2:Hash ; #3:Hash)), (
+		    #0:Msg notLeq h(client2 ; 0 ; Hi)), (#0:Msg notLeq h(client2 ; #4:Hash ; h(
+		    client2 ; 0 ; Hi) ; #5:Hash)), (#0:Msg notLeq h(client3 ; #6:Hash)), (
+		    #0:Msg notLeq h(client3 ; #7:Hash ; WillWeMeet)), (#0:Msg notLeq enc(
+		    sessKey, Hello)), (#0:Msg notLeq enc(sessKey, Hi)), (#0:Msg notLeq enc(
+		    sessKey, WillWeMeet)), (#0:Msg notLeq sign(s1, client1 ; sid ; h(client1 ;
+		    0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sign(s1, client1 ;
+		    LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (
+		    #0:Msg notLeq sign(s1, client1 ; Shutdown ; sid ; h(client1 ; #8:Hash ;
+		    #9:Hash) ; #8:Hash ; #9:Hash)), (#0:Msg notLeq sign(s1, client1 ;
+		    ShutdownConfirm ; sid)), (#0:Msg notLeq sign(s2, client2 ; sid ; h(client2
+		    ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg notLeq sign(s2, client2 ;
+		    LostMsgReq ; #10:Hash)), (#0:Msg notLeq sign(s2, client2 ; Shutdown ; sid ;
+		    h(client2 ; #11:Hash ; h(client2 ; 0 ; Hi) ; #12:Hash) ; #11:Hash ; h(
+		    client2 ; 0 ; Hi) ; #12:Hash)), (#0:Msg notLeq sign(s2, client2 ;
+		    ShutdownConfirm ; sid)), (#0:Msg notLeq sign(s3, client3 ; sid ; h(client3
+		    ; #13:Hash ; WillWeMeet) ; #13:Hash ; enc(sessKey, WillWeMeet))), (#0:Msg
+		    notLeq sign(s3, client3 ; Shutdown ; sid ; h(client1 ; #14:Hash) ;
+		    #14:Hash)), (#0:Msg notLeq sign(s3, client3 ; ShutdownConfirm ; sid)), (
+		    #0:Msg notLeq sid ; sign(s1, client1 ; ShutdownConfirm ; sid)), (#0:Msg
+		    notLeq sid ; sign(s2, client2 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sid
+		    ; sign(s3, client3 ; ShutdownConfirm ; sid)), (#0:Msg notLeq sid ; h(
+		    client1 ; #15:Hash) ; #15:Hash), (#0:Msg notLeq sid ; h(client1 ; 0 ;
+		    Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello)
+		    ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(client1 ; 0 ; Hello) ;
+		    enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1 ; 0
+		    ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq sid ; h(client1 ; #16:Hash
+		    ; #17:Hash) ; #16:Hash ; #17:Hash), (#0:Msg notLeq sid ; h(client1 ;
+		    #18:Hash ; #19:Hash) ; #18:Hash ; #19:Hash ; sign(s1, client1 ; Shutdown ;
+		    sid ; h(client1 ; #18:Hash ; #19:Hash) ; #18:Hash ; #19:Hash)), (#0:Msg
+		    notLeq sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq sid ;
+		    h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(s2, client2 ; sid ; h(client2
+		    ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg notLeq sid ; h(client2 ; #20:Hash ;
+		    h(client2 ; 0 ; Hi) ; #21:Hash) ; #20:Hash ; h(client2 ; 0 ; Hi) ;
+		    #21:Hash), (#0:Msg notLeq sid ; h(client2 ; #22:Hash ; h(client2 ; 0 ; Hi)
+		    ; #23:Hash) ; #22:Hash ; h(client2 ; 0 ; Hi) ; #23:Hash ; sign(s2, client2
+		    ; Shutdown ; sid ; h(client2 ; #22:Hash ; h(client2 ; 0 ; Hi) ; #23:Hash) ;
+		    #22:Hash ; h(client2 ; 0 ; Hi) ; #23:Hash)), (#0:Msg notLeq sid ; h(client3
+		    ; #24:Hash) ; #24:Hash ; sign(s3, client3 ; Shutdown ; sid ; h(client1 ;
+		    #24:Hash) ; #24:Hash)), (#0:Msg notLeq sid ; h(client3 ; #25:Hash ;
+		    WillWeMeet) ; #25:Hash ; enc(sessKey, WillWeMeet) ; sign(s3, client3 ; sid
+		    ; h(client3 ; #25:Hash ; WillWeMeet) ; #25:Hash ; enc(sessKey,
+		    WillWeMeet))), (#0:Msg notLeq sid ; h(client3 ; #26:Hash ; WillWeMeet) ;
+		    #26:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq LostMsgReq ;
+		    #27:Hash), (#0:Msg notLeq LostMsgReq ; #28:Hash ; sign(s2, client2 ;
+		    LostMsgReq ; #28:Hash)), (#0:Msg notLeq LostMsgResponse ; sid ; h(client1 ;
+		    0 ; Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq LostMsgResponse ; sid ;
+		    h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ;
+		    LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (
+		    #0:Msg notLeq Shutdown ; sid ; h(client1 ; #29:Hash) ; #29:Hash), (#0:Msg
+		    notLeq Shutdown ; sid ; h(client1 ; #30:Hash ; #31:Hash) ; #30:Hash ;
+		    #31:Hash), (#0:Msg notLeq Shutdown ; sid ; h(client1 ; #32:Hash ; #33:Hash)
+		    ; #32:Hash ; #33:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ;
+		    #32:Hash ; #33:Hash) ; #32:Hash ; #33:Hash)), (#0:Msg notLeq Shutdown ; sid
+		    ; h(client2 ; #34:Hash ; h(client2 ; 0 ; Hi) ; #35:Hash) ; #34:Hash ; h(
+		    client2 ; 0 ; Hi) ; #35:Hash), (#0:Msg notLeq Shutdown ; sid ; h(client2 ;
+		    #36:Hash ; h(client2 ; 0 ; Hi) ; #37:Hash) ; #36:Hash ; h(client2 ; 0 ; Hi)
+		    ; #37:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #36:Hash ; h(
+		    client2 ; 0 ; Hi) ; #37:Hash) ; #36:Hash ; h(client2 ; 0 ; Hi) ;
+		    #37:Hash)), (#0:Msg notLeq Shutdown ; sid ; h(client3 ; #38:Hash) ;
+		    #38:Hash ; sign(s3, client3 ; Shutdown ; sid ; h(client1 ; #38:Hash) ;
+		    #38:Hash)), (#0:Msg notLeq ShutdownConfirm ; sid), (#0:Msg notLeq
+		    ShutdownConfirm ; sid ; sign(s1, client1 ; ShutdownConfirm ; sid)), (#0:Msg
+		    notLeq ShutdownConfirm ; sid ; sign(s2, client2 ; ShutdownConfirm ; sid)),
+		    (#0:Msg notLeq ShutdownConfirm ; sid ; sign(s3, client3 ; ShutdownConfirm ;
+		    sid)), (#0:Msg notLeq #50:Hash ; h(client2 ; 0 ; Hi) ; #51:Hash), (#0:Msg
+		    notLeq #39:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq #40:Hash ; enc(
+		    sessKey, WillWeMeet) ; sign(s3, client3 ; sid ; h(client3 ; #40:Hash ;
+		    WillWeMeet) ; #40:Hash ; enc(sessKey, WillWeMeet))), (#0:Msg notLeq
+		    #41:Hash ; sign(s2, client2 ; LostMsgReq ; #41:Hash)), (#0:Msg notLeq
+		    #42:Hash ; #43:Hash), (#0:Msg notLeq #44:Hash ; sign(s1, client1 ; Shutdown
+		    ; sid ; h(client1 ; #45:Hash ; #44:Hash) ; #45:Hash ; #44:Hash)), (#0:Msg
+		    notLeq #46:Hash ; #47:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1
+		    ; #46:Hash ; #47:Hash) ; #46:Hash ; #47:Hash)), (#0:Msg notLeq #48:Hash ;
+		    sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #49:Hash ; h(client2 ; 0 ;
+		    Hi) ; #48:Hash) ; #49:Hash ; h(client2 ; 0 ; Hi) ; #48:Hash)), (#0:Msg
+		    notLeq #52:Hash ; h(client2 ; 0 ; Hi) ; #53:Hash ; sign(s2, client2 ;
+		    Shutdown ; sid ; h(client2 ; #52:Hash ; h(client2 ; 0 ; Hi) ; #53:Hash) ;
+		    #52:Hash ; h(client2 ; 0 ; Hi) ; #53:Hash)), (#0:Msg notLeq #54:Hash ;
+		    sign(s3, client3 ; Shutdown ; sid ; h(client1 ; #54:Hash) ; #54:Hash)), (
+		    #0:Msg notLeq h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq
+		    h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ; 0
+		    ; Hello) ; enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ;
+		    h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq h(client1 ;
+		    #55:Hash ; #56:Hash) ; #55:Hash ; #56:Hash), (#0:Msg notLeq h(client1 ;
+		    #57:Hash ; #58:Hash) ; #57:Hash ; #58:Hash ; sign(s1, client1 ; Shutdown ;
+		    sid ; h(client1 ; #57:Hash ; #58:Hash) ; #57:Hash ; #58:Hash)), (#0:Msg
+		    notLeq h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq h(client2 ;
+		    0 ; Hi) ; #59:Hash ; sign(s2, client2 ; Shutdown ; sid ; h(client2 ;
+		    #60:Hash ; h(client2 ; 0 ; Hi) ; #59:Hash) ; #60:Hash ; h(client2 ; 0 ; Hi)
+		    ; #59:Hash)), (#0:Msg notLeq h(client2 ; 0 ; Hi) ; enc(sessKey, Hi) ; sign(
+		    s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))), (#0:Msg
+		    notLeq h(client2 ; #61:Hash ; h(client2 ; 0 ; Hi) ; #62:Hash) ; #61:Hash ;
+		    h(client2 ; 0 ; Hi) ; #62:Hash), (#0:Msg notLeq h(client2 ; #63:Hash ; h(
+		    client2 ; 0 ; Hi) ; #64:Hash) ; #63:Hash ; h(client2 ; 0 ; Hi) ; #64:Hash ;
+		    sign(s2, client2 ; Shutdown ; sid ; h(client2 ; #63:Hash ; h(client2 ; 0 ;
+		    Hi) ; #64:Hash) ; #63:Hash ; h(client2 ; 0 ; Hi) ; #64:Hash)), (#0:Msg
+		    notLeq h(client3 ; #65:Hash) ; #65:Hash ; sign(s3, client3 ; Shutdown ; sid
+		    ; h(client1 ; #65:Hash) ; #65:Hash)), (#0:Msg notLeq h(client3 ; #66:Hash ;
+		    WillWeMeet) ; #66:Hash ; enc(sessKey, WillWeMeet)), (#0:Msg notLeq h(
+		    client3 ; #67:Hash ; WillWeMeet) ; #67:Hash ; enc(sessKey, WillWeMeet) ;
+		    sign(s3, client3 ; sid ; h(client3 ; #67:Hash ; WillWeMeet) ; #67:Hash ;
+		    enc(sessKey, WillWeMeet))), (#0:Msg notLeq enc(sessKey, Hello) ; sign(s1,
+		    client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg
+		    notLeq enc(sessKey, Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello))), (#0:Msg notLeq enc(sessKey,
+		    Hi) ; sign(s2, client2 ; sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi))),
+		    #0:Msg notLeq enc(sessKey, WillWeMeet) ; sign(s3, client3 ; sid ; h(client3
+		    ; #68:Hash ; WillWeMeet) ; #68:Hash ; enc(sessKey, WillWeMeet)) => (#0:Msg
+		    ; #69:Msg) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:SimmKey notInI => dec(#0:SimmKey, #1:Msg) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Msg notInI => dec(#1:SimmKey, #0:Msg) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:SimmKey notInI, #0:SimmKey notLeq sessKey => enc(#0:SimmKey, #1:Msg) inL
+		    .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq Hello), (#0:Msg notLeq Hi), #0:Msg notLeq
+		    WillWeMeet => enc(#1:SimmKey, #0:Msg) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+		grl #0:Number notInI => exp(#0:Number, #1:Number) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+		grl #0:Number notInI => exp(#1:Number, #0:Number) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Number inL => (#1:Number xorc #0:Number) inL . ; 
+		grl exp(#0:Number, #1:Number) notLeq exp(#2:Gen, #3:Number) => exp(#0:Number,
+		    #1:Number) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:PrivKey inL => (#1:Number xorc #0:PrivKey) inL . ; 
+		grl genPriv(#0:Name, #1:Fresh) notLeq genPriv(intruder, #2:Fresh) => genPriv(
+		    #0:Name, #1:Fresh) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:PubKey inL => (#1:Number xorc #0:PubKey) inL . ; 
+		grl #0:PrivKey notInI => getPub(#0:PrivKey) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Hash inL => (#0:Hash xorc #1:Number) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq client1 ; #1:Hash), (#0:Msg notLeq client1 ;
+		    0 ; Hello), (#0:Msg notLeq client1 ; #2:Hash ; #3:Hash), (#0:Msg notLeq
+		    client2 ; 0 ; Hi), (#0:Msg notLeq client2 ; #4:Hash ; h(client2 ; 0 ; Hi) ;
+		    #5:Hash), (#0:Msg notLeq client3 ; #6:Hash), #0:Msg notLeq client3 ;
+		    #7:Hash ; WillWeMeet => h(#0:Msg) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Nonce inL => (#1:Number xorc #0:Nonce) inL . ; 
+		grl n(#0:Name, #1:Fresh) notLeq n(intruder, #2:Fresh) => n(#0:Name, #1:Fresh)
+		    inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:PrivKey notInI, (#0:PrivKey notLeq s1), (#0:PrivKey notLeq s2),
+		    #0:PrivKey notLeq s3 => sign(#0:PrivKey, #1:Msg) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Msg notInI, (#0:Msg notLeq client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(
+		    sessKey, Hello)), (#0:Msg notLeq client1 ; LostMsgResponse ; sid ; h(
+		    client1 ; 0 ; Hello) ; enc(sessKey, Hello)), (#0:Msg notLeq client1 ;
+		    Shutdown ; sid ; h(client1 ; #1:Hash ; #2:Hash) ; #1:Hash ; #2:Hash), (
+		    #0:Msg notLeq client1 ; ShutdownConfirm ; sid), (#0:Msg notLeq client2 ;
+		    sid ; h(client2 ; 0 ; Hi) ; enc(sessKey, Hi)), (#0:Msg notLeq client2 ;
+		    LostMsgReq ; #3:Hash), (#0:Msg notLeq client2 ; Shutdown ; sid ; h(client2
+		    ; #4:Hash ; h(client2 ; 0 ; Hi) ; #5:Hash) ; #4:Hash ; h(client2 ; 0 ; Hi)
+		    ; #5:Hash), (#0:Msg notLeq client2 ; ShutdownConfirm ; sid), (#0:Msg notLeq
+		    client3 ; sid ; h(client3 ; #6:Hash ; WillWeMeet) ; #6:Hash ; enc(sessKey,
+		    WillWeMeet)), (#0:Msg notLeq client3 ; Shutdown ; sid ; h(client1 ;
+		    #7:Hash) ; #7:Hash), #0:Msg notLeq client3 ; ShutdownConfirm ; sid => sign(
+		    #8:PrivKey, #0:Msg) inL .)
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:PubKey notInI => sverify(#0:PubKey, #1:Msg) inL .)
+		| (
+		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+		grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+		grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+		grl #0:Msg notInI => sverify(#1:PubKey, #0:Msg) inL .)
+	[nonexec] .	
+
+	eq ATTACK-STATE(0) = --- stealing sessionKey
 		--- client1 ---
-		:: fr_k, fr_s, fr_r :: 
-		[nil, --- Round 1 ---
-			   |
-			   nil ]
-		|| n(client1, fr_k) inI
+		:: nil :: 
+		[nil , +(client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
+			   -(client2 ; sid ; idM21 ; enc(sessKey, Hi) ; sigM21),
+			   -(client3 ; sid ; idM31 ; idM11 ; enc(sessKey, WillWeMeet) ; sigM31),
+			   -(client2 ; LostMsgReq ; idM11 ; sigM21Req),
+			   +(client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
+			 --- Shutdown phase ---  
+			 --- Start ---
+			   +(client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31 ; sign(s1, (client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31))), --- No payload
+			   -(client2 ; Shutdown ; sid ; idM22 ; idM12 ; idM21 ; idM31 ; sig21Shutdown),
+			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
+			 --- Confirm ---
+			   +(client1 ; ShutdownConfirm ; sid ; sign(s1, (client1 ; ShutdownConfirm ; sid))), 
+			   -(client2 ; ShutdownConfirm ; sid ; sig22Shutdown), 
+			   -(client3 ; ShutdownConfirm ; sid ; sig32Shutdown), 
+			 --- Publish ---
+			   +(client1 ; s1),
+			   -(client2 ; s2),
+			   -(client3 ; s3)
+			   | nil ]
+		|| sessKey inI
 		|| nil
 		|| nil
 		|| nil 
 	[nonexec] .
 	
+	eq ATTACK-STATE(1) = --- stealing ephemeral PUBLIC key
+		--- client1 ---
+		:: nil :: 
+		[nil , +(client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
+			   -(client2 ; sid ; idM21 ; enc(sessKey, Hi) ; sigM21),
+			   -(client3 ; sid ; idM31 ; idM11 ; enc(sessKey, WillWeMeet) ; sigM31),
+			   -(client2 ; LostMsgReq ; idM11 ; sigM21Req),
+			   +(client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
+			 --- Shutdown phase ---  
+			 --- Start ---
+			   +(client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31 ; sign(s1, (client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31))), --- No payload
+			   -(client2 ; Shutdown ; sid ; idM22 ; idM12 ; idM21 ; idM31 ; sig21Shutdown),
+			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
+			 --- Confirm ---
+			   +(client1 ; ShutdownConfirm ; sid ; sign(s1, (client1 ; ShutdownConfirm ; sid))), 
+			   -(client2 ; ShutdownConfirm ; sid ; sig22Shutdown), 
+			   -(client3 ; ShutdownConfirm ; sid ; sig32Shutdown), 
+			 --- Publish ---
+			   +(client1 ; s1),
+			   -(client2 ; s2),
+			   -(client3 ; s3)
+			   | nil ]
+		|| S1 inI
+		|| nil
+		|| nil
+		|| nil 
+	[nonexec] .
+	
+	eq ATTACK-STATE(2) = --- stealing ephemeral PRIVATE key of first client
+		--- client1 ---
+		:: nil :: 
+		[nil , +(client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
+			   -(client2 ; sid ; idM21 ; enc(sessKey, Hi) ; sigM21),
+			   -(client3 ; sid ; idM31 ; idM11 ; enc(sessKey, WillWeMeet) ; sigM31),
+			   -(client2 ; LostMsgReq ; idM11 ; sigM21Req),
+			   +(client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1, (client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello)))),
+			 --- Shutdown phase ---  
+			 --- Start ---
+			   +(client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31 ; sign(s1, (client1 ; Shutdown ; sid ; h(client1 ; idM21 ; idM31) ; idM21 ; idM31))), --- No payload
+			   -(client2 ; Shutdown ; sid ; idM22 ; idM12 ; idM21 ; idM31 ; sig21Shutdown),
+			   -(client3 ; Shutdown ; sid ; idM32 ; idM22 ; sig31Shutdown),
+			 --- Confirm ---
+			   +(client1 ; ShutdownConfirm ; sid ; sign(s1, (client1 ; ShutdownConfirm ; sid))), 
+			   -(client2 ; ShutdownConfirm ; sid ; sig22Shutdown), 
+			   -(client3 ; ShutdownConfirm ; sid ; sig32Shutdown), 
+			 --- Publish ---
+			   +(client1 ; s1),
+			   -(client2 ; s2),
+			   -(client3 ; s3)
+			   | nil ]
+		|| s1 inI
+		|| nil
+		|| nil
+		|| nil 
+	[nonexec] .
+
+***(	
 	eq ATTACK-STATE(1) = --- stealing private part of auth info (x_1)
 		--- client1 ---
 		:: fr_k, fr_s, fr_r :: 
@@ -314,110 +1236,4 @@ select MAUDE-NPA .
 
 
 
-***(             TRASH CAN
 
-	op q : -> Modulo . --- modules for nesessary calculations
-	op p : -> Modulo . --- modules for nesessary calculations
-	
-	subsort Modulo < Public .
-	
-	--- Modulo operation
-	op _mod(_) : Number Modulo -> Number .
-	
-	eq N:Number + Md:Modulo = N:Number mod ( Md:Modulo ) .
-	eq N:Number - Md:Modulo = N:Number mod ( Md:Modulo ) .
-	eq Md:Modulo + N:Number = N:Number mod ( Md:Modulo ) .
-	---eq N:Number = (N:Number + Md:Modulo) mod ( Md:Modulo ) .
-	---eq N:Number = (N:Number - Md:Modulo) mod ( Md:Modulo ) .
-	--- modulo definition & property
-	eq Md:Modulo mod ( Md:Modulo ) = 0 .
-	eq (N:Number + Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
-	eq (N:Number - Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
-	eq (-- N:Number) mod (Md:Modulo) = (Md:Modulo - N:Number) mod (Md:Modulo)  .
-
-	--- Ask someone!!
-    modulo *: ab mod n = (a mod n * b mod n) mod n
-	modulo exp log(exp(x) mod p) = x mod p-1
-
-  	--- choosing q, p and g
-	eq (p - 1) = 0 mod(q) . --- q is (p-1)'s divider
-	eq exp(g, q) = 1 mod(p) . --- g is Zp group generator 
-
-	op 1 : -> Number . --- Base numbers
-	op 0 : -> Number . 
-	
-	***(
-	--- mult properties
-	eq N:Number * 0 = 0 [nonexec metadata "variant"] .
-	eq N:Number * 1 = N:Number [nonexec metadata "variant"] .
-
-	--- sum properties
-	eq N:Number + 0 = N:Number [nonexec metadata "variant"] .
-	
-	--- sub properties
-	eq N:Number - 0 = N:Number [nonexec metadata "variant"] .
-
-	)***
-
-    
-	
-     	:: nil :: [ nil | +(p), nil ] &
-     	:: nil :: [ nil | +(q), nil ] &
-     	:: nil :: [ nil | +(1), nil ] &
-	
-	:: nil :: [ nil | -(Num1), -(Mod1), +(Num1 mod( Mod1 )), nil ] &
-
-
-)***
-	***(
-
-	eq ATTACK-STATE(1) = 
-		:: nil ::
-		[nil,  -(Name1 ; fxMess),
-			   +(client2 ; fxMess),
-			   -(Name2 ; fxMess) | nil]
-		|| Name1 != client1 
-		|| nil
-		|| nil
-		|| nil
-	[nonexec] .
-	
-	eq ATTACK-STATE(2) =
-		:: nil ::
-		[nil,  -(Name1 ; fxMess),
-			   +(client2 ; fxMess),
-			   -(Name2 ; fxMess) | nil]
-		|| Name2 != client3 
-		|| nil
-		|| nil
-		|| nil
-	[nonexec] .
-
-	eq ATTACK-STATE(3) =
-		:: nil ::
-		[nil,  -(Name1 ; fxMess),
-			   +(client2 ; fxMess),
-			   -(Name2 ; fxMess) | nil]
-		|| Name1 != client1, 
-		   Name2 != client3
-		|| nil
-		|| nil
-		|| nil
-	[nonexec] .)***
-			  ***( that long-long string-message
-			  --- +(client1 ; sign(genPriv(client1, fr_s), k1) ; (n(client1, fr_r) - x1)),
-			  c1 = h(sid1 ; sproof1)
-			  c1 = h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2 ; S2 ; y3 ; k3 ; S3))
-			  c1 = h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, x1))); S2 ; y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1)))) ; S3))
-			  d1 = r1 - (c1 * x1)
-			  d1 = n(client1, fr_r)- (h(h(client1 ; client2 ; client3 ; h(n(client1, fr_k)) ; k2_h ; k3_h) ; h(exp(g, x1) ; n(client1, fr_k) ; getPub(genPriv(client1, fr_s)) ; y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, x1))); S2 ; y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1)))) ; S3)) * x1)
-			  k2 = k2_tr2 xorc (T2 xorc tr1)
-			  k2 = k2_tr2 xorc (T2 xorc h(exp(y2, x1)))
-			  k3 = k3_tr3 xorc (T3 xorc tr2)
-			  k3 = k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))
-			  k3 = k3_tr3 xorc (T3 xorc tr2)
-			 )***
-		***(:: nil ::
-		[nil | -(client1 ; fxMess),
-			   -(client2 ; fxMess),
-			   +(client3 ; fxMess), nil] )***
