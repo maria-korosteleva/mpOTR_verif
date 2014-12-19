@@ -1096,6 +1096,7 @@ fmod PROTOCOL-SPECIFICATION is
 		    WillWeMeet)), (#0:Msg notLeq client3 ; Shutdown ; sid ; h(client1 ;
 		    #7:Hash) ; #7:Hash), #0:Msg notLeq client3 ; ShutdownConfirm ; sid => sign(
 		    #8:PrivKey, #0:Msg) inL .)
+		| (
 		grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
 		grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
 		grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 

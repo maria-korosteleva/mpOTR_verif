@@ -1,0 +1,65 @@
+		     \||||||||||||||||||/
+		   --- Welcome to Maude ---
+		     /||||||||||||||||||\
+	    Maude 2.6 built: Dec  9 2010 18:28:39
+	    Copyright 1997-2010 SRI International
+		   Tue Dec 16 17:43:25 2014
+Maude> 
+	    Full Maude 2.5b January 14th 2011
+
+
+	    Maude-NPA Version: 11/26/2011
+	    Copyright (c) 2012, University of Illinois
+	    All rights reserved.
+
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, (0).Zero) .
+rewrites: 179859 in 292ms cpu (293ms real) (615917 rewrites/second)
+result IdSystem: < 1 > 
+:: nil ::
+[ nil, 
+   +(client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello) ; sign(s1,
+    client1 ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey, Hello))), 
+   -(client2 ; sid ; idM21:Hash ; enc(sessKey, Hi) ; sigM21:Msg), 
+   -(client3 ; sid ; idM31:Hash ; idM11:Hash ; enc(sessKey, WillWeMeet) ;
+    sigM31:Msg), 
+   -(client2 ; LostMsgReq ; idM11:Hash ; sigM21Req:Msg), 
+   +(client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello) ; enc(sessKey,
+    Hello) ; sign(s1, client1 ; LostMsgResponse ; sid ; h(client1 ; 0 ; Hello)
+    ; enc(sessKey, Hello))), 
+   +(client1 ; Shutdown ; sid ; h(client1 ; idM21:Hash ; idM31:Hash) ;
+    idM21:Hash ; idM31:Hash ; sign(s1, client1 ; Shutdown ; sid ; h(client1 ;
+    idM21:Hash ; idM31:Hash) ; idM21:Hash ; idM31:Hash)), 
+   -(client2 ; Shutdown ; sid ; idM22:Hash ; idM12:Hash ; idM21:Hash ;
+    idM31:Hash ; sig21Shutdown:Msg), 
+   -(client3 ; Shutdown ; sid ; idM32:Hash ; idM22:Hash ; sig31Shutdown:Msg), 
+   +(client1 ; ShutdownConfirm ; sid ; sign(s1, client1 ; ShutdownConfirm ;
+    sid)), 
+   -(client2 ; ShutdownConfirm ; sid ; sig22Shutdown:Msg), 
+   -(client3 ; ShutdownConfirm ; sid ; sig32Shutdown:Msg), 
+   +(client1 ; s1), 
+   -(client2 ; s2), 
+   -(client3 ; s3) | nil] 
+|| 
+sessKey inI
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 1) .
+rewrites: 327519445 in 598893ms cpu (598959ms real) (546874 rewrites/second)
+result Summary: States>> 6 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 2) .
+rewrites: 569383182 in 1715763ms cpu (1715853ms real) (331854 rewrites/second)
+result Summary: States>> 30 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 3) .
+rewrites: 3602314267 in 11761183ms cpu (11761491ms real) (306288
+    rewrites/second)
+result Summary: States>> 185 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 4) .
