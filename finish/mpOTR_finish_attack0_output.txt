@@ -1,4 +1,10 @@
+Timing
+real    25891m40.237s
+user    25890m17.251s
+sys     0m20.717s
+
 		     \||||||||||||||||||/
+u
 		   --- Welcome to Maude ---
 		     /||||||||||||||||||\
 	    Maude 2.6 built: Dec  9 2010 18:28:39
@@ -63,3 +69,8 @@ rewrites: 3602314267 in 11761183ms cpu (11761491ms real) (306288
 result Summary: States>> 185 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary((0).Zero, 4) .
+rewrites: 75245349719 in 348774025ms cpu (348784071ms real) (215742
+    rewrites/second)
+result Summary: States>> 1514 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 5) .

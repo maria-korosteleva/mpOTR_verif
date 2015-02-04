@@ -63,3 +63,8 @@ rewrites: 3466258029 in 11622866ms cpu (11622502ms real) (298227
 result Summary: States>> 169 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 4) .
+rewrites: 52304312948 in 253979252ms cpu (253979335ms real) (205939
+    rewrites/second)
+result Summary: States>> 1285 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary(2, 5) .
