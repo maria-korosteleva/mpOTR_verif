@@ -2,7 +2,6 @@
 # the script assumes two parameters -- $1 is a module name and $2 is 
 # the attack number 
 maude/maude.linux64 > $1/mpOTR_$1_attack0_output.txt <<EOF
-load maude/full-maude26.maude
 load maude-npa-v2_0/maude-npa.maude
 load $1/mpOTR_$1.maude
 red genGrammars .

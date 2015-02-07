@@ -3,7 +3,7 @@
 		     /||||||||||||||||||\
 	    Maude 2.6 built: Dec  9 2010 18:28:39
 	    Copyright 1997-2010 SRI International
-		   Thu Nov 13 20:43:20 2014
+		   Sat Feb  7 19:30:20 2015
 Maude> 
 	    Full Maude 2.5b January 14th 2011
 
@@ -13,24 +13,8 @@ Maude>
 	    All rights reserved.
 
 ==========================================
-reduce in MAUDE-NPA : genGrammars .
-rewrites: 100064 in 440ms cpu (458ms real) (227418 rewrites/second)
-result GrammarList: (
-grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
-grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
-grl #0:Msg notInI => (#0:Msg ; #1:Msg) inL .)
-| (
-grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
-grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
-grl #0:Msg notInI => (#1:Msg ; #0:Msg) inL .)
-| errorNoHeuristicApplied {
-grl empty => (#1:Msg ; #2:Msg) inL .,none,
-grl empty => (#1:Msg,#2:Msg) inL .,none,
-grl empty => (#1:Msg,#2:Msg) inL .} usingGrammar 
-grl empty => (#1:Msg ; #2:Msg) inL .
-==========================================
 reduce in MAUDE-NPA : run(0, 0) .
-rewrites: 2358 in 36ms cpu (37ms real) (65500 rewrites/second)
+rewrites: 102421 in 300ms cpu (300ms real) (341403 rewrites/second)
 result IdSystem: < 1 > empty
 || empty
 || 

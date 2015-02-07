@@ -3,7 +3,6 @@
 # the attack number 
 #red genGrammars .
 maude/maude.linux64 > $1/mpOTR_$1_attack$2_output.txt <<EOF
-load maude/full-maude26.maude
 load maude-npa-v2_0/maude-npa.maude
 load $1/mpOTR_$1.maude
 red run($2, 0) .

@@ -1,25 +1,17 @@
-Timing:
-real    0m2.537s
-user    0m2.068s
-sys     0m0.460s
-
 		     \||||||||||||||||||/
 		   --- Welcome to Maude ---
 		     /||||||||||||||||||\
 	    Maude 2.6 built: Dec  9 2010 18:28:39
 	    Copyright 1997-2010 SRI International
-		   Thu Dec  4 19:39:53 2014
+		   Sat Feb  7 19:28:54 2015
 Maude> 
-	    Full Maude 2.5b January 14th 2011
-
-
 	    Maude-NPA Version: 11/26/2011
 	    Copyright (c) 2012, University of Illinois
 	    All rights reserved.
 
 ==========================================
 reduce in MAUDE-NPA : genGrammars .
-rewrites: 100064 in 292ms cpu (291ms real) (342663 rewrites/second)
+rewrites: 100064 in 324ms cpu (330ms real) (308839 rewrites/second)
 result GrammarList: (
 grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
 grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
