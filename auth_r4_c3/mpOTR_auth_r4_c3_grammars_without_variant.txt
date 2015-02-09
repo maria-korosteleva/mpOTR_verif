@@ -3,7 +3,7 @@
 		     /||||||||||||||||||\
 	    Maude 2.6 built: Dec  9 2010 18:28:39
 	    Copyright 1997-2010 SRI International
-		   Sun Feb  8 16:53:02 2015
+		   Sun Feb  8 16:37:16 2015
 Maude> 
 	    Maude-NPA Version: 11/26/2011
 	    Copyright (c) 2012, University of Illinois
@@ -11,7 +11,7 @@ Maude>
 
 ==========================================
 reduce in MAUDE-NPA : genGrammars .
-rewrites: 158340988 in 439752ms cpu (442536ms real) (360068 rewrites/second)
+rewrites: 158340988 in 416148ms cpu (417136ms real) (380492 rewrites/second)
 result GrammarList: (
 grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
 grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 

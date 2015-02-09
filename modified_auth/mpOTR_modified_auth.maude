@@ -97,9 +97,9 @@ fmod PROTOCOL-EXAMPLE-ALGEBRAIC is
 	= M:Msg [nonexec metadata "variant"] . 
 
 	--- xorc properties -- will this be logical xorc of bit xorc?
-	---eq X:Number xorc X:Number xorc Y:Number = Y:Number [nonexec metadata "variant"] .
-	---eq X:Number xorc X:Number = 0 [nonexec metadata "variant"] .
-	---eq X:Number xorc 0 = X:Number [nonexec metadata "variant"] .
+	--- eq X:Number xorc X:Number xorc Y:Number = Y:Number [nonexec metadata "variant"] .
+	--- eq X:Number xorc X:Number = 0 [nonexec metadata "variant"] .
+	--- eq X:Number xorc 0 = X:Number [nonexec metadata "variant"] .
     
 	--- eq n(client1, fr_k:Fresh) = k1 .
     ---eq k2 = n(client2, fr_k) .
@@ -128,8 +128,15 @@ fmod PROTOCOL-SPECIFICATION is
 	vars c1_signed c2_signed c3_signed : Msg .
 	
 	--- Improving performance
+    --- client 3 ---
 	eq (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) = k1 .
 	eq (k2_tr2 xorc h(exp(y2, x3))) = k2 .
+	--- client 2 ---
+    eq (k1_tr1 xorc h(exp(y1, x2))) = k1 .
+	eq (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) = k3 .
+	--- client 1 ---
+	eq (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) = k2 .
+    eq (k3_tr3 xorc  h(exp(y3, x1))) = k3 .
 
 	--- Actions an intruder can perform
 	eq STRANDS-DOLEVYAO =
@@ -165,87 +172,83 @@ fmod PROTOCOL-SPECIFICATION is
 		--- client1 ---
 		:: fr_k, fr_s, fr_r :: 
 		[nil | --- Round 1 ---
-***(		           +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1),
+		       +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1),
 			   -(client2 ; k2_h ; y2 ;  S2),
 			   -(client3 ; k3_h ; y3 ;  S3),
 			   --- Round 2 --- 
-		           +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ;
-				 exp(g, r1)),
+		       +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ;  exp(g, r1)),
 			   -(client2 ; sid2 ; z2),
 			   -(client3 ; sid3 ; z3),
 			   --- Round 3 ---
 			   +(client1 ; (k1 xorc h(exp(y2, x1))) ;  
-				(h(exp(y3, x1)) xorc h(exp(y2, x1)))),
+					(h(exp(y3, x1)) xorc h(exp(y2, x1)))),
 			   -(client2 ; k2_tr2 ; T2),
 			   -(client3 ; k3_tr3 ; T3), 
-)***			   --- Round 4 ---
-***(			   +(client1 ; sign(genPrivClient1, 
+			   --- Round 4 ---
+			   +(client1 ; sign(genPrivClient1, 
 				(h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
 				h(exp(g, x1) ; k1 ; genPubClient1 ; 
 				y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-				y3 ; (k3_tr3 xorc h(exp(y3, x1))) ; S3)))) ; 
-				(r1 - ((h(
+				y3 ; (k3_tr3 xorc h(exp(y3, x1))) ; S3))))),
+			   +(r1 - ((h(
 				h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
 				h(exp(g, x1) ; k1 ; genPubClient1 ; 
 				y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-				y3 ; (k3_tr3 xorc  h(exp(y3, x1))) ; S3))) * x1))), 
+				y3 ; (k3_tr3 xorc  h(exp(y3, x1))) ; S3))) * x1)), 
 			   -(client2 ; c2_signed ; d2),
-)***
 			   -(client3 ; c3_signed ; d3),
 			   nil ]
 		&	
 		--- client2 ---
 		:: fr_k, fr_s, fr_r :: 
 		[nil | --- Round 1 ---
-***(			   -(client1 ; k1_h ; y1 ; S1),
-		       	   +(client2 ; h(k2) ; exp(g, x2) ;  genPubClient2),
-			   -(client3 ; k3_h ; y3 ;  S3),
+			   -(client1 ; k1_h ; y1 ; S1),
+		       +(client2 ; h(k2) ; exp(g, x2) ; genPubClient2),
+			   -(client3 ; k3_h ; y3 ; S3),
 			   --- Round 2 --- 
 			   -(client1 ; sid1 ; z1),
-		           +(client2 ; h(client1 ; client2 ; client3 ; k1_h ; h(k2) ; k3_h) ;
-				 exp(g, r2)),
+		       +(client2 ; h(client1 ; client2 ; client3 ; k1_h ; h(k2) ;
+					 k3_h) ; exp(g, r2)),
 			   -(client3 ; sid3 ; z3),
 			   --- Round 3 ---
 			   -(client1 ; k1_tr1 ; T1),
 			   +(client2 ; (k2 xorc h(exp(y3, x2))) ;  
-				(h(exp(y1, x2)) xorc h(exp(y3, x2)))),
+					(h(exp(y1, x2)) xorc h(exp(y3, x2)))),
 			   -(client3 ; k3_tr3 ; T3), 
-)***			   --- Round 4 ---
-***(			   -(client1 ; c1_signed ; d1),
+			   --- Round 4 ---
+			   -(client1 ; c1_signed ; d1),
 			   +(client2 ; sign(genPrivClient2, 
 				(h(h(client1 ; client2 ; client3 ; k1_h ;  h(k2) ; k3_h) ; 
 				h(y1 ; (k1_tr1 xorc h(exp(y1, x2))) ; S1 ; 
 				exp(g, x2) ; k2 ; genPubClient2 ; 
-				y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3)))) ; 
-				(r2 - ((
+				y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3)))) ),
+			   +((r2 - ((
 				h(h(client1 ; client2 ; client3 ; k1_h ; h(k2) ; k3_h) ; 
 				h(y1 ; (k1_tr1 xorc h(exp(y1, x2))) ; S1 ; 
 				exp(g, x2) ; k2 ; genPubClient2 ; 
 				y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3))) * x2))), 
-)***
 			   -(client3 ; c3_signed ; d3),
 			   nil ]
 		&
 		--- client3 ---
 		:: fr_k, fr_s, fr_r :: 
 		[nil | --- Round 1 ---
-***(			   -(client1 ; k1_h ; y1 ;  S1),
+			   -(client1 ; k1_h ; y1 ;  S1),
 			   -(client2 ; k2_h ; y2 ;  S2),
-		      	   +(client3 ; h(k3) ; exp(g, x3) ;  genPubClient3),
+		       +(client3 ; h(k3) ; exp(g, x3) ;  genPubClient3),
 			   --- Round 2 --- 
 			   -(client1 ; sid1 ; z1),
 			   -(client2 ; sid2 ; z2),
 			   +(client3 ; h(client1 ; client2 ; client3 ; k1_h ; k2_h ; 
-				h(k3)) ; exp(g, r3)),
+					h(k3)) ; exp(g, r3)),
 			   --- Round 3 ---
 			   -(client1 ; k1_tr1 ; T1),
 			   -(client2 ; k2_tr2 ; T2), 
 			   +(client3 ; (k3 xorc h(exp(y1, x3))) ;  
-				(h(exp(y2, x3)) xorc h(exp(y1, x3)))),
-)***			   --- Round 4 ---
-***(			   -(client1 ; c1_signed ; d1),
+					(h(exp(y2, x3)) xorc h(exp(y1, x3)))),
+			   --- Round 4 ---
+			   -(client1 ; c1_signed ; d1),
 			   -(client2 ; c2_signed ; d2),
-)***
 			   +(client3 ; sign(genPrivClient3, 
 				(h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(k3)) ; 
 				h( ( y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) ; S1 ) ; 

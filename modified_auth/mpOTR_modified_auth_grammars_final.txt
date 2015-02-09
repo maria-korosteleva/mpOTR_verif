@@ -1,0 +1,538 @@
+		     \||||||||||||||||||/
+		   --- Welcome to Maude ---
+		     /||||||||||||||||||\
+	    Maude 2.6 built: Dec  9 2010 18:28:39
+	    Copyright 1997-2010 SRI International
+		   Sun Feb  8 17:02:47 2015
+Maude> 
+	    Maude-NPA Version: 11/26/2011
+	    Copyright (c) 2012, University of Illinois
+	    All rights reserved.
+
+==========================================
+reduce in MAUDE-NPA : genGrammars .
+rewrites: 2349762473 in 12863380ms cpu (12948255ms real) (182670
+    rewrites/second)
+result GrammarList: (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    genPubClient3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
+    #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
+    #5:Number * #6:Number), (#0:Number notLeq #7:Number + #8:Number), (
+    #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
+    xorc #12:Number => (#13:Number * #0:Number) inL . ; 
+grl (#1:Number * #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
+    #0:Number notLeq genPubClient3), (#0:Number notLeq h(#2:Msg)), (#0:Number
+    notLeq n(intruder, #3:Fresh)), (#0:Number notLeq exp(#4:Gen, #5:Number)), (
+    #0:Number notLeq #6:Number + #7:Number), (#0:Number notLeq (#8:Number -
+    #9:Number)), (#0:Number notLeq #10:Number xorc #11:Number), (#1:Number *
+    #0:Number) notLeq #13:Number * #12:Number => #0:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number * #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number * #2:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    genPubClient3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
+    #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
+    #5:Number * #6:Number), (#0:Number notLeq #7:Number + #8:Number), (
+    #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
+    xorc #12:Number => (#13:Number + #0:Number) inL . ; 
+grl (#1:Number + #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
+    #0:Number notLeq genPubClient3), (#0:Number notLeq h(#2:Msg)), (#0:Number
+    notLeq n(intruder, #3:Fresh)), (#0:Number notLeq exp(#4:Gen, #5:Number)), (
+    #0:Number notLeq #6:Number * #7:Number), (#0:Number notLeq (#8:Number -
+    #9:Number)), (#0:Number notLeq #10:Number xorc #11:Number), (#1:Number +
+    #0:Number) notLeq #13:Number + #12:Number => #0:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number + #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number + #2:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq r1), (#0:Number notLeq r2), #0:Number
+    notLeq r3 => (#0:Number - #1:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq x1 * h(h(client1 ; client2 ; client3 ;
+    h(k1) ; #1:Hash ; #2:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #3:Number
+    ; (#4:Number xorc #5:Number xorc h(exp(#3:Number, x1))) ; #6:PubKey ;
+    #7:Number ; (#8:Number xorc h(exp(#7:Number, x1))) ; #9:PubKey))), (
+    #0:Number notLeq x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #10:Hash ;
+    #11:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #12:Number ; (#13:Number
+    xorc #14:Number xorc h(exp(#12:Number, x1))) ; #15:PubKey ; exp(#16:Gen,
+    #17:Number) ; (#18:Number xorc h(exp(#16:Gen, x1 * #17:Number))) ;
+    #19:PubKey))), (#0:Number notLeq x1 * h(h(client1 ; client2 ; client3 ; h(
+    k1) ; #20:Hash ; #21:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(
+    #22:Gen, #23:Number) ; (#24:Number xorc #25:Number xorc h(exp(#22:Gen, x1 *
+    #23:Number))) ; #26:PubKey ; #27:Number ; (#28:Number xorc h(exp(
+    #27:Number, x1))) ; #29:PubKey))), (#0:Number notLeq x1 * h(h(client1 ;
+    client2 ; client3 ; h(k1) ; #30:Hash ; #31:Hash) ; h(exp(g, x1) ; k1 ;
+    genPubClient1 ; exp(#32:Gen, #33:Number) ; (#34:Number xorc #35:Number xorc
+    h(exp(#32:Gen, x1 * #33:Number))) ; #36:PubKey ; exp(#37:Gen, #38:Number) ;
+    (#39:Number xorc h(exp(#37:Gen, x1 * #38:Number))) ; #40:PubKey))), (
+    #0:Number notLeq x2 * h(h(client1 ; client2 ; client3 ; #50:Hash ; h(k2) ;
+    #51:Hash) ; h(#52:Number ; (#53:Number xorc h(exp(#52:Number, x2))) ;
+    #54:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; exp(#55:Gen, #56:Number) ; (
+    #57:Number xorc #58:Number xorc h(exp(#55:Gen, x2 * #56:Number))) ;
+    #59:PubKey))), (#0:Number notLeq x2 * h(h(client1 ; client2 ; client3 ;
+    #60:Hash ; h(k2) ; #61:Hash) ; h(exp(#62:Gen, #63:Number) ; (#64:Number
+    xorc h(exp(#62:Gen, x2 * #63:Number))) ; #65:PubKey ; exp(g, x2) ; k2 ;
+    genPubClient2 ; #66:Number ; (#67:Number xorc #68:Number xorc h(exp(
+    #66:Number, x2))) ; #69:PubKey))), (#0:Number notLeq x2 * h(h(client1 ;
+    client2 ; client3 ; #41:Hash ; h(k2) ; #42:Hash) ; h(#43:Number ; (
+    #44:Number xorc h(exp(#43:Number, x2))) ; #45:PubKey ; exp(g, x2) ; k2 ;
+    genPubClient2 ; #46:Number ; (#47:Number xorc #48:Number xorc h(exp(
+    #46:Number, x2))) ; #49:PubKey))), (#0:Number notLeq x2 * h(h(client1 ;
+    client2 ; client3 ; #70:Hash ; h(k2) ; #71:Hash) ; h(exp(#72:Gen,
+    #73:Number) ; (#74:Number xorc h(exp(#72:Gen, x2 * #73:Number))) ;
+    #75:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; exp(#76:Gen, #77:Number) ; (
+    #79:Number xorc #78:Number xorc h(exp(#76:Gen, x2 * #77:Number))) ;
+    #80:PubKey))), (#0:Number notLeq x3 * h(h(client1 ; client2 ; client3 ;
+    #81:Hash ; #82:Hash ; h(k3)) ; h((#83:Number ; (#84:Number xorc #85:Number
+    xorc h(exp(#83:Number, x3))) ; #86:PubKey) ; (#87:Number ; (#88:Number xorc
+    h(exp(#87:Number, x3))) ; #89:PubKey) ; exp(g, x3) ; k3 ; genPubClient3))),
+    (#0:Number notLeq x3 * h(h(client1 ; client2 ; client3 ; #90:Hash ;
+    #91:Hash ; h(k3)) ; h((#92:Number ; (#93:Number xorc #94:Number xorc h(exp(
+    #92:Number, x3))) ; #95:PubKey) ; (exp(#96:Gen, #97:Number) ; (#98:Number
+    xorc h(exp(#96:Gen, x3 * #97:Number))) ; #99:PubKey) ; exp(g, x3) ; k3 ;
+    genPubClient3))), (#0:Number notLeq x3 * h(h(client1 ; client2 ; client3 ;
+    #100:Hash ; #101:Hash ; h(k3)) ; h((exp(#102:Gen, #103:Number) ; (
+    #104:Number xorc #105:Number xorc h(exp(#102:Gen, x3 * #103:Number))) ;
+    #106:PubKey) ; (#107:Number ; (#108:Number xorc h(exp(#107:Number, x3))) ;
+    #109:PubKey) ; exp(g, x3) ; k3 ; genPubClient3))), #0:Number notLeq x3 * h(
+    h(client1 ; client2 ; client3 ; #110:Hash ; #111:Hash ; h(k3)) ; h((exp(
+    #112:Gen, #113:Number) ; (#114:Number xorc #115:Number xorc h(exp(#112:Gen,
+    x3 * #113:Number))) ; #116:PubKey) ; (exp(#117:Gen, #118:Number) ; (
+    #119:Number xorc h(exp(#117:Gen, x3 * #118:Number))) ; #120:PubKey) ; exp(
+    g, x3) ; k3 ; genPubClient3)) => (#121:Number - #0:Number) inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number - #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number - #2:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq h(k1)), (#0:Msg notLeq h(k2)), (#0:Msg notLeq
+    h(k3)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; #1:Hash ; h(k2) ;
+    #2:Hash)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; #3:Hash ; #4:Hash
+    ; h(k3))), (#0:Msg notLeq h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ;
+    #6:Hash)), (#0:Msg notLeq exp(g, x1)), (#0:Msg notLeq exp(g, x2)), (#0:Msg
+    notLeq exp(g, x3)), (#0:Msg notLeq k1 xorc h(exp(#7:Number, x1))), (#0:Msg
+    notLeq k1 xorc h(exp(#8:Gen, x1 * #9:Number))), (#0:Msg notLeq k2 xorc h(
+    exp(#10:Number, x2))), (#0:Msg notLeq k2 xorc h(exp(#11:Gen, x2 *
+    #12:Number))), (#0:Msg notLeq k3 xorc h(exp(#13:Number, x3))), #0:Msg
+    notLeq k3 xorc h(exp(#14:Gen, x3 * #15:Number)) => (#0:Msg ; #16:Msg) inL
+    .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq genPubClient1), (#0:Msg notLeq
+    genPubClient2), (#0:Msg notLeq genPubClient3), (#0:Msg notLeq sign(
+    genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ; #1:Hash ;
+    #2:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #3:Number ; (#4:Number xorc
+    #5:Number xorc h(exp(#3:Number, x1))) ; #6:PubKey ; #7:Number ; (#8:Number
+    xorc h(exp(#7:Number, x1))) ; #9:PubKey)))), (#0:Msg notLeq sign(
+    genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ; #10:Hash ;
+    #11:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #12:Number ; (#13:Number
+    xorc #14:Number xorc h(exp(#12:Number, x1))) ; #15:PubKey ; exp(#16:Gen,
+    #17:Number) ; (#18:Number xorc h(exp(#16:Gen, x1 * #17:Number))) ;
+    #19:PubKey)))), (#0:Msg notLeq sign(genPrivClient1, h(h(client1 ; client2 ;
+    client3 ; h(k1) ; #20:Hash ; #21:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1
+    ; exp(#22:Gen, #23:Number) ; (#24:Number xorc #25:Number xorc h(exp(
+    #22:Gen, x1 * #23:Number))) ; #26:PubKey ; #27:Number ; (#28:Number xorc h(
+    exp(#27:Number, x1))) ; #29:PubKey)))), (#0:Msg notLeq sign(genPrivClient1,
+    h(h(client1 ; client2 ; client3 ; h(k1) ; #30:Hash ; #31:Hash) ; h(exp(g,
+    x1) ; k1 ; genPubClient1 ; exp(#32:Gen, #33:Number) ; (#34:Number xorc
+    #35:Number xorc h(exp(#32:Gen, x1 * #33:Number))) ; #36:PubKey ; exp(
+    #37:Gen, #38:Number) ; (#39:Number xorc h(exp(#37:Gen, x1 * #38:Number))) ;
+    #40:PubKey)))), (#0:Msg notLeq sign(genPrivClient2, h(h(client1 ; client2 ;
+    client3 ; #50:Hash ; h(k2) ; #51:Hash) ; h(#52:Number ; (#53:Number xorc h(
+    exp(#52:Number, x2))) ; #54:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; exp(
+    #55:Gen, #56:Number) ; (#57:Number xorc #58:Number xorc h(exp(#55:Gen, x2 *
+    #56:Number))) ; #59:PubKey)))), (#0:Msg notLeq sign(genPrivClient2, h(h(
+    client1 ; client2 ; client3 ; #60:Hash ; h(k2) ; #61:Hash) ; h(exp(#62:Gen,
+    #63:Number) ; (#64:Number xorc h(exp(#62:Gen, x2 * #63:Number))) ;
+    #65:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; #66:Number ; (#67:Number
+    xorc #68:Number xorc h(exp(#66:Number, x2))) ; #69:PubKey)))), (#0:Msg
+    notLeq sign(genPrivClient2, h(h(client1 ; client2 ; client3 ; #41:Hash ; h(
+    k2) ; #42:Hash) ; h(#43:Number ; (#44:Number xorc h(exp(#43:Number, x2))) ;
+    #45:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; #46:Number ; (#47:Number
+    xorc #48:Number xorc h(exp(#46:Number, x2))) ; #49:PubKey)))), (#0:Msg
+    notLeq sign(genPrivClient2, h(h(client1 ; client2 ; client3 ; #70:Hash ; h(
+    k2) ; #71:Hash) ; h(exp(#72:Gen, #73:Number) ; (#74:Number xorc h(exp(
+    #72:Gen, x2 * #73:Number))) ; #75:PubKey ; exp(g, x2) ; k2 ; genPubClient2
+    ; exp(#76:Gen, #77:Number) ; (#79:Number xorc #78:Number xorc h(exp(
+    #76:Gen, x2 * #77:Number))) ; #80:PubKey)))), (#0:Msg notLeq sign(
+    genPrivClient3, h(h(client1 ; client2 ; client3 ; #81:Hash ; #82:Hash ; h(
+    k3)) ; h((#83:Number ; (#84:Number xorc #85:Number xorc h(exp(#83:Number,
+    x3))) ; #86:PubKey) ; (#87:Number ; (#88:Number xorc h(exp(#87:Number,
+    x3))) ; #89:PubKey) ; exp(g, x3) ; k3 ; genPubClient3)))), (#0:Msg notLeq
+    sign(genPrivClient3, h(h(client1 ; client2 ; client3 ; #90:Hash ; #91:Hash
+    ; h(k3)) ; h((#92:Number ; (#93:Number xorc #94:Number xorc h(exp(
+    #92:Number, x3))) ; #95:PubKey) ; (exp(#96:Gen, #97:Number) ; (#98:Number
+    xorc h(exp(#96:Gen, x3 * #97:Number))) ; #99:PubKey) ; exp(g, x3) ; k3 ;
+    genPubClient3)))), (#0:Msg notLeq sign(genPrivClient3, h(h(client1 ;
+    client2 ; client3 ; #100:Hash ; #101:Hash ; h(k3)) ; h((exp(#102:Gen,
+    #103:Number) ; (#104:Number xorc #105:Number xorc h(exp(#102:Gen, x3 *
+    #103:Number))) ; #106:PubKey) ; (#107:Number ; (#108:Number xorc h(exp(
+    #107:Number, x3))) ; #109:PubKey) ; exp(g, x3) ; k3 ; genPubClient3)))), (
+    #0:Msg notLeq sign(genPrivClient3, h(h(client1 ; client2 ; client3 ;
+    #110:Hash ; #111:Hash ; h(k3)) ; h((exp(#112:Gen, #113:Number) ; (
+    #114:Number xorc #115:Number xorc h(exp(#112:Gen, x3 * #113:Number))) ;
+    #116:PubKey) ; (exp(#117:Gen, #118:Number) ; (#119:Number xorc h(exp(
+    #117:Gen, x3 * #118:Number))) ; #120:PubKey) ; exp(g, x3) ; k3 ;
+    genPubClient3)))), (#0:Msg notLeq exp(g, r1)), (#0:Msg notLeq exp(g, r2)),
+    (#0:Msg notLeq exp(g, r3)), (#0:Msg notLeq h(exp(#121:Number, x1)) xorc h(
+    exp(#122:Gen, x1 * #123:Number))), (#0:Msg notLeq h(exp(#124:Number, x3))
+    xorc h(exp(#125:Number, x3))), (#0:Msg notLeq h(exp(#126:Number, x2)) xorc
+    h(exp(#127:Gen, x2 * #128:Number))), (#0:Msg notLeq h(exp(#129:Number, x3))
+    xorc h(exp(#130:Gen, x3 * #131:Number))), (#0:Msg notLeq h(exp(#132:Number,
+    x1)) xorc h(exp(#133:Number, x1))), (#0:Msg notLeq h(exp(#134:Number, x2))
+    xorc h(exp(#135:Number, x2))), (#0:Msg notLeq h(exp(#136:Gen, x1 *
+    #137:Number)) xorc h(exp(#138:Gen, x1 * #139:Number))), (#0:Msg notLeq h(
+    exp(#140:Gen, x2 * #141:Number)) xorc h(exp(#142:Gen, x2 * #143:Number))),
+    (#0:Msg notLeq h(exp(#144:Gen, x3 * #145:Number)) xorc h(exp(#146:Gen, x3 *
+    #147:Number))), (#0:Msg notLeq h(k1) ; exp(g, x1) ; genPubClient1), (#0:Msg
+    notLeq h(k2) ; exp(g, x2) ; genPubClient2), (#0:Msg notLeq h(k3) ; exp(g,
+    x3) ; genPubClient3), (#0:Msg notLeq h(client1 ; client2 ; client3 ;
+    #148:Hash ; #149:Hash ; h(k3)) ; exp(g, r3)), (#0:Msg notLeq h(client1 ;
+    client2 ; client3 ; #150:Hash ; h(k2) ; #151:Hash) ; exp(g, r2)), (#0:Msg
+    notLeq h(client1 ; client2 ; client3 ; h(k1) ; #152:Hash ; #153:Hash) ;
+    exp(g, r1)), (#0:Msg notLeq exp(g, x1) ; genPubClient1), (#0:Msg notLeq
+    exp(g, x2) ; genPubClient2), (#0:Msg notLeq exp(g, x3) ; genPubClient3), (
+    #0:Msg notLeq (k1 xorc h(exp(#154:Number, x1))) ; h(exp(#154:Number, x1))
+    xorc h(exp(#155:Number, x1))), (#0:Msg notLeq (k1 xorc h(exp(#156:Number,
+    x1))) ; h(exp(#156:Number, x1)) xorc h(exp(#157:Gen, x1 * #158:Number))), (
+    #0:Msg notLeq (k1 xorc h(exp(#159:Gen, x1 * #160:Number))) ; h(exp(
+    #161:Number, x1)) xorc h(exp(#159:Gen, x1 * #160:Number))), (#0:Msg notLeq
+    (k1 xorc h(exp(#162:Gen, x1 * #163:Number))) ; h(exp(#162:Gen, x1 *
+    #163:Number)) xorc h(exp(#164:Gen, x1 * #165:Number))), (#0:Msg notLeq (k2
+    xorc h(exp(#166:Number, x2))) ; h(exp(#166:Number, x2)) xorc h(exp(
+    #167:Number, x2))), (#0:Msg notLeq (k2 xorc h(exp(#168:Number, x2))) ; h(
+    exp(#168:Number, x2)) xorc h(exp(#169:Gen, x2 * #170:Number))), (#0:Msg
+    notLeq (k2 xorc h(exp(#171:Gen, x2 * #172:Number))) ; h(exp(#173:Number,
+    x2)) xorc h(exp(#171:Gen, x2 * #172:Number))), (#0:Msg notLeq (k2 xorc h(
+    exp(#174:Gen, x2 * #175:Number))) ; h(exp(#174:Gen, x2 * #175:Number)) xorc
+    h(exp(#176:Gen, x2 * #177:Number))), (#0:Msg notLeq (k3 xorc h(exp(
+    #178:Number, x3))) ; h(exp(#178:Number, x3)) xorc h(exp(#179:Number, x3))),
+    (#0:Msg notLeq (k3 xorc h(exp(#180:Number, x3))) ; h(exp(#180:Number, x3))
+    xorc h(exp(#181:Gen, x3 * #182:Number))), (#0:Msg notLeq (k3 xorc h(exp(
+    #183:Gen, x3 * #184:Number))) ; h(exp(#185:Number, x3)) xorc h(exp(
+    #183:Gen, x3 * #184:Number))), #0:Msg notLeq (k3 xorc h(exp(#186:Gen, x3 *
+    #187:Number))) ; h(exp(#186:Gen, x3 * #187:Number)) xorc h(exp(#188:Gen, x3
+    * #189:Number)) => (#190:Msg ; #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Msg ; #2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .,none,
+grl empty => (#1:Msg,#2:Msg) inL .} usingGrammar 
+grl empty => (#1:Msg ; #2:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    genPubClient3), (#0:Number notLeq k1), (#0:Number notLeq k2), (#0:Number
+    notLeq k3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
+    #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
+    #5:Number * #6:Number), (#0:Number notLeq #7:Number + #8:Number), (
+    #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
+    xorc #12:Number => (#13:Number xorc #0:Number) inL . ; 
+grl (#1:Number xorc #0:Number) notInI, (#1:Number notLeq g), (#1:Number notLeq
+    0), (#1:Number notLeq x1), (#1:Number notLeq x2), (#1:Number notLeq x3), (
+    #1:Number notLeq genPubClient1), (#1:Number notLeq genPubClient2), (
+    #1:Number notLeq genPubClient3), (#1:Number notLeq k1), (#1:Number notLeq
+    k2), (#1:Number notLeq k3), (#1:Number notLeq h(#2:Msg)), (#1:Number notLeq
+    n(intruder, #3:Fresh)), (#1:Number notLeq exp(#4:Gen, #5:Number)), (
+    #1:Number notLeq #6:Number * #7:Number), (#1:Number notLeq #8:Number +
+    #9:Number), (#1:Number notLeq (#10:Number - #11:Number)), (#1:Number xorc
+    #0:Number) notLeq #13:Number xorc #12:Number => #1:Number inL .)
+| (errorNoHeuristicApplied {
+grl empty => (#1:Number xorc #2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .,none,
+grl empty => (#1:Number,#2:Number) inL .} usingGrammar 
+grl empty => (#1:Number xorc #2:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:SimmKey notInI => dec(#0:SimmKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => dec(#1:SimmKey, #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => dec(#1:SimmKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .} usingGrammar 
+grl empty => dec(#1:SimmKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:SimmKey notInI => enc(#0:SimmKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => enc(#1:SimmKey, #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => enc(#1:SimmKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .,none,
+grl empty => (#2:Msg,#1:SimmKey) inL .} usingGrammar 
+grl empty => enc(#1:SimmKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI => exp(#0:Number, #1:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Number notInI, (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number
+    notLeq x3), (#0:Number notLeq r1), (#0:Number notLeq r2), #0:Number notLeq
+    r3 => exp(#1:Number, #0:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl exp(#0:Number, #1:Number) notLeq exp(#2:Gen, #3:Number) => exp(#0:Number,
+    #1:Number) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq k1), (#0:Msg notLeq k2), (#0:Msg notLeq k3),
+    (#0:Msg notLeq client1 ; client2 ; client3 ; #1:Hash ; h(k2) ; #2:Hash), (
+    #0:Msg notLeq client1 ; client2 ; client3 ; #3:Hash ; #4:Hash ; h(k3)), (
+    #0:Msg notLeq client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #6:Hash), (
+    #0:Msg notLeq h(client1 ; client2 ; client3 ; #7:Hash ; h(k2) ; #8:Hash) ;
+    h(#9:Number ; (#10:Number xorc h(exp(#9:Number, x2))) ; #11:PubKey ; exp(g,
+    x2) ; k2 ; genPubClient2 ; #12:Number ; (#13:Number xorc #14:Number xorc h(
+    exp(#12:Number, x2))) ; #15:PubKey)), (#0:Msg notLeq h(client1 ; client2 ;
+    client3 ; #16:Hash ; #17:Hash ; h(k3)) ; h((#18:Number ; (#19:Number xorc
+    #20:Number xorc h(exp(#18:Number, x3))) ; #21:PubKey) ; (#22:Number ; (
+    #23:Number xorc h(exp(#22:Number, x3))) ; #24:PubKey) ; exp(g, x3) ; k3 ;
+    genPubClient3)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; #25:Hash ;
+    h(k2) ; #26:Hash) ; h(#27:Number ; (#28:Number xorc h(exp(#27:Number, x2)))
+    ; #29:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; exp(#30:Gen, #31:Number) ;
+    (#32:Number xorc #33:Number xorc h(exp(#30:Gen, x2 * #31:Number))) ;
+    #34:PubKey)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; #35:Hash ; h(
+    k2) ; #36:Hash) ; h(exp(#37:Gen, #38:Number) ; (#39:Number xorc h(exp(
+    #37:Gen, x2 * #38:Number))) ; #40:PubKey ; exp(g, x2) ; k2 ; genPubClient2
+    ; #41:Number ; (#42:Number xorc #43:Number xorc h(exp(#41:Number, x2))) ;
+    #44:PubKey)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; #45:Hash ;
+    #46:Hash ; h(k3)) ; h((#47:Number ; (#48:Number xorc #49:Number xorc h(exp(
+    #47:Number, x3))) ; #50:PubKey) ; (exp(#51:Gen, #52:Number) ; (#53:Number
+    xorc h(exp(#51:Gen, x3 * #52:Number))) ; #54:PubKey) ; exp(g, x3) ; k3 ;
+    genPubClient3)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; #55:Hash ;
+    #56:Hash ; h(k3)) ; h((exp(#57:Gen, #58:Number) ; (#60:Number xorc
+    #59:Number xorc h(exp(#57:Gen, x3 * #58:Number))) ; #61:PubKey) ; (
+    #62:Number ; (#63:Number xorc h(exp(#62:Number, x3))) ; #64:PubKey) ; exp(
+    g, x3) ; k3 ; genPubClient3)), (#0:Msg notLeq h(client1 ; client2 ; client3
+    ; #65:Hash ; h(k2) ; #66:Hash) ; h(exp(#67:Gen, #68:Number) ; (#69:Number
+    xorc h(exp(#67:Gen, x2 * #68:Number))) ; #70:PubKey ; exp(g, x2) ; k2 ;
+    genPubClient2 ; exp(#71:Gen, #72:Number) ; (#73:Number xorc #74:Number xorc
+    h(exp(#71:Gen, x2 * #72:Number))) ; #75:PubKey)), (#0:Msg notLeq h(client1
+    ; client2 ; client3 ; #76:Hash ; #77:Hash ; h(k3)) ; h((exp(#78:Gen,
+    #79:Number) ; (#80:Number xorc #81:Number xorc h(exp(#78:Gen, x3 *
+    #79:Number))) ; #82:PubKey) ; (exp(#83:Gen, #84:Number) ; (#85:Number xorc
+    h(exp(#83:Gen, x3 * #84:Number))) ; #86:PubKey) ; exp(g, x3) ; k3 ;
+    genPubClient3)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; h(k1) ;
+    #87:Hash ; #88:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #89:Number ; (
+    #90:Number xorc #91:Number xorc h(exp(#89:Number, x1))) ; #92:PubKey ; exp(
+    #93:Gen, #94:Number) ; (#95:Number xorc h(exp(#93:Gen, x1 * #94:Number))) ;
+    #96:PubKey)), (#0:Msg notLeq h(client1 ; client2 ; client3 ; h(k1) ;
+    #97:Hash ; #98:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#99:Gen,
+    #100:Number) ; (#101:Number xorc #102:Number xorc h(exp(#99:Gen, x1 *
+    #100:Number))) ; #103:PubKey ; #104:Number ; (#105:Number xorc h(exp(
+    #104:Number, x1))) ; #106:PubKey)), (#0:Msg notLeq h(client1 ; client2 ;
+    client3 ; h(k1) ; #107:Hash ; #108:Hash) ; h(exp(g, x1) ; k1 ;
+    genPubClient1 ; #109:Number ; (#110:Number xorc #111:Number xorc h(exp(
+    #109:Number, x1))) ; #112:PubKey ; #113:Number ; (#114:Number xorc h(exp(
+    #113:Number, x1))) ; #115:PubKey)), #0:Msg notLeq h(client1 ; client2 ;
+    client3 ; h(k1) ; #116:Hash ; #117:Hash) ; h(exp(g, x1) ; k1 ;
+    genPubClient1 ; exp(#118:Gen, #119:Number) ; (#120:Number xorc #121:Number
+    xorc h(exp(#118:Gen, x1 * #119:Number))) ; #122:PubKey ; exp(#123:Gen,
+    #124:Number) ; (#125:Number xorc h(exp(#123:Gen, x1 * #124:Number))) ;
+    #126:PubKey) => h(#0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => h(#1:Msg) inL .,none,
+grl empty => #1:Msg inL .,none,
+grl empty => #1:Msg inL .} usingGrammar 
+grl empty => h(#1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl n(#0:Name, #1:Fresh) notLeq n(intruder, #2:Fresh) => n(#0:Name, #1:Fresh)
+    inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PrivKey notInI, (#0:PrivKey notLeq genPrivClient1), (#0:PrivKey notLeq
+    genPrivClient2), #0:PrivKey notLeq genPrivClient3 => sign(#0:PrivKey,
+    #1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI, (#0:Msg notLeq h(h(client1 ; client2 ; client3 ; #1:Hash ;
+    h(k2) ; #2:Hash) ; h(#3:Number ; (#4:Number xorc h(exp(#3:Number, x2))) ;
+    #5:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; exp(#6:Gen, #7:Number) ; (
+    #8:Number xorc #9:Number xorc h(exp(#6:Gen, x2 * #7:Number))) ;
+    #10:PubKey))), (#0:Msg notLeq h(h(client1 ; client2 ; client3 ; #11:Hash ;
+    h(k2) ; #12:Hash) ; h(#13:Number ; (#14:Number xorc h(exp(#13:Number, x2)))
+    ; #15:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; #16:Number ; (#17:Number
+    xorc #18:Number xorc h(exp(#16:Number, x2))) ; #19:PubKey))), (#0:Msg
+    notLeq h(h(client1 ; client2 ; client3 ; #20:Hash ; #21:Hash ; h(k3)) ; h((
+    #22:Number ; (#23:Number xorc #24:Number xorc h(exp(#22:Number, x3))) ;
+    #25:PubKey) ; (#26:Number ; (#27:Number xorc h(exp(#26:Number, x3))) ;
+    #28:PubKey) ; exp(g, x3) ; k3 ; genPubClient3))), (#0:Msg notLeq h(h(
+    client1 ; client2 ; client3 ; #29:Hash ; h(k2) ; #30:Hash) ; h(exp(#31:Gen,
+    #32:Number) ; (#33:Number xorc h(exp(#31:Gen, x2 * #32:Number))) ;
+    #34:PubKey ; exp(g, x2) ; k2 ; genPubClient2 ; #35:Number ; (#36:Number
+    xorc #37:Number xorc h(exp(#35:Number, x2))) ; #38:PubKey))), (#0:Msg
+    notLeq h(h(client1 ; client2 ; client3 ; #39:Hash ; #40:Hash ; h(k3)) ; h((
+    #41:Number ; (#42:Number xorc #43:Number xorc h(exp(#41:Number, x3))) ;
+    #44:PubKey) ; (exp(#45:Gen, #46:Number) ; (#47:Number xorc h(exp(#45:Gen,
+    x3 * #46:Number))) ; #48:PubKey) ; exp(g, x3) ; k3 ; genPubClient3))), (
+    #0:Msg notLeq h(h(client1 ; client2 ; client3 ; #49:Hash ; #50:Hash ; h(
+    k3)) ; h((exp(#51:Gen, #52:Number) ; (#53:Number xorc #54:Number xorc h(
+    exp(#51:Gen, x3 * #52:Number))) ; #55:PubKey) ; (#56:Number ; (#57:Number
+    xorc h(exp(#56:Number, x3))) ; #58:PubKey) ; exp(g, x3) ; k3 ;
+    genPubClient3))), (#0:Msg notLeq h(h(client1 ; client2 ; client3 ; #59:Hash
+    ; h(k2) ; #60:Hash) ; h(exp(#61:Gen, #62:Number) ; (#63:Number xorc h(exp(
+    #61:Gen, x2 * #62:Number))) ; #64:PubKey ; exp(g, x2) ; k2 ; genPubClient2
+    ; exp(#65:Gen, #66:Number) ; (#67:Number xorc #68:Number xorc h(exp(
+    #65:Gen, x2 * #66:Number))) ; #69:PubKey))), (#0:Msg notLeq h(h(client1 ;
+    client2 ; client3 ; #70:Hash ; #71:Hash ; h(k3)) ; h((exp(#72:Gen,
+    #73:Number) ; (#75:Number xorc #74:Number xorc h(exp(#72:Gen, x3 *
+    #73:Number))) ; #76:PubKey) ; (exp(#77:Gen, #78:Number) ; (#79:Number xorc
+    h(exp(#77:Gen, x3 * #78:Number))) ; #80:PubKey) ; exp(g, x3) ; k3 ;
+    genPubClient3))), (#0:Msg notLeq h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #81:Hash ; #82:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #83:Number ; (
+    #84:Number xorc #85:Number xorc h(exp(#83:Number, x1))) ; #86:PubKey ; exp(
+    #87:Gen, #88:Number) ; (#89:Number xorc h(exp(#87:Gen, x1 * #88:Number))) ;
+    #90:PubKey))), (#0:Msg notLeq h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #91:Hash ; #92:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#93:Gen,
+    #94:Number) ; (#95:Number xorc #96:Number xorc h(exp(#93:Gen, x1 *
+    #94:Number))) ; #97:PubKey ; #98:Number ; (#99:Number xorc h(exp(
+    #98:Number, x1))) ; #100:PubKey))), (#0:Msg notLeq h(h(client1 ; client2 ;
+    client3 ; h(k1) ; #101:Hash ; #102:Hash) ; h(exp(g, x1) ; k1 ;
+    genPubClient1 ; #103:Number ; (#104:Number xorc #105:Number xorc h(exp(
+    #103:Number, x1))) ; #106:PubKey ; #107:Number ; (#108:Number xorc h(exp(
+    #107:Number, x1))) ; #109:PubKey))), #0:Msg notLeq h(h(client1 ; client2 ;
+    client3 ; h(k1) ; #110:Hash ; #111:Hash) ; h(exp(g, x1) ; k1 ;
+    genPubClient1 ; exp(#112:Gen, #113:Number) ; (#114:Number xorc #115:Number
+    xorc h(exp(#112:Gen, x1 * #113:Number))) ; #116:PubKey ; exp(#117:Gen,
+    #118:Number) ; (#119:Number xorc h(exp(#117:Gen, x1 * #118:Number))) ;
+    #120:PubKey)) => sign(#121:PrivKey, #0:Msg) inL .)
+| (errorNoHeuristicApplied {
+grl empty => sign(#1:PrivKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:PrivKey) inL .,none,
+grl empty => (#2:Msg,#1:PrivKey) inL .} usingGrammar 
+grl empty => sign(#1:PrivKey, #2:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:PubKey notInI => sverify(#0:PubKey, #1:Msg) inL .)
+| (
+grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sign(#1:PrivKey, #0:Msg) inL . ; 
+grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ; 
+grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
+grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
+grl #0:Msg notInI => sverify(#1:PubKey, #0:Msg) inL .)
+| errorNoHeuristicApplied {
+grl empty => sverify(#1:PubKey, #2:Msg) inL .,none,
+grl empty => (#2:Msg,#1:PubKey) inL .,none,
+grl empty => (#2:Msg,#1:PubKey) inL .} usingGrammar 
+grl empty => sverify(#1:PubKey, #2:Msg) inL .
+Maude> Bye.
