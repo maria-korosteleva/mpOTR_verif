@@ -1,0 +1,1295 @@
+		     \||||||||||||||||||/
+		   --- Welcome to Maude ---
+		     /||||||||||||||||||\
+	    Maude 2.6 built: Dec  9 2010 18:28:39
+	    Copyright 1997-2010 SRI International
+		   Fri Feb 13 23:41:25 2015
+Maude> 
+	    Maude-NPA Version: 11/26/2011
+	    Copyright (c) 2012, University of Illinois
+	    All rights reserved.
+
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, (0).Zero) .
+rewrites: 22011 in 112ms cpu (113ms real) (196526 rewrites/second)
+result IdSystem: < 1 > 
+:: fr_k:Fresh,fr_r:Fresh,fr_s:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; k2_h:Hash ; y2:Number ; S2:PubKey), 
+   -(client3 ; k3_h:Hash ; y3:Number ; S3:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; k2_h:Hash ; k3_h:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; sid2:Hash ; z2:Number), 
+   -(client3 ; sid3:Hash ; z3:Number), 
+   +(client1 ; (k1 xorc h(exp(y2:Number, x1))) ; h(exp(y2:Number, x1)) xorc h(
+    exp(y3:Number, x1))), 
+   -(client2 ; k2_tr2:Number ; T2:Number), 
+   -(client3 ; k3_tr3:Number ; T3:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    k2_h:Hash ; k3_h:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; y2:Number ; (
+    T2:Number xorc k2_tr2:Number xorc h(exp(y2:Number, x1))) ; S2:PubKey ;
+    y3:Number ; (k3_tr3:Number xorc h(exp(y3:Number, x1))) ; S3:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h:Hash ; k3_h:Hash)
+    ; h(exp(g, x1) ; k1 ; genPubClient1 ; y2:Number ; (T2:Number xorc
+    k2_tr2:Number xorc h(exp(y2:Number, x1))) ; S2:PubKey ; y3:Number ; (
+    k3_tr3:Number xorc h(exp(y3:Number, x1))) ; S3:PubKey))), 
+   -(client2 ; c2_signed:Msg ; d2:Number), 
+   -(client3 ; c3_signed:Msg ; d3:Number) | nil] 
+|| 
+k1 inI
+|| 
+nil
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 1) .
+rewrites: 380461282 in 739776ms cpu (742098ms real) (514292 rewrites/second)
+result Summary: States>> 8 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 2) .
+rewrites: 80393034 in 128636ms cpu (129433ms real) (624965 rewrites/second)
+result Summary: States>> 4 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 3) .
+rewrites: 40582162 in 62676ms cpu (62812ms real) (647491 rewrites/second)
+result Summary: States>> 4 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 4) .
+rewrites: 40046282 in 58372ms cpu (58411ms real) (686052 rewrites/second)
+result Summary: States>> 4 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 5) .
+rewrites: 43570455 in 72952ms cpu (73037ms real) (597248 rewrites/second)
+result Summary: States>> 1 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 6) .
+rewrites: 208561 in 400ms cpu (399ms real) (521402 rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 7) .
+rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 8) .
+rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 9) .
+rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 10) .
+rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 11) .
+rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : summary((0).Zero, 12) .
+rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
+result Summary: States>> 0 Solutions>> 0
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 1) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 1 > (
+:: nil ::
+[ nil | 
+   -(client2), 
+   -(#0:Msg ; #1:Number), 
+   +(client2 ; #0:Msg ; #1:Number), nil]  & 
+:: #2:Fresh,#3:Fresh,#4:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #5:Hash ; #6:Number ; #7:PubKey), 
+   -(client3 ; #8:Hash ; #9:Number ; #10:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #8:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #11:Hash ; #12:Number), 
+   -(client3 ; #13:Hash ; #14:Number), 
+   +(client1 ; (k1 xorc h(exp(#6:Number, x1))) ; h(exp(#6:Number, x1)) xorc h(
+    exp(#9:Number, x1))), 
+   -(client2 ; #15:Number ; #16:Number), 
+   -(client3 ; #17:Number ; #18:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #5:Hash ; #8:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #6:Number ; (
+    #15:Number xorc #16:Number xorc h(exp(#6:Number, x1))) ; #7:PubKey ;
+    #9:Number ; (#17:Number xorc h(exp(#9:Number, x1))) ; #10:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #8:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #6:Number ; (#15:Number xorc #16:Number
+    xorc h(exp(#6:Number, x1))) ; #7:PubKey ; #9:Number ; (#17:Number xorc h(
+    exp(#9:Number, x1))) ; #10:PubKey))) | 
+   -(client2 ; #0:Msg ; #1:Number), 
+   -(client3 ; #19:Msg ; #20:Number), nil] )
+|| 
+(client2 ; #0:Msg ; #1:Number) !inI,
+(client3 ; #19:Msg ; #20:Number) !inI,
+(#0:Msg ; #1:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client3 ; #19:Msg ; #20:Number), 
+generatedByIntruder(#0:Msg ; #1:Number), 
+-(client2), 
+-(#0:Msg ; #1:Number), 
++(client2 ; #0:Msg ; #1:Number), 
+-(client2 ; #0:Msg ; #1:Number), 
+-(client3 ; #19:Msg ; #20:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 2 > (
+:: nil ::
+[ nil | 
+   -(client2), 
+   -(#0:Msg ; #1:Number), 
+   +(client2 ; #0:Msg ; #1:Number), nil]  & 
+:: #2:Fresh,#3:Fresh,#4:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #5:Hash ; #6:Number ; #7:PubKey), 
+   -(client3 ; #8:Hash ; exp(#9:Gen, #10:Number) ; #11:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #8:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #12:Hash ; #13:Number), 
+   -(client3 ; #14:Hash ; #15:Number), 
+   +(client1 ; (k1 xorc h(exp(#6:Number, x1))) ; h(exp(#6:Number, x1)) xorc h(
+    exp(#9:Gen, x1 * #10:Number))), 
+   -(client2 ; #16:Number ; #17:Number), 
+   -(client3 ; #18:Number ; #19:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #5:Hash ; #8:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #6:Number ; (
+    #16:Number xorc #17:Number xorc h(exp(#6:Number, x1))) ; #7:PubKey ; exp(
+    #9:Gen, #10:Number) ; (#18:Number xorc h(exp(#9:Gen, x1 * #10:Number))) ;
+    #11:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #8:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #6:Number ; (#16:Number xorc #17:Number
+    xorc h(exp(#6:Number, x1))) ; #7:PubKey ; exp(#9:Gen, #10:Number) ; (
+    #18:Number xorc h(exp(#9:Gen, x1 * #10:Number))) ; #11:PubKey))) | 
+   -(client2 ; #0:Msg ; #1:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] )
+|| 
+(client2 ; #0:Msg ; #1:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+(#0:Msg ; #1:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
+generatedByIntruder(#0:Msg ; #1:Number), 
+-(client2), 
+-(#0:Msg ; #1:Number), 
++(client2 ; #0:Msg ; #1:Number), 
+-(client2 ; #0:Msg ; #1:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 3 > (
+:: nil ::
+[ nil | 
+   -(client2), 
+   -(#0:Msg ; #1:Number), 
+   +(client2 ; #0:Msg ; #1:Number), nil]  & 
+:: #2:Fresh,#3:Fresh,#4:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #5:Hash ; exp(#6:Gen, #7:Number) ; #8:PubKey), 
+   -(client3 ; #9:Hash ; #10:Number ; #11:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #9:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #12:Hash ; #13:Number), 
+   -(client3 ; #14:Hash ; #15:Number), 
+   +(client1 ; (k1 xorc h(exp(#6:Gen, x1 * #7:Number))) ; h(exp(#10:Number,
+    x1)) xorc h(exp(#6:Gen, x1 * #7:Number))), 
+   -(client2 ; #16:Number ; #17:Number), 
+   -(client3 ; #18:Number ; #19:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #5:Hash ; #9:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#6:Gen,
+    #7:Number) ; (#16:Number xorc #17:Number xorc h(exp(#6:Gen, x1 *
+    #7:Number))) ; #8:PubKey ; #10:Number ; (#18:Number xorc h(exp(#10:Number,
+    x1))) ; #11:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #9:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#6:Gen, #7:Number) ; (#16:Number
+    xorc #17:Number xorc h(exp(#6:Gen, x1 * #7:Number))) ; #8:PubKey ;
+    #10:Number ; (#18:Number xorc h(exp(#10:Number, x1))) ; #11:PubKey))) | 
+   -(client2 ; #0:Msg ; #1:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] )
+|| 
+(client2 ; #0:Msg ; #1:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+(#0:Msg ; #1:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
+generatedByIntruder(#0:Msg ; #1:Number), 
+-(client2), 
+-(#0:Msg ; #1:Number), 
++(client2 ; #0:Msg ; #1:Number), 
+-(client2 ; #0:Msg ; #1:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 4 > (
+:: nil ::
+[ nil | 
+   -(client2), 
+   -(#0:Msg ; #1:Number), 
+   +(client2 ; #0:Msg ; #1:Number), nil]  & 
+:: #2:Fresh,#3:Fresh,#4:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #5:Hash ; exp(#6:Gen, #7:Number) ; #8:PubKey), 
+   -(client3 ; #9:Hash ; exp(#10:Gen, #11:Number) ; #12:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #9:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #13:Hash ; #14:Number), 
+   -(client3 ; #15:Hash ; #16:Number), 
+   +(client1 ; (k1 xorc h(exp(#6:Gen, x1 * #7:Number))) ; h(exp(#6:Gen, x1 *
+    #7:Number)) xorc h(exp(#10:Gen, x1 * #11:Number))), 
+   -(client2 ; #17:Number ; #18:Number), 
+   -(client3 ; #19:Number ; #20:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #5:Hash ; #9:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#6:Gen,
+    #7:Number) ; (#17:Number xorc #18:Number xorc h(exp(#6:Gen, x1 *
+    #7:Number))) ; #8:PubKey ; exp(#10:Gen, #11:Number) ; (#19:Number xorc h(
+    exp(#10:Gen, x1 * #11:Number))) ; #12:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #5:Hash ; #9:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#6:Gen, #7:Number) ; (#17:Number
+    xorc #18:Number xorc h(exp(#6:Gen, x1 * #7:Number))) ; #8:PubKey ; exp(
+    #10:Gen, #11:Number) ; (#19:Number xorc h(exp(#10:Gen, x1 * #11:Number))) ;
+    #12:PubKey))) | 
+   -(client2 ; #0:Msg ; #1:Number), 
+   -(client3 ; #21:Msg ; #22:Number), nil] )
+|| 
+(client2 ; #0:Msg ; #1:Number) !inI,
+(client3 ; #21:Msg ; #22:Number) !inI,
+(#0:Msg ; #1:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client3 ; #21:Msg ; #22:Number), 
+generatedByIntruder(#0:Msg ; #1:Number), 
+-(client2), 
+-(#0:Msg ; #1:Number), 
++(client2 ; #0:Msg ; #1:Number), 
+-(client2 ; #0:Msg ; #1:Number), 
+-(client3 ; #21:Msg ; #22:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 161 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #9:Hash ; #10:Number), 
+   -(client3 ; #11:Hash ; #12:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Number, x1))), 
+   -(client2 ; #13:Number ; #14:Number), 
+   -(client3 ; #15:Number ; #16:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))) | 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+   -(client2 ; #17:Msg ; #18:Number), 
+   -(client3 ; #19:Msg ; #20:Number), nil] 
+|| 
+(client2 ; #17:Msg ; #18:Number) !inI,
+(client3 ; #19:Msg ; #20:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #17:Msg ; #18:Number), 
+generatedByIntruder(client3 ; #19:Msg ; #20:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+-(client2 ; #17:Msg ; #18:Number), 
+-(client3 ; #19:Msg ; #20:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 162 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; exp(#7:Gen, #8:Number) ; #9:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #10:Hash ; #11:Number), 
+   -(client3 ; #12:Hash ; #13:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Gen, x1 * #8:Number))), 
+   -(client2 ; #14:Number ; #15:Number), 
+   -(client3 ; #16:Number ; #17:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #14:Number xorc #15:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(
+    #7:Gen, #8:Number) ; (#16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ;
+    #9:PubKey)))) | 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#14:Number xorc #15:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(#7:Gen, #8:Number) ; (
+    #16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ; #9:PubKey))), 
+   -(client2 ; #18:Msg ; #19:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] 
+|| 
+(client2 ; #18:Msg ; #19:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #18:Msg ; #19:Number), 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#14:Number xorc #15:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(#7:Gen, #8:Number) ; (
+    #16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ; #9:PubKey))), 
+-(client2 ; #18:Msg ; #19:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 163 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+   -(client3 ; #7:Hash ; #8:Number ; #9:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #10:Hash ; #11:Number), 
+   -(client3 ; #12:Hash ; #13:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#8:Number, x1))
+    xorc h(exp(#4:Gen, x1 * #5:Number))), 
+   -(client2 ; #14:Number ; #15:Number), 
+   -(client3 ; #16:Number ; #17:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#14:Number xorc #15:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; #8:Number ; (#16:Number xorc h(exp(#8:Number,
+    x1))) ; #9:PubKey)))) | 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#14:Number
+    xorc #15:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ;
+    #8:Number ; (#16:Number xorc h(exp(#8:Number, x1))) ; #9:PubKey))), 
+   -(client2 ; #18:Msg ; #19:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] 
+|| 
+(client2 ; #18:Msg ; #19:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #18:Msg ; #19:Number), 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#14:Number xorc
+    #15:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; #8:Number ; (
+    #16:Number xorc h(exp(#8:Number, x1))) ; #9:PubKey))), 
+-(client2 ; #18:Msg ; #19:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+< 1 . 164 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+   -(client3 ; #7:Hash ; exp(#8:Gen, #9:Number) ; #10:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #11:Hash ; #12:Number), 
+   -(client3 ; #13:Hash ; #14:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#4:Gen, x1 *
+    #5:Number)) xorc h(exp(#8:Gen, x1 * #9:Number))), 
+   -(client2 ; #15:Number ; #16:Number), 
+   -(client3 ; #17:Number ; #18:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#15:Number xorc #16:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; exp(#8:Gen, #9:Number) ; (#17:Number xorc h(exp(
+    #8:Gen, x1 * #9:Number))) ; #10:PubKey)))) | 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#15:Number
+    xorc #16:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; exp(
+    #8:Gen, #9:Number) ; (#17:Number xorc h(exp(#8:Gen, x1 * #9:Number))) ;
+    #10:PubKey))), 
+   -(client2 ; #19:Msg ; #20:Number), 
+   -(client3 ; #21:Msg ; #22:Number), nil] 
+|| 
+(client2 ; #19:Msg ; #20:Number) !inI,
+(client3 ; #21:Msg ; #22:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #19:Msg ; #20:Number), 
+generatedByIntruder(client3 ; #21:Msg ; #22:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#15:Number xorc
+    #16:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; exp(#8:Gen,
+    #9:Number) ; (#17:Number xorc h(exp(#8:Gen, x1 * #9:Number))) ;
+    #10:PubKey))), 
+-(client2 ; #19:Msg ; #20:Number), 
+-(client3 ; #21:Msg ; #22:Number)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 2) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 161 . 31 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #9:Hash ; #10:Number), 
+   -(client3 ; #11:Hash ; #12:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Number, x1))) | 
+   -(client2 ; #13:Number ; #14:Number), 
+   -(client3 ; #15:Number ; #16:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+   -(client2 ; #17:Msg ; #18:Number), 
+   -(client3 ; #19:Msg ; #20:Number), nil] 
+|| 
+(client2 ; #17:Msg ; #18:Number) !inI,
+(client2 ; #13:Number ; #14:Number) !inI,
+(client3 ; #19:Msg ; #20:Number) !inI,
+(client3 ; #15:Number ; #16:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #13:Number ; #14:Number), 
+generatedByIntruder(client3 ; #15:Number ; #16:Number), 
+-(client2 ; #13:Number ; #14:Number), 
+-(client3 ; #15:Number ; #16:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))), 
+generatedByIntruder(client2 ; #17:Msg ; #18:Number), 
+generatedByIntruder(client3 ; #19:Msg ; #20:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+-(client2 ; #17:Msg ; #18:Number), 
+-(client3 ; #19:Msg ; #20:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 161 . 32 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; exp(#7:Gen, #8:Number) ; #9:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #10:Hash ; #11:Number), 
+   -(client3 ; #12:Hash ; #13:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Gen, x1 * #8:Number))) | 
+   -(client2 ; #14:Number ; #15:Number), 
+   -(client3 ; #16:Number ; #17:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #14:Number xorc #15:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(
+    #7:Gen, #8:Number) ; (#16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ;
+    #9:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#14:Number xorc #15:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(#7:Gen, #8:Number) ; (
+    #16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ; #9:PubKey))), 
+   -(client2 ; #18:Msg ; #19:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] 
+|| 
+(client2 ; #18:Msg ; #19:Number) !inI,
+(client2 ; #14:Number ; #15:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+(client3 ; #16:Number ; #17:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #14:Number ; #15:Number), 
+generatedByIntruder(client3 ; #16:Number ; #17:Number), 
+-(client2 ; #14:Number ; #15:Number), 
+-(client3 ; #16:Number ; #17:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #14:Number xorc #15:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(
+    #7:Gen, #8:Number) ; (#16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ;
+    #9:PubKey)))), 
+generatedByIntruder(client2 ; #18:Msg ; #19:Number), 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#14:Number xorc #15:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(#7:Gen, #8:Number) ; (
+    #16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ; #9:PubKey))), 
+-(client2 ; #18:Msg ; #19:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 161 . 33 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+   -(client3 ; #7:Hash ; #8:Number ; #9:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #10:Hash ; #11:Number), 
+   -(client3 ; #12:Hash ; #13:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#8:Number, x1))
+    xorc h(exp(#4:Gen, x1 * #5:Number))) | 
+   -(client2 ; #14:Number ; #15:Number), 
+   -(client3 ; #16:Number ; #17:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#14:Number xorc #15:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; #8:Number ; (#16:Number xorc h(exp(#8:Number,
+    x1))) ; #9:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#14:Number
+    xorc #15:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ;
+    #8:Number ; (#16:Number xorc h(exp(#8:Number, x1))) ; #9:PubKey))), 
+   -(client2 ; #18:Msg ; #19:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] 
+|| 
+(client2 ; #18:Msg ; #19:Number) !inI,
+(client2 ; #14:Number ; #15:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+(client3 ; #16:Number ; #17:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #14:Number ; #15:Number), 
+generatedByIntruder(client3 ; #16:Number ; #17:Number), 
+-(client2 ; #14:Number ; #15:Number), 
+-(client3 ; #16:Number ; #17:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#14:Number xorc #15:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; #8:Number ; (#16:Number xorc h(exp(#8:Number,
+    x1))) ; #9:PubKey)))), 
+generatedByIntruder(client2 ; #18:Msg ; #19:Number), 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#14:Number xorc
+    #15:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; #8:Number ; (
+    #16:Number xorc h(exp(#8:Number, x1))) ; #9:PubKey))), 
+-(client2 ; #18:Msg ; #19:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+< 1 . 161 . 34 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+   -(client3 ; #7:Hash ; exp(#8:Gen, #9:Number) ; #10:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #11:Hash ; #12:Number), 
+   -(client3 ; #13:Hash ; #14:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#4:Gen, x1 *
+    #5:Number)) xorc h(exp(#8:Gen, x1 * #9:Number))) | 
+   -(client2 ; #15:Number ; #16:Number), 
+   -(client3 ; #17:Number ; #18:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#15:Number xorc #16:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; exp(#8:Gen, #9:Number) ; (#17:Number xorc h(exp(
+    #8:Gen, x1 * #9:Number))) ; #10:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#15:Number
+    xorc #16:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; exp(
+    #8:Gen, #9:Number) ; (#17:Number xorc h(exp(#8:Gen, x1 * #9:Number))) ;
+    #10:PubKey))), 
+   -(client2 ; #19:Msg ; #20:Number), 
+   -(client3 ; #21:Msg ; #22:Number), nil] 
+|| 
+(client2 ; #19:Msg ; #20:Number) !inI,
+(client2 ; #15:Number ; #16:Number) !inI,
+(client3 ; #21:Msg ; #22:Number) !inI,
+(client3 ; #17:Number ; #18:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #15:Number ; #16:Number), 
+generatedByIntruder(client3 ; #17:Number ; #18:Number), 
+-(client2 ; #15:Number ; #16:Number), 
+-(client3 ; #17:Number ; #18:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#15:Number xorc #16:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; exp(#8:Gen, #9:Number) ; (#17:Number xorc h(exp(
+    #8:Gen, x1 * #9:Number))) ; #10:PubKey)))), 
+generatedByIntruder(client2 ; #19:Msg ; #20:Number), 
+generatedByIntruder(client3 ; #21:Msg ; #22:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#15:Number xorc
+    #16:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; exp(#8:Gen,
+    #9:Number) ; (#17:Number xorc h(exp(#8:Gen, x1 * #9:Number))) ;
+    #10:PubKey))), 
+-(client2 ; #19:Msg ; #20:Number), 
+-(client3 ; #21:Msg ; #22:Number)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 3) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 161 . 31 . 31 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)) | 
+   -(client2 ; #9:Hash ; #10:Number), 
+   -(client3 ; #11:Hash ; #12:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Number, x1))), 
+   -(client2 ; #13:Number ; #14:Number), 
+   -(client3 ; #15:Number ; #16:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+   -(client2 ; #17:Msg ; #18:Number), 
+   -(client3 ; #19:Msg ; #20:Number), nil] 
+|| 
+(client2 ; #17:Msg ; #18:Number) !inI,
+(client2 ; #9:Hash ; #10:Number) !inI,
+(client2 ; #13:Number ; #14:Number) !inI,
+(client3 ; #19:Msg ; #20:Number) !inI,
+(client3 ; #11:Hash ; #12:Number) !inI,
+(client3 ; #15:Number ; #16:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #9:Hash ; #10:Number), 
+generatedByIntruder(client3 ; #11:Hash ; #12:Number), 
+-(client2 ; #9:Hash ; #10:Number), 
+-(client3 ; #11:Hash ; #12:Number), 
++(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(exp(
+    #7:Number, x1))), 
+generatedByIntruder(client2 ; #13:Number ; #14:Number), 
+generatedByIntruder(client3 ; #15:Number ; #16:Number), 
+-(client2 ; #13:Number ; #14:Number), 
+-(client3 ; #15:Number ; #16:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))), 
+generatedByIntruder(client2 ; #17:Msg ; #18:Number), 
+generatedByIntruder(client3 ; #19:Msg ; #20:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+-(client2 ; #17:Msg ; #18:Number), 
+-(client3 ; #19:Msg ; #20:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 161 . 31 . 32 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; exp(#7:Gen, #8:Number) ; #9:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)) | 
+   -(client2 ; #10:Hash ; #11:Number), 
+   -(client3 ; #12:Hash ; #13:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Gen, x1 * #8:Number))), 
+   -(client2 ; #14:Number ; #15:Number), 
+   -(client3 ; #16:Number ; #17:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #14:Number xorc #15:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(
+    #7:Gen, #8:Number) ; (#16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ;
+    #9:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#14:Number xorc #15:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(#7:Gen, #8:Number) ; (
+    #16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ; #9:PubKey))), 
+   -(client2 ; #18:Msg ; #19:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] 
+|| 
+(client2 ; #18:Msg ; #19:Number) !inI,
+(client2 ; #10:Hash ; #11:Number) !inI,
+(client2 ; #14:Number ; #15:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+(client3 ; #12:Hash ; #13:Number) !inI,
+(client3 ; #16:Number ; #17:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #10:Hash ; #11:Number), 
+generatedByIntruder(client3 ; #12:Hash ; #13:Number), 
+-(client2 ; #10:Hash ; #11:Number), 
+-(client3 ; #12:Hash ; #13:Number), 
++(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(exp(
+    #7:Gen, x1 * #8:Number))), 
+generatedByIntruder(client2 ; #14:Number ; #15:Number), 
+generatedByIntruder(client3 ; #16:Number ; #17:Number), 
+-(client2 ; #14:Number ; #15:Number), 
+-(client3 ; #16:Number ; #17:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #14:Number xorc #15:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(
+    #7:Gen, #8:Number) ; (#16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ;
+    #9:PubKey)))), 
+generatedByIntruder(client2 ; #18:Msg ; #19:Number), 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#14:Number xorc #15:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(#7:Gen, #8:Number) ; (
+    #16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ; #9:PubKey))), 
+-(client2 ; #18:Msg ; #19:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 161 . 31 . 33 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+   -(client3 ; #7:Hash ; #8:Number ; #9:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    exp(g, r1)) | 
+   -(client2 ; #10:Hash ; #11:Number), 
+   -(client3 ; #12:Hash ; #13:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#8:Number, x1))
+    xorc h(exp(#4:Gen, x1 * #5:Number))), 
+   -(client2 ; #14:Number ; #15:Number), 
+   -(client3 ; #16:Number ; #17:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#14:Number xorc #15:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; #8:Number ; (#16:Number xorc h(exp(#8:Number,
+    x1))) ; #9:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#14:Number
+    xorc #15:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ;
+    #8:Number ; (#16:Number xorc h(exp(#8:Number, x1))) ; #9:PubKey))), 
+   -(client2 ; #18:Msg ; #19:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] 
+|| 
+(client2 ; #18:Msg ; #19:Number) !inI,
+(client2 ; #10:Hash ; #11:Number) !inI,
+(client2 ; #14:Number ; #15:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+(client3 ; #12:Hash ; #13:Number) !inI,
+(client3 ; #16:Number ; #17:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #10:Hash ; #11:Number), 
+generatedByIntruder(client3 ; #12:Hash ; #13:Number), 
+-(client2 ; #10:Hash ; #11:Number), 
+-(client3 ; #12:Hash ; #13:Number), 
++(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#8:Number, x1))
+    xorc h(exp(#4:Gen, x1 * #5:Number))), 
+generatedByIntruder(client2 ; #14:Number ; #15:Number), 
+generatedByIntruder(client3 ; #16:Number ; #17:Number), 
+-(client2 ; #14:Number ; #15:Number), 
+-(client3 ; #16:Number ; #17:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#14:Number xorc #15:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; #8:Number ; (#16:Number xorc h(exp(#8:Number,
+    x1))) ; #9:PubKey)))), 
+generatedByIntruder(client2 ; #18:Msg ; #19:Number), 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#14:Number xorc
+    #15:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; #8:Number ; (
+    #16:Number xorc h(exp(#8:Number, x1))) ; #9:PubKey))), 
+-(client2 ; #18:Msg ; #19:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+< 1 . 161 . 31 . 34 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+   -(client3 ; #7:Hash ; exp(#8:Gen, #9:Number) ; #10:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    exp(g, r1)) | 
+   -(client2 ; #11:Hash ; #12:Number), 
+   -(client3 ; #13:Hash ; #14:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#4:Gen, x1 *
+    #5:Number)) xorc h(exp(#8:Gen, x1 * #9:Number))), 
+   -(client2 ; #15:Number ; #16:Number), 
+   -(client3 ; #17:Number ; #18:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#15:Number xorc #16:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; exp(#8:Gen, #9:Number) ; (#17:Number xorc h(exp(
+    #8:Gen, x1 * #9:Number))) ; #10:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#15:Number
+    xorc #16:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; exp(
+    #8:Gen, #9:Number) ; (#17:Number xorc h(exp(#8:Gen, x1 * #9:Number))) ;
+    #10:PubKey))), 
+   -(client2 ; #19:Msg ; #20:Number), 
+   -(client3 ; #21:Msg ; #22:Number), nil] 
+|| 
+(client2 ; #19:Msg ; #20:Number) !inI,
+(client2 ; #11:Hash ; #12:Number) !inI,
+(client2 ; #15:Number ; #16:Number) !inI,
+(client3 ; #21:Msg ; #22:Number) !inI,
+(client3 ; #13:Hash ; #14:Number) !inI,
+(client3 ; #17:Number ; #18:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #11:Hash ; #12:Number), 
+generatedByIntruder(client3 ; #13:Hash ; #14:Number), 
+-(client2 ; #11:Hash ; #12:Number), 
+-(client3 ; #13:Hash ; #14:Number), 
++(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#4:Gen, x1 *
+    #5:Number)) xorc h(exp(#8:Gen, x1 * #9:Number))), 
+generatedByIntruder(client2 ; #15:Number ; #16:Number), 
+generatedByIntruder(client3 ; #17:Number ; #18:Number), 
+-(client2 ; #15:Number ; #16:Number), 
+-(client3 ; #17:Number ; #18:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#15:Number xorc #16:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; exp(#8:Gen, #9:Number) ; (#17:Number xorc h(exp(
+    #8:Gen, x1 * #9:Number))) ; #10:PubKey)))), 
+generatedByIntruder(client2 ; #19:Msg ; #20:Number), 
+generatedByIntruder(client3 ; #21:Msg ; #22:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#15:Number xorc
+    #16:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; exp(#8:Gen,
+    #9:Number) ; (#17:Number xorc h(exp(#8:Gen, x1 * #9:Number))) ;
+    #10:PubKey))), 
+-(client2 ; #19:Msg ; #20:Number), 
+-(client3 ; #21:Msg ; #22:Number)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 4) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 161 . 31 . 31 . 31 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1) | 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #9:Hash ; #10:Number), 
+   -(client3 ; #11:Hash ; #12:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Number, x1))), 
+   -(client2 ; #13:Number ; #14:Number), 
+   -(client3 ; #15:Number ; #16:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+   -(client2 ; #17:Msg ; #18:Number), 
+   -(client3 ; #19:Msg ; #20:Number), nil] 
+|| 
+(client2 ; #17:Msg ; #18:Number) !inI,
+(client2 ; #3:Hash ; #4:Number ; #5:PubKey) !inI,
+(client2 ; #9:Hash ; #10:Number) !inI,
+(client2 ; #13:Number ; #14:Number) !inI,
+(client3 ; #19:Msg ; #20:Number) !inI,
+(client3 ; #6:Hash ; #7:Number ; #8:PubKey) !inI,
+(client3 ; #11:Hash ; #12:Number) !inI,
+(client3 ; #15:Number ; #16:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+generatedByIntruder(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
+-(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+-(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
++(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; exp(g,
+    r1)), 
+generatedByIntruder(client2 ; #9:Hash ; #10:Number), 
+generatedByIntruder(client3 ; #11:Hash ; #12:Number), 
+-(client2 ; #9:Hash ; #10:Number), 
+-(client3 ; #11:Hash ; #12:Number), 
++(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(exp(
+    #7:Number, x1))), 
+generatedByIntruder(client2 ; #13:Number ; #14:Number), 
+generatedByIntruder(client3 ; #15:Number ; #16:Number), 
+-(client2 ; #13:Number ; #14:Number), 
+-(client3 ; #15:Number ; #16:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))), 
+generatedByIntruder(client2 ; #17:Msg ; #18:Number), 
+generatedByIntruder(client3 ; #19:Msg ; #20:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+-(client2 ; #17:Msg ; #18:Number), 
+-(client3 ; #19:Msg ; #20:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 161 . 31 . 31 . 32 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1) | 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; exp(#7:Gen, #8:Number) ; #9:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #10:Hash ; #11:Number), 
+   -(client3 ; #12:Hash ; #13:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Gen, x1 * #8:Number))), 
+   -(client2 ; #14:Number ; #15:Number), 
+   -(client3 ; #16:Number ; #17:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #14:Number xorc #15:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(
+    #7:Gen, #8:Number) ; (#16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ;
+    #9:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#14:Number xorc #15:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(#7:Gen, #8:Number) ; (
+    #16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ; #9:PubKey))), 
+   -(client2 ; #18:Msg ; #19:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] 
+|| 
+(client2 ; #18:Msg ; #19:Number) !inI,
+(client2 ; #3:Hash ; #4:Number ; #5:PubKey) !inI,
+(client2 ; #10:Hash ; #11:Number) !inI,
+(client2 ; #14:Number ; #15:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+(client3 ; #6:Hash ; exp(#7:Gen, #8:Number) ; #9:PubKey) !inI,
+(client3 ; #12:Hash ; #13:Number) !inI,
+(client3 ; #16:Number ; #17:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+generatedByIntruder(client3 ; #6:Hash ; exp(#7:Gen, #8:Number) ; #9:PubKey), 
+-(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+-(client3 ; #6:Hash ; exp(#7:Gen, #8:Number) ; #9:PubKey), 
++(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; exp(g,
+    r1)), 
+generatedByIntruder(client2 ; #10:Hash ; #11:Number), 
+generatedByIntruder(client3 ; #12:Hash ; #13:Number), 
+-(client2 ; #10:Hash ; #11:Number), 
+-(client3 ; #12:Hash ; #13:Number), 
++(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(exp(
+    #7:Gen, x1 * #8:Number))), 
+generatedByIntruder(client2 ; #14:Number ; #15:Number), 
+generatedByIntruder(client3 ; #16:Number ; #17:Number), 
+-(client2 ; #14:Number ; #15:Number), 
+-(client3 ; #16:Number ; #17:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #14:Number xorc #15:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(
+    #7:Gen, #8:Number) ; (#16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ;
+    #9:PubKey)))), 
+generatedByIntruder(client2 ; #18:Msg ; #19:Number), 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#14:Number xorc #15:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; exp(#7:Gen, #8:Number) ; (
+    #16:Number xorc h(exp(#7:Gen, x1 * #8:Number))) ; #9:PubKey))), 
+-(client2 ; #18:Msg ; #19:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+(< 1 . 161 . 31 . 31 . 33 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1) | 
+   -(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+   -(client3 ; #7:Hash ; #8:Number ; #9:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #10:Hash ; #11:Number), 
+   -(client3 ; #12:Hash ; #13:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#8:Number, x1))
+    xorc h(exp(#4:Gen, x1 * #5:Number))), 
+   -(client2 ; #14:Number ; #15:Number), 
+   -(client3 ; #16:Number ; #17:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#14:Number xorc #15:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; #8:Number ; (#16:Number xorc h(exp(#8:Number,
+    x1))) ; #9:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#14:Number
+    xorc #15:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ;
+    #8:Number ; (#16:Number xorc h(exp(#8:Number, x1))) ; #9:PubKey))), 
+   -(client2 ; #18:Msg ; #19:Number), 
+   -(client3 ; #20:Msg ; #21:Number), nil] 
+|| 
+(client2 ; #18:Msg ; #19:Number) !inI,
+(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey) !inI,
+(client2 ; #10:Hash ; #11:Number) !inI,
+(client2 ; #14:Number ; #15:Number) !inI,
+(client3 ; #20:Msg ; #21:Number) !inI,
+(client3 ; #7:Hash ; #8:Number ; #9:PubKey) !inI,
+(client3 ; #12:Hash ; #13:Number) !inI,
+(client3 ; #16:Number ; #17:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+generatedByIntruder(client3 ; #7:Hash ; #8:Number ; #9:PubKey), 
+-(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+-(client3 ; #7:Hash ; #8:Number ; #9:PubKey), 
++(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; exp(g,
+    r1)), 
+generatedByIntruder(client2 ; #10:Hash ; #11:Number), 
+generatedByIntruder(client3 ; #12:Hash ; #13:Number), 
+-(client2 ; #10:Hash ; #11:Number), 
+-(client3 ; #12:Hash ; #13:Number), 
++(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#8:Number, x1))
+    xorc h(exp(#4:Gen, x1 * #5:Number))), 
+generatedByIntruder(client2 ; #14:Number ; #15:Number), 
+generatedByIntruder(client3 ; #16:Number ; #17:Number), 
+-(client2 ; #14:Number ; #15:Number), 
+-(client3 ; #16:Number ; #17:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#14:Number xorc #15:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; #8:Number ; (#16:Number xorc h(exp(#8:Number,
+    x1))) ; #9:PubKey)))), 
+generatedByIntruder(client2 ; #18:Msg ; #19:Number), 
+generatedByIntruder(client3 ; #20:Msg ; #21:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#14:Number xorc
+    #15:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; #8:Number ; (
+    #16:Number xorc h(exp(#8:Number, x1))) ; #9:PubKey))), 
+-(client2 ; #18:Msg ; #19:Number), 
+-(client3 ; #20:Msg ; #21:Number)
+|| 
+nil
+|| 
+nil)
+< 1 . 161 . 31 . 31 . 34 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil, 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1) | 
+   -(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+   -(client3 ; #7:Hash ; exp(#8:Gen, #9:Number) ; #10:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #11:Hash ; #12:Number), 
+   -(client3 ; #13:Hash ; #14:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#4:Gen, x1 *
+    #5:Number)) xorc h(exp(#8:Gen, x1 * #9:Number))), 
+   -(client2 ; #15:Number ; #16:Number), 
+   -(client3 ; #17:Number ; #18:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#15:Number xorc #16:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; exp(#8:Gen, #9:Number) ; (#17:Number xorc h(exp(
+    #8:Gen, x1 * #9:Number))) ; #10:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#15:Number
+    xorc #16:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; exp(
+    #8:Gen, #9:Number) ; (#17:Number xorc h(exp(#8:Gen, x1 * #9:Number))) ;
+    #10:PubKey))), 
+   -(client2 ; #19:Msg ; #20:Number), 
+   -(client3 ; #21:Msg ; #22:Number), nil] 
+|| 
+(client2 ; #19:Msg ; #20:Number) !inI,
+(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey) !inI,
+(client2 ; #11:Hash ; #12:Number) !inI,
+(client2 ; #15:Number ; #16:Number) !inI,
+(client3 ; #21:Msg ; #22:Number) !inI,
+(client3 ; #7:Hash ; exp(#8:Gen, #9:Number) ; #10:PubKey) !inI,
+(client3 ; #13:Hash ; #14:Number) !inI,
+(client3 ; #17:Number ; #18:Number) !inI,
+k1 inI
+|| 
+generatedByIntruder(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+generatedByIntruder(client3 ; #7:Hash ; exp(#8:Gen, #9:Number) ; #10:PubKey), 
+-(client2 ; #3:Hash ; exp(#4:Gen, #5:Number) ; #6:PubKey), 
+-(client3 ; #7:Hash ; exp(#8:Gen, #9:Number) ; #10:PubKey), 
++(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; exp(g,
+    r1)), 
+generatedByIntruder(client2 ; #11:Hash ; #12:Number), 
+generatedByIntruder(client3 ; #13:Hash ; #14:Number), 
+-(client2 ; #11:Hash ; #12:Number), 
+-(client3 ; #13:Hash ; #14:Number), 
++(client1 ; (k1 xorc h(exp(#4:Gen, x1 * #5:Number))) ; h(exp(#4:Gen, x1 *
+    #5:Number)) xorc h(exp(#8:Gen, x1 * #9:Number))), 
+generatedByIntruder(client2 ; #15:Number ; #16:Number), 
+generatedByIntruder(client3 ; #17:Number ; #18:Number), 
+-(client2 ; #15:Number ; #16:Number), 
+-(client3 ; #17:Number ; #18:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #7:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen,
+    #5:Number) ; (#15:Number xorc #16:Number xorc h(exp(#4:Gen, x1 *
+    #5:Number))) ; #6:PubKey ; exp(#8:Gen, #9:Number) ; (#17:Number xorc h(exp(
+    #8:Gen, x1 * #9:Number))) ; #10:PubKey)))), 
+generatedByIntruder(client2 ; #19:Msg ; #20:Number), 
+generatedByIntruder(client3 ; #21:Msg ; #22:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #7:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; exp(#4:Gen, #5:Number) ; (#15:Number xorc
+    #16:Number xorc h(exp(#4:Gen, x1 * #5:Number))) ; #6:PubKey ; exp(#8:Gen,
+    #9:Number) ; (#17:Number xorc h(exp(#8:Gen, x1 * #9:Number))) ;
+    #10:PubKey))), 
+-(client2 ; #19:Msg ; #20:Number), 
+-(client3 ; #21:Msg ; #22:Number)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 5) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystem: < 1 . 161 . 31 . 31 . 31 . 31 > 
+:: #0:Fresh,#1:Fresh,#2:Fresh ::
+[ nil | 
+   +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+   -(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+   -(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
+   +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    exp(g, r1)), 
+   -(client2 ; #9:Hash ; #10:Number), 
+   -(client3 ; #11:Hash ; #12:Number), 
+   +(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(
+    exp(#7:Number, x1))), 
+   -(client2 ; #13:Number ; #14:Number), 
+   -(client3 ; #15:Number ; #16:Number), 
+   +(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))), 
+   +(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ;
+    h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+   -(client2 ; #17:Msg ; #18:Number), 
+   -(client3 ; #19:Msg ; #20:Number), nil] 
+|| 
+(client2 ; #17:Msg ; #18:Number) !inI,
+(client2 ; #3:Hash ; #4:Number ; #5:PubKey) !inI,
+(client2 ; #9:Hash ; #10:Number) !inI,
+(client2 ; #13:Number ; #14:Number) !inI,
+(client3 ; #19:Msg ; #20:Number) !inI,
+(client3 ; #6:Hash ; #7:Number ; #8:PubKey) !inI,
+(client3 ; #11:Hash ; #12:Number) !inI,
+(client3 ; #15:Number ; #16:Number) !inI,
+k1 inI
+|| 
++(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
+generatedByIntruder(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+generatedByIntruder(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
+-(client2 ; #3:Hash ; #4:Number ; #5:PubKey), 
+-(client3 ; #6:Hash ; #7:Number ; #8:PubKey), 
++(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; exp(g,
+    r1)), 
+generatedByIntruder(client2 ; #9:Hash ; #10:Number), 
+generatedByIntruder(client3 ; #11:Hash ; #12:Number), 
+-(client2 ; #9:Hash ; #10:Number), 
+-(client3 ; #11:Hash ; #12:Number), 
++(client1 ; (k1 xorc h(exp(#4:Number, x1))) ; h(exp(#4:Number, x1)) xorc h(exp(
+    #7:Number, x1))), 
+generatedByIntruder(client2 ; #13:Number ; #14:Number), 
+generatedByIntruder(client3 ; #15:Number ; #16:Number), 
+-(client2 ; #13:Number ; #14:Number), 
+-(client3 ; #15:Number ; #16:Number), 
++(client1 ; sign(genPrivClient1, h(h(client1 ; client2 ; client3 ; h(k1) ;
+    #3:Hash ; #6:Hash) ; h(exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (
+    #13:Number xorc #14:Number xorc h(exp(#4:Number, x1))) ; #5:PubKey ;
+    #7:Number ; (#15:Number xorc h(exp(#7:Number, x1))) ; #8:PubKey)))), 
+generatedByIntruder(client2 ; #17:Msg ; #18:Number), 
+generatedByIntruder(client3 ; #19:Msg ; #20:Number), 
++(r1 - x1 * h(h(client1 ; client2 ; client3 ; h(k1) ; #3:Hash ; #6:Hash) ; h(
+    exp(g, x1) ; k1 ; genPubClient1 ; #4:Number ; (#13:Number xorc #14:Number
+    xorc h(exp(#4:Number, x1))) ; #5:PubKey ; #7:Number ; (#15:Number xorc h(
+    exp(#7:Number, x1))) ; #8:PubKey))), 
+-(client2 ; #17:Msg ; #18:Number), 
+-(client3 ; #19:Msg ; #20:Number)
+|| 
+nil
+|| 
+nil
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 6) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 7) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 8) .
+rewrites: 18 in 4ms cpu (0ms real) (4500 rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 9) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 10) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 11) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+==========================================
+reduce in MAUDE-NPA : run((0).Zero, 12) .
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (empty).IdSystemSet
+Maude> Bye.
