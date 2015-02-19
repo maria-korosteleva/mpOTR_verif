@@ -158,9 +158,9 @@ fmod PROTOCOL-SPECIFICATION is
 ---         :: fr ::  [ nil | +(genPriv(intruder, fr)), nil ] &
 ---         :: fr :: [ nil | +(genPub(intruder, fr), nil ] & 
          :: nil :: [ nil | +(0), nil ] &
----         :: nil :: [ nil | +(x1), nil ] &
----         :: nil :: [ nil | +(x2), nil ] &
----         :: nil :: [ nil | +(x3), nil ] & 
+         :: nil :: [ nil | +(x1), nil ] &
+         :: nil :: [ nil | +(x2), nil ] &
+         :: nil :: [ nil | +(x3), nil ] & 
          :: nil :: [ nil | +(g), nil ] &
          :: nil :: [ nil | +(genPubClient1), nil ] &
          :: nil :: [ nil | +(genPubClient2), nil ] &
@@ -281,14 +281,16 @@ grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ;
 grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
 grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
 grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
-    notLeq genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
     genPubClient3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
     #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
     #5:Number * #6:Number), (#0:Number notLeq #7:Number + #8:Number), (
     #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
     xorc #12:Number => (#13:Number * #0:Number) inL . ; 
 grl (#1:Number * #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
-    (#0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
     #0:Number notLeq genPubClient3), (#0:Number notLeq h(#2:Msg)), (#0:Number
     notLeq n(intruder, #3:Fresh)), (#0:Number notLeq exp(#4:Gen, #5:Number)), (
     #0:Number notLeq #6:Number + #7:Number), (#0:Number notLeq (#8:Number -
@@ -302,14 +304,16 @@ grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ;
 grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
 grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
 grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
-    notLeq genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
     genPubClient3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
     #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
     #5:Number * #6:Number), (#0:Number notLeq #7:Number + #8:Number), (
     #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
     xorc #12:Number => (#13:Number + #0:Number) inL . ; 
 grl (#1:Number + #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
-    (#0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
     #0:Number notLeq genPubClient3), (#0:Number notLeq h(#2:Msg)), (#0:Number
     notLeq n(intruder, #3:Fresh)), (#0:Number notLeq exp(#4:Gen, #5:Number)), (
     #0:Number notLeq #6:Number * #7:Number), (#0:Number notLeq (#8:Number -
@@ -511,7 +515,8 @@ grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ;
 grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
 grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
 grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
-    notLeq genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
     genPubClient3), (#0:Number notLeq k1), (#0:Number notLeq k2), (#0:Number
     notLeq k3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
     #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
@@ -519,7 +524,8 @@ grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
     #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
     xorc #12:Number => (#13:Number xorc #0:Number) inL . ; 
 grl (#1:Number xorc #0:Number) notInI, (#1:Number notLeq g), (#1:Number notLeq
-    0), (#1:Number notLeq genPubClient1), (#1:Number notLeq genPubClient2), (
+    0), (#1:Number notLeq x1), (#1:Number notLeq x2), (#1:Number notLeq x3), (
+    #1:Number notLeq genPubClient1), (#1:Number notLeq genPubClient2), (
     #1:Number notLeq genPubClient3), (#1:Number notLeq k1), (#1:Number notLeq
     k2), (#1:Number notLeq k3), (#1:Number notLeq h(#2:Msg)), (#1:Number notLeq
     n(intruder, #3:Fresh)), (#1:Number notLeq exp(#4:Gen, #5:Number)), (

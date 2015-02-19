@@ -1,278 +1,3 @@
-***(
-    These are the first steps towards mpOTR protocol verification and security
-    analysis.
-    This module focuses on the Athentication an Key Exchange phase of mpOTR.
-    The protocol of the AKE phase is to big to be sited here so you can have
-    a look at it online:
-    http://mpotr.secsem.ru/mpOTRDev/AuthenticationKeyExchange
-    We describe the Improved Deniable Signature Key-Exchange scheme here.
-    
-    To represent the multy-party property of mpOTR we gonna use three 
-    CLients that represent people (or, more spesificly, their chat clients)
-    wishing to interact with each other.
-    
-    Algebraic properties are those for exponent, exlusive-or operation, 
-    encription and decription properties, signing and signature 
-    verifying.
-)***
-
---- protocol syntax - types and operations
-fmod PROTOCOL-EXAMPLE-SYMBOLS is
-    --- Importing sorts Msg, Fresh, Public
-    protecting DEFINITION-PROTOCOL-RULES .
-
-    --- Sort Information
-    sorts Name Nonce Number Gen Key Hash PubKey PrivKey SimmKey LTPrivKey .
-    subsort Gen Key Hash Nonce < Number .
-    subsort Name Number Key Hash < Msg .
-    subsort PubKey PrivKey SimmKey LTPrivKey < Key .
-    subsort Name < Public . --- means that Name info is publicly availible
-    subsort Gen < Public .
-    
-    --- Principals -- name constants
-    ops client1 client2 client3 intruder : -> Name .
-   
-    --- Other constants
-      op g : -> Gen . --- Group generator
-    op 0 : -> Number . 
-    ops x1 x2 x3 : -> LTPrivKey .
-    ops genPrivClient1 genPrivClient2 genPrivClient3 : -> PrivKey .
-    ops genPubClient1 genPubClient2 genPubClient3 : -> PubKey .    
-    ops k1 k2 k3 : -> Nonce . --- for Session Key Generation
-    ops r1 r2 r3 : -> Nonce . --- for Authentication Info Generation
-    
-    --- Nonce operator
-    op n : Name Fresh -> Nonce [frozen] .
-    
-    --- Encryption
-      op enc : SimmKey Msg -> Msg [frozen] .
-      op dec : SimmKey Msg -> Msg [frozen] .
-    
-    --- Singature
-    --- op genPriv : Name Fresh -> PrivKey [frozen] .
-    --- op genPub : Name Fresh -> PubKey [frozen] .
-    op sign : PrivKey Msg -> Msg [frozen] .
-    op sverify : PubKey Msg -> Msg [frozen] .
-    
-    --- Hash function
-    op h : Msg -> Hash [frozen] .
-
-      --- Exponent
-      op exp : Number Number -> Number [frozen] .
-    
-      --- Multiplication
-      op _*_ : Number Number -> Number [frozen assoc comm] .
-
-    --- Sum
-      op _+_ : Number Number -> Number [frozen assoc comm] .
-    
-    --- Sub
-      op _-_ : Number Number -> Number [frozen] .
-
-    --- xorc
-    op _xorc_ : Number Number -> Number [frozen assoc comm] .
-    
-    --- Concatenation
-    op _;_ : Msg Msg -> Msg [frozen gather (e E)] . --- operator prop-es - see manual
-
-endfm
-
---- Algebraic properties of the protocol
-fmod PROTOCOL-EXAMPLE-ALGEBRAIC is
-    protecting PROTOCOL-EXAMPLE-SYMBOLS .
-  
-    --- exponent's property
-      eq exp(exp(W:Gen,Y:Number),Z:Number) 
-       = exp(W:Gen, Y:Number * Z:Number) [metadata "variant"] .
-  
-      --- key encription property
-      eq enc(K:SimmKey,dec(K:SimmKey,M:Msg)) = M:Msg [metadata "variant"] .
-      eq dec(K:SimmKey,enc(K:SimmKey,M:Msg)) = M:Msg [metadata "variant"] .
-      
-    --- signature key encription property
-    eq sverify(kpub:PubKey, sign(kpriv:PrivKey, M:Msg)) 
-    = M:Msg [nonexec metadata "variant"] .
-        --- not really sure about this one - don't like the terminology 
-    eq sign(kpriv:PrivKey, sverify(kpub:PubKey, M:Msg)) 
-    = M:Msg [nonexec metadata "variant"] . 
-
-    --- xorc properties -- will this be logical xorc of bit xorc?
-    --- eq X:Number xorc X:Number xorc Y:Number = Y:Number [nonexec metadata "variant"] .
-    --- eq X:Number xorc X:Number = 0 [nonexec metadata "variant"] .
-    --- eq X:Number xorc 0 = X:Number [nonexec metadata "variant"] .
-    
-    --- eq n(client1, fr_k:Fresh) = k1 .
-    ---eq k2 = n(client2, fr_k) .
-    ---eq k3 = n(client3, fr_k) .
-endfm
-
---- Protocol strands (what's that?)
-fmod PROTOCOL-SPECIFICATION is
-    protecting PROTOCOL-EXAMPLE-SYMBOLS .
-    protecting DEFINITION-PROTOCOL-RULES .
-    protecting DEFINITION-CONSTRAINTS-INPUT .
-
-    vars M M1 M2 : Msg .
-    var Ke : SimmKey .
-    vars kpub S1 S2 S3 : PubKey .
-    vars kpriv s1 s2 s3 : PrivKey .
-    vars Num Num1 Num2 Num3 : Number .
-    vars N Name1 Name2 : Name .
-    vars GE : Gen .
-    vars y1 y2 y3 z1 z2 z3 : Number . 
-    vars T1 T2 T3 : Number .
-    vars k1_tr1 k2_tr2 k3_tr3 : Number .
-    vars d1 d2 d3 : Number .
-    vars fr fr_k fr_r fr_s : Fresh .
-    vars k1_h k2_h k3_h sid1 sid2 sid3 : Hash .
-    vars c1_signed c2_signed c3_signed : Msg .
-    
-    --- Improving performance
-    --- client 3 ---
-    eq (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) = k1 .
-    eq (k2_tr2 xorc h(exp(y2, x3))) = k2 .
-    --- client 2 ---
-    eq (k1_tr1 xorc h(exp(y1, x2))) = k1 .
-    eq (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) = k3 .
-    --- client 1 ---
-    eq (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) = k2 .
-    eq (k3_tr3 xorc  h(exp(y3, x1))) = k3 .
-
-    --- Actions an intruder can perform
-    eq STRANDS-DOLEVYAO =
-        --- concatenation
-        :: nil :: [ nil | -(M1 ; M2), +(M1), nil ] &
-        :: nil :: [ nil | -(M1 ; M2), +(M2), nil ] &
-        :: nil :: [ nil | -(M1), -(M2), +(M1 ; M2), nil ] &
-         :: nil :: [ nil | -(Ke), -(M), +(enc(Ke,M)), nil ] &
-         :: nil :: [ nil | -(Ke), -(M), +(dec(Ke,M)), nil ] &
-         :: nil :: [ nil | -(GE), -(Num), +(exp(GE,Num)), nil ] &
-         :: nil :: [ nil | -(Num1), -(Num2), +(Num1 * Num2), nil ] &
-         :: fr ::  [ nil | +(n(intruder,fr)), nil ] &
-         :: nil :: [ nil | -(M), +(h(M)), nil ] &
-         :: nil :: [ nil | -(kpriv), -(M), +(sign(kpriv,M)), nil ] &
-         :: nil :: [ nil | -(kpub), -(M), +(sverify(kpub,M)), nil ] &
-         :: nil :: [ nil | -(Num1), -(Num2), +(Num1 + Num2), nil ] &
-         :: nil :: [ nil | -(Num1), -(Num2), +(Num1 - Num2), nil ] &
-         :: nil :: [ nil | -(Num1), -(Num2), +(Num1 xorc Num2), nil ] &
----         :: fr ::  [ nil | +(genPriv(intruder, fr)), nil ] &
----         :: fr :: [ nil | +(genPub(intruder, fr), nil ] & 
-         :: nil :: [ nil | +(0), nil ] &
----         :: nil :: [ nil | +(x1), nil ] &
----         :: nil :: [ nil | +(x2), nil ] &
----         :: nil :: [ nil | +(x3), nil ] & 
-         :: nil :: [ nil | +(g), nil ] &
-         :: nil :: [ nil | +(genPubClient1), nil ] &
-         :: nil :: [ nil | +(genPubClient2), nil ] &
-         :: nil :: [ nil | +(genPubClient3), nil ] &
-         :: nil :: [ nil | +(N), nil ]
-    [nonexec] .
-
-    eq STRANDS-PROTOCOL =
-        --- client1 ---
-        :: fr_k, fr_s, fr_r :: 
-        [nil | --- Round 1 ---
-               +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1),
-               -(client2 ; k2_h ; y2 ;  S2),
-               -(client3 ; k3_h ; y3 ;  S3),
-               --- Round 2 --- 
-               +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ;  exp(g, r1)),
-               -(client2 ; sid2 ; z2),
-               -(client3 ; sid3 ; z3),
-               --- Round 3 ---
-               +(client1 ; (k1 xorc h(exp(y2, x1))) ;  
-                    (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
-               -(client2 ; k2_tr2 ; T2),
-               -(client3 ; k3_tr3 ; T3), 
-               --- Round 4 ---
-               +(client1 ; sign(genPrivClient1, 
-                (h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-                y3 ; (k3_tr3 xorc h(exp(y3, x1))) ; S3))))),
-               +(r1 - ((h(
-                h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-                y3 ; (k3_tr3 xorc  h(exp(y3, x1))) ; S3))) * x1)), 
-               -(client2 ; c2_signed),
-			   -(d2),
-               -(client3 ; c3_signed),
-			   -(d3),
-               nil ]
-        &    
-        --- client2 ---
-        :: fr_k, fr_s, fr_r :: 
-        [nil | --- Round 1 ---
-               -(client1 ; k1_h ; y1 ; S1),
-               +(client2 ; h(k2) ; exp(g, x2) ; genPubClient2),
-               -(client3 ; k3_h ; y3 ; S3),
-               --- Round 2 --- 
-               -(client1 ; sid1 ; z1),
-               +(client2 ; h(client1 ; client2 ; client3 ; k1_h ; h(k2) ;
-                     k3_h) ; exp(g, r2)),
-               -(client3 ; sid3 ; z3),
-               --- Round 3 ---
-               -(client1 ; k1_tr1 ; T1),
-               +(client2 ; (k2 xorc h(exp(y3, x2))) ;  
-                    (h(exp(y1, x2)) xorc h(exp(y3, x2)))),
-               -(client3 ; k3_tr3 ; T3), 
-               --- Round 4 ---
-               -(client1 ; c1_signed),
-			   -(d1),
-               +(client2 ; sign(genPrivClient2, 
-                (h(h(client1 ; client2 ; client3 ; k1_h ;  h(k2) ; k3_h) ; 
-                h(y1 ; (k1_tr1 xorc h(exp(y1, x2))) ; S1 ; 
-                exp(g, x2) ; k2 ; genPubClient2 ; 
-                y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3)))) ),
-               +((r2 - ((
-                h(h(client1 ; client2 ; client3 ; k1_h ; h(k2) ; k3_h) ; 
-                h(y1 ; (k1_tr1 xorc h(exp(y1, x2))) ; S1 ; 
-                exp(g, x2) ; k2 ; genPubClient2 ; 
-                y3 ; (k3_tr3 xorc (T3 xorc h(exp(y3, x2)))) ; S3))) * x2))), 
-               -(client3 ; c3_signed),
-			   -(d3),
-               nil ]
-        &
-        --- client3 ---
-        :: fr_k, fr_s, fr_r :: 
-        [nil | --- Round 1 ---
-               -(client1 ; k1_h ; y1 ;  S1),
-               -(client2 ; k2_h ; y2 ;  S2),
-               +(client3 ; h(k3) ; exp(g, x3) ;  genPubClient3),
-               --- Round 2 --- 
-               -(client1 ; sid1 ; z1),
-               -(client2 ; sid2 ; z2),
-               +(client3 ; h(client1 ; client2 ; client3 ; k1_h ; k2_h ; 
-                    h(k3)) ; exp(g, r3)),
-               --- Round 3 ---
-               -(client1 ; k1_tr1 ; T1),
-               -(client2 ; k2_tr2 ; T2), 
-               +(client3 ; (k3 xorc h(exp(y1, x3))) ;  
-                    (h(exp(y2, x3)) xorc h(exp(y1, x3)))),
-               --- Round 4 ---
-               -(client1 ; c1_signed),
-			   -(d1),
-               -(client2 ; c2_signed),
-			   -(d2),
-               +(client3 ; sign(genPrivClient3, 
-                (h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(k3)) ; 
-                h( ( y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) ; S1 ) ; 
-                ( y2 ; (k2_tr2 xorc h(exp(y2, x3))) ; S2 ) ; 
-                ( exp(g, x3) ; k3 ; genPubClient3 ) )))) ),
-               +((r3 - ((
-                h(h(client1 ; client2 ; client3 ; k1_h ; k2_h ; h(k3)) ; 
-                h( ( y1 ; (k1_tr1 xorc (T1 xorc h(exp(y1, x3)))) ; S1 ) ; 
-                ( y2 ; (k2_tr2 xorc h(exp(y2, x3))) ; S2 ) ; 
-                ( exp(g, x3) ; k3 ; genPubClient3 ) ))) * x3))), 
-               nil ]
-    [nonexec] .
-
-    --- eq EXTRA-GRAMMARS --- increase performance = cut the search tree.
-    --- but we need initial grammars first!
-    --- [nonexec] .
-
-    eq GENERATED-GRAMMARS =
 (
 grl #0:Msg inL => enc(#1:SimmKey, #0:Msg) inL . ; 
 grl #0:Msg inL => dec(#1:SimmKey, #0:Msg) inL . ; 
@@ -281,14 +6,16 @@ grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ;
 grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
 grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
 grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
-    notLeq genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
     genPubClient3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
     #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
     #5:Number * #6:Number), (#0:Number notLeq #7:Number + #8:Number), (
     #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
     xorc #12:Number => (#13:Number * #0:Number) inL . ; 
 grl (#1:Number * #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
-    (#0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
     #0:Number notLeq genPubClient3), (#0:Number notLeq h(#2:Msg)), (#0:Number
     notLeq n(intruder, #3:Fresh)), (#0:Number notLeq exp(#4:Gen, #5:Number)), (
     #0:Number notLeq #6:Number + #7:Number), (#0:Number notLeq (#8:Number -
@@ -302,14 +29,16 @@ grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ;
 grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
 grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
 grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
-    notLeq genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
     genPubClient3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
     #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
     #5:Number * #6:Number), (#0:Number notLeq #7:Number + #8:Number), (
     #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
     xorc #12:Number => (#13:Number + #0:Number) inL . ; 
 grl (#1:Number + #0:Number) notInI, (#0:Number notLeq g), (#0:Number notLeq 0),
-    (#0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
+    (#0:Number notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (
+    #0:Number notLeq genPubClient1), (#0:Number notLeq genPubClient2), (
     #0:Number notLeq genPubClient3), (#0:Number notLeq h(#2:Msg)), (#0:Number
     notLeq n(intruder, #3:Fresh)), (#0:Number notLeq exp(#4:Gen, #5:Number)), (
     #0:Number notLeq #6:Number * #7:Number), (#0:Number notLeq (#8:Number -
@@ -511,7 +240,8 @@ grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ;
 grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
 grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
 grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
-    notLeq genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
+    notLeq x1), (#0:Number notLeq x2), (#0:Number notLeq x3), (#0:Number notLeq
+    genPubClient1), (#0:Number notLeq genPubClient2), (#0:Number notLeq
     genPubClient3), (#0:Number notLeq k1), (#0:Number notLeq k2), (#0:Number
     notLeq k3), (#0:Number notLeq h(#1:Msg)), (#0:Number notLeq n(intruder,
     #2:Fresh)), (#0:Number notLeq exp(#3:Gen, #4:Number)), (#0:Number notLeq
@@ -519,7 +249,8 @@ grl #0:Number notInI, (#0:Number notLeq g), (#0:Number notLeq 0), (#0:Number
     #0:Number notLeq (#9:Number - #10:Number)), #0:Number notLeq #11:Number
     xorc #12:Number => (#13:Number xorc #0:Number) inL . ; 
 grl (#1:Number xorc #0:Number) notInI, (#1:Number notLeq g), (#1:Number notLeq
-    0), (#1:Number notLeq genPubClient1), (#1:Number notLeq genPubClient2), (
+    0), (#1:Number notLeq x1), (#1:Number notLeq x2), (#1:Number notLeq x3), (
+    #1:Number notLeq genPubClient1), (#1:Number notLeq genPubClient2), (
     #1:Number notLeq genPubClient3), (#1:Number notLeq k1), (#1:Number notLeq
     k2), (#1:Number notLeq k3), (#1:Number notLeq h(#2:Msg)), (#1:Number notLeq
     n(intruder, #3:Fresh)), (#1:Number notLeq exp(#4:Gen, #5:Number)), (
@@ -739,211 +470,3 @@ grl #0:Msg inL => sverify(#1:PubKey, #0:Msg) inL . ;
 grl #0:Msg inL => (#1:Msg ; #0:Msg) inL . ; 
 grl #0:Msg inL => (#0:Msg ; #1:Msg) inL . ; 
 grl #0:Msg notInI => sverify(#1:PubKey, #0:Msg) inL .)
-    [nonexec] .
-
-    eq ATTACK-STATE(0) = --- stealing info for simmKey Generation (k_1)
-        :: fr_k, fr_s, fr_r :: 
-        [nil, --- Round 1 ---
-               +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1),
-               -(client2 ; k2_h ; y2 ;  S2),
-               -(client3 ; k3_h ; y3 ;  S3),
-               --- Round 2 --- 
-               +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ;  exp(g, r1)),
-               -(client2 ; sid2 ; z2),
-               -(client3 ; sid3 ; z3),
-               --- Round 3 ---
-               +(client1 ; (k1 xorc h(exp(y2, x1))) ;  
-                    (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
-               -(client2 ; k2_tr2 ; T2),
-               -(client3 ; k3_tr3 ; T3), 
-               --- Round 4 ---
-               +(client1 ; sign(genPrivClient1, 
-                (h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-                y3 ; (k3_tr3 xorc h(exp(y3, x1))) ; S3))))),
-               +(r1 - ((h(
-                h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-                y3 ; (k3_tr3 xorc  h(exp(y3, x1))) ; S3))) * x1)), 
-               -(client2 ; c2_signed),
-			   -(d2),
-               -(client3 ; c3_signed),
-			   -(d3)
-               | nil ]
-        
-        || k1 inI --- Part needed for session key
-        
-        || nil
-        || nil
-        || nil 
-    [nonexec] .
-
-    eq ATTACK-STATE(1) = --- stealing private part of auth info (x_1)
-        :: fr_k, fr_s, fr_r :: 
-        [nil, --- Round 1 ---
-               +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1),
-               -(client2 ; k2_h ; y2 ;  S2),
-               -(client3 ; k3_h ; y3 ;  S3),
-               --- Round 2 --- 
-               +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ;  exp(g, r1)),
-               -(client2 ; sid2 ; z2),
-               -(client3 ; sid3 ; z3),
-               --- Round 3 ---
-               +(client1 ; (k1 xorc h(exp(y2, x1))) ;  
-                    (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
-               -(client2 ; k2_tr2 ; T2),
-               -(client3 ; k3_tr3 ; T3), 
-               --- Round 4 ---
-               +(client1 ; sign(genPrivClient1, 
-                (h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-                y3 ; (k3_tr3 xorc h(exp(y3, x1))) ; S3))))),
-               +(r1 - ((h(
-                h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-                y3 ; (k3_tr3 xorc  h(exp(y3, x1))) ; S3))) * x1)), 
-               -(client2 ; c2_signed),
-			   -(d2),
-               -(client3 ; c3_signed),
-			   -(d3)
-               | nil ]
-        
-        || x1 inI --- LT private key
-        
-        || nil
-        || nil
-        || nil 
-    [nonexec] .
-    
-    eq ATTACK-STATE(2) = --- stealing private ephemeral singature key (s_1)
-        :: fr_k, fr_s, fr_r :: 
-        [nil, --- Round 1 ---
-               +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1),
-               -(client2 ; k2_h ; y2 ;  S2),
-               -(client3 ; k3_h ; y3 ;  S3),
-               --- Round 2 --- 
-               +(client1 ; h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ;  exp(g, r1)),
-               -(client2 ; sid2 ; z2),
-               -(client3 ; sid3 ; z3),
-               --- Round 3 ---
-               +(client1 ; (k1 xorc h(exp(y2, x1))) ;  
-                    (h(exp(y3, x1)) xorc h(exp(y2, x1)))),
-               -(client2 ; k2_tr2 ; T2),
-               -(client3 ; k3_tr3 ; T3), 
-               --- Round 4 ---
-               +(client1 ; sign(genPrivClient1, 
-                (h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-                y3 ; (k3_tr3 xorc h(exp(y3, x1))) ; S3))))),
-               +(r1 - ((h(
-                h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; (k2_tr2 xorc (T2 xorc h(exp(y2, x1)))) ; S2 ; 
-                y3 ; (k3_tr3 xorc  h(exp(y3, x1))) ; S3))) * x1)), 
-               -(client2 ; c2_signed),
-			   -(d2),
-               -(client3 ; c3_signed),
-			   -(d3)
-               | nil ]
-        
-        || genPrivClient1 inI --- ephemeral private key
-        
-        || nil
-        || nil
-        || nil 
-    [nonexec] .
-endfm
-
-
---- THIS HAS TO BE THE LAST LOADED MODULE !!!!
-select MAUDE-NPA .
-
-
-
-
-***(             TRASH CAN
-
-    op q : -> Modulo . --- modules for nesessary calculations
-    op p : -> Modulo . --- modules for nesessary calculations
-    
-    subsort Modulo < Public .
-    
-    --- Modulo operation
-    op _mod(_) : Number Modulo -> Number .
-    
-    eq N:Number + Md:Modulo = N:Number mod ( Md:Modulo ) .
-    eq N:Number - Md:Modulo = N:Number mod ( Md:Modulo ) .
-    eq Md:Modulo + N:Number = N:Number mod ( Md:Modulo ) .
-    ---eq N:Number = (N:Number + Md:Modulo) mod ( Md:Modulo ) .
-    ---eq N:Number = (N:Number - Md:Modulo) mod ( Md:Modulo ) .
-    --- modulo definition & property
-    eq Md:Modulo mod ( Md:Modulo ) = 0 .
-    eq (N:Number + Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
-    eq (N:Number - Md:Modulo) mod ( Md:Modulo ) = N:Number mod ( Md:Modulo ) .
-    eq (-- N:Number) mod (Md:Modulo) = (Md:Modulo - N:Number) mod (Md:Modulo)  .
-
-    --- Ask someone!!
-    modulo *: ab mod n = (a mod n * b mod n) mod n
-    modulo exp log(exp(x) mod p) = x mod p-1
-
-      --- choosing q, p and g
-    eq (p - 1) = 0 mod(q) . --- q is (p-1)'s divider
-    eq exp(g, q) = 1 mod(p) . --- g is Zp group generator 
-
-    op 1 : -> Number . --- Base numbers
-    op 0 : -> Number . 
-    
-    ***(
-    --- mult properties
-    eq N:Number * 0 = 0 [nonexec metadata "variant"] .
-    eq N:Number * 1 = N:Number [nonexec metadata "variant"] .
-
-    --- sum properties
-    eq N:Number + 0 = N:Number [nonexec metadata "variant"] .
-    
-    --- sub properties
-    eq N:Number - 0 = N:Number [nonexec metadata "variant"] .
-
-    )***
-
-    
-    
-         :: nil :: [ nil | +(p), nil ] &
-         :: nil :: [ nil | +(q), nil ] &
-         :: nil :: [ nil | +(1), nil ] &
-    
-    :: nil :: [ nil | -(Num1), -(Mod1), +(Num1 mod( Mod1 )), nil ] &
-
-
-)***
-              ***( that long-long string-message
-              --- +(client1 ; sign(genPrivClient1, k1) ; (r1 - x1)),
-              c1 = h(sid1 ; sproof1)
-              c1 = h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; y2 ; k2 ; S2 ; 
-                y3 ; k3 ; S3))
-              c1 = h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; y2 ; 
-                k2_tr2 xorc (T2 xorc h(exp(y2, x1))); S2 ; 
-                y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1)))) ; S3))
-              d1 = r1 - (c1 * x1)
-              d1 = r1- (
-                h(h(client1 ; client2 ; client3 ; h(k1) ; k2_h ; k3_h) ; 
-                h(exp(g, x1) ; k1 ; genPubClient1 ; 
-                y2 ; k2_tr2 xorc (T2 xorc h(exp(y2, x1))); S2 ; 
-                y3 ; k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1)))) ; S3)) * x1)
-              k2 = k2_tr2 xorc (T2 xorc tr1)
-              k2 = k2_tr2 xorc (T2 xorc h(exp(y2, x1)))
-              k3 = k3_tr3 xorc (T3 xorc tr2)
-              k3 = k3_tr3 xorc (T3 xorc (T2 xorc h(exp(y2, x1))))
-              k3 = k3_tr3 xorc (T3 xorc tr2)
-             )***
-        ***(:: nil ::
-        [nil | -(client1 ; fxMess),
-               -(client2 ; fxMess),
-               +(client3 ; fxMess), nil] )***

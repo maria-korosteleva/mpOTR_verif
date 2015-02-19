@@ -3,7 +3,7 @@
 		     /||||||||||||||||||\
 	    Maude 2.6 built: Dec  9 2010 18:28:39
 	    Copyright 1997-2010 SRI International
-		   Mon Feb 16 16:35:59 2015
+		   Mon Feb 16 20:01:56 2015
 Maude> 
 	    Maude-NPA Version: 11/26/2011
 	    Copyright (c) 2012, University of Illinois
@@ -11,7 +11,7 @@ Maude>
 
 ==========================================
 reduce in MAUDE-NPA : run(2, (0).Zero) .
-rewrites: 21738 in 132ms cpu (135ms real) (164681 rewrites/second)
+rewrites: 22026 in 124ms cpu (121ms real) (177629 rewrites/second)
 result IdSystem: < 1 > 
 :: fr_k:Fresh,fr_r:Fresh,fr_s:Fresh ::
 [ nil, 
@@ -48,31 +48,31 @@ nil
 nil
 ==========================================
 reduce in MAUDE-NPA : summary(2, 1) .
-rewrites: 2327212903 in 5667204ms cpu (5730083ms real) (410645 rewrites/second)
+rewrites: 2536079740 in 6177024ms cpu (6256899ms real) (410566 rewrites/second)
 result Summary: States>> 8 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 2) .
-rewrites: 80814192 in 271708ms cpu (275144ms real) (297430 rewrites/second)
+rewrites: 81095556 in 174572ms cpu (176395ms real) (464539 rewrites/second)
 result Summary: States>> 4 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 3) .
-rewrites: 40843550 in 132996ms cpu (134081ms real) (307103 rewrites/second)
+rewrites: 41004905 in 97584ms cpu (98805ms real) (420201 rewrites/second)
 result Summary: States>> 4 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 4) .
-rewrites: 40331382 in 115420ms cpu (116467ms real) (349431 rewrites/second)
+rewrites: 40429988 in 96856ms cpu (97755ms real) (417423 rewrites/second)
 result Summary: States>> 4 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 5) .
-rewrites: 43825943 in 112928ms cpu (113551ms real) (388087 rewrites/second)
+rewrites: 44044193 in 113480ms cpu (114987ms real) (388122 rewrites/second)
 result Summary: States>> 1 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 6) .
-rewrites: 208681 in 844ms cpu (850ms real) (247252 rewrites/second)
+rewrites: 210466 in 964ms cpu (970ms real) (218325 rewrites/second)
 result Summary: States>> 0 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 7) .
-rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
+rewrites: 429 in 0ms cpu (1ms real) (~ rewrites/second)
 result Summary: States>> 0 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 8) .
@@ -84,11 +84,11 @@ rewrites: 429 in 4ms cpu (1ms real) (107250 rewrites/second)
 result Summary: States>> 0 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 10) .
-rewrites: 429 in 0ms cpu (1ms real) (~ rewrites/second)
+rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
 result Summary: States>> 0 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 11) .
-rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
+rewrites: 429 in 0ms cpu (1ms real) (~ rewrites/second)
 result Summary: States>> 0 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : summary(2, 12) .
@@ -96,8 +96,8 @@ rewrites: 429 in 0ms cpu (0ms real) (~ rewrites/second)
 result Summary: States>> 0 Solutions>> 0
 ==========================================
 reduce in MAUDE-NPA : run(2, 1) .
-rewrites: 18 in 4ms cpu (0ms real) (4500 rewrites/second)
-result IdSystemSet: (< 1 . 51 > (
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 81 > (
 :: nil ::
 [ nil | 
    -(client2), 
@@ -151,7 +151,7 @@ generatedByIntruder(client3 ; #19:Msg),
 nil
 || 
 nil)
-(< 1 . 52 > (
+(< 1 . 82 > (
 :: nil ::
 [ nil | 
    -(client2), 
@@ -206,7 +206,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-(< 1 . 53 > (
+(< 1 . 83 > (
 :: nil ::
 [ nil | 
    -(client2), 
@@ -261,7 +261,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-(< 1 . 54 > (
+(< 1 . 84 > (
 :: nil ::
 [ nil | 
    -(client2), 
@@ -317,7 +317,7 @@ generatedByIntruder(client3 ; #21:Msg),
 nil
 || 
 nil)
-(< 1 . 551 > 
+(< 1 . 581 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -366,7 +366,7 @@ generatedByIntruder(client3 ; #19:Msg),
 nil
 || 
 nil)
-(< 1 . 554 > 
+(< 1 . 584 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -416,7 +416,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-(< 1 . 557 > 
+(< 1 . 587 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -466,7 +466,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-< 1 . 560 > 
+< 1 . 590 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -520,8 +520,8 @@ nil
 nil
 ==========================================
 reduce in MAUDE-NPA : run(2, 2) .
-rewrites: 18 in 0ms cpu (1ms real) (~ rewrites/second)
-result IdSystemSet: (< 1 . 551 . 31 > 
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 581 . 31 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -580,7 +580,7 @@ generatedByIntruder(client3 ; #19:Msg),
 nil
 || 
 nil)
-(< 1 . 551 . 32 > 
+(< 1 . 581 . 32 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -641,7 +641,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-(< 1 . 551 . 33 > 
+(< 1 . 581 . 33 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -702,7 +702,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-< 1 . 551 . 34 > 
+< 1 . 581 . 34 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -767,8 +767,8 @@ nil
 nil
 ==========================================
 reduce in MAUDE-NPA : run(2, 3) .
-rewrites: 18 in 0ms cpu (3ms real) (~ rewrites/second)
-result IdSystemSet: (< 1 . 551 . 31 . 31 > 
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
+result IdSystemSet: (< 1 . 581 . 31 . 31 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -835,7 +835,7 @@ generatedByIntruder(client3 ; #19:Msg),
 nil
 || 
 nil)
-(< 1 . 551 . 31 . 32 > 
+(< 1 . 581 . 31 . 32 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -904,7 +904,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-(< 1 . 551 . 31 . 33 > 
+(< 1 . 581 . 31 . 33 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -973,7 +973,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-< 1 . 551 . 31 . 34 > 
+< 1 . 581 . 31 . 34 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -1047,7 +1047,7 @@ nil
 ==========================================
 reduce in MAUDE-NPA : run(2, 4) .
 rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
-result IdSystemSet: (< 1 . 551 . 31 . 31 . 31 > 
+result IdSystemSet: (< 1 . 581 . 31 . 31 . 31 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1) | 
@@ -1122,7 +1122,7 @@ generatedByIntruder(client3 ; #19:Msg),
 nil
 || 
 nil)
-(< 1 . 551 . 31 . 31 . 32 > 
+(< 1 . 581 . 31 . 31 . 32 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1) | 
@@ -1199,7 +1199,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-(< 1 . 551 . 31 . 31 . 33 > 
+(< 1 . 581 . 31 . 31 . 33 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1) | 
@@ -1276,7 +1276,7 @@ generatedByIntruder(client3 ; #20:Msg),
 nil
 || 
 nil)
-< 1 . 551 . 31 . 31 . 34 > 
+< 1 . 581 . 31 . 31 . 34 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil, 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1) | 
@@ -1358,7 +1358,7 @@ nil
 ==========================================
 reduce in MAUDE-NPA : run(2, 5) .
 rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
-result IdSystem: < 1 . 551 . 31 . 31 . 31 . 31 > 
+result IdSystem: < 1 . 581 . 31 . 31 . 31 . 31 > 
 :: #0:Fresh,#1:Fresh,#2:Fresh ::
 [ nil | 
    +(client1 ; h(k1) ; exp(g, x1) ; genPubClient1), 
@@ -1456,10 +1456,10 @@ rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
 result IdSystemSet: (empty).IdSystemSet
 ==========================================
 reduce in MAUDE-NPA : run(2, 11) .
-rewrites: 18 in 0ms cpu (1ms real) (~ rewrites/second)
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
 result IdSystemSet: (empty).IdSystemSet
 ==========================================
 reduce in MAUDE-NPA : run(2, 12) .
-rewrites: 18 in 4ms cpu (1ms real) (4500 rewrites/second)
+rewrites: 18 in 0ms cpu (0ms real) (~ rewrites/second)
 result IdSystemSet: (empty).IdSystemSet
 Maude> Bye.
